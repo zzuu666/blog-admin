@@ -25,7 +25,7 @@
         "no-shadowed-variable": [false],
         "no-submodule-imports": [false],
         "no-unused-expression": [true, "allow-fast-null-checks"],
-        "object-curly-spacing": [true, "never"],
+        "object-curly-spacing": [true, "always"],
         "object-literal-sort-keys": [false],
         "one-line": [false],
         "ordered-imports": [false],
