@@ -13,6 +13,7 @@ const config: webpack.Configuration = {
             },
             {
                 test: /\.less$/,
+                exclude: /node_modules/,
                 use: [
                     {
                         loader: 'style-loader'
@@ -49,7 +50,25 @@ const config: webpack.Configuration = {
                         }
                     },
                     {
-                        loader: "less-loader"
+                        loader: "less-loader",
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                include: /node_modules\/antd/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 1
+                        }
                     }
                 ]
             }
