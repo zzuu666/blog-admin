@@ -1,9 +1,14 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose, Reducer } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import { reducer as homeReducer } from './pages/home'
+import { HomeState } from './pages/home/reducer'
 
-const reducer = combineReducers({
+export interface StoreState {
+    home: HomeState
+}
+
+const reducer: Reducer<StoreState> = combineReducers<StoreState>({
     home: homeReducer
 })
 

@@ -5,10 +5,6 @@ import { fetchHost } from '../../utils/fetch-host'
 export interface HomeAction {
     type: string
     articles: []
-}
-
-export interface FetchArticlesAction {
-    type: fetchStatus
     success?: any
     error?: any
 }
@@ -18,17 +14,20 @@ export const addArticles = (articles: []): HomeAction => ({
     type: actionTypes.HOME_ADD_ARTICLES
 })
 
-export const fetchArticlesStarted = (): FetchArticlesAction => ({
-    type: fetchStatus.FETCH_STATUS_FAILURE
+export const fetchArticlesStarted = (): HomeAction => ({
+    type: fetchStatus.FETCH_STATUS_FAILURE,
+    articles: []
 })
 
-export const fetchArticlesSuccess = (success: any): FetchArticlesAction => ({
+export const fetchArticlesSuccess = (success: any): HomeAction => ({
     success,
+    articles: success,
     type: fetchStatus.FETCH_STATUS_SUCCESS
 })
 
-export const fetchArticlesFailure = (error: any): FetchArticlesAction => ({
+export const fetchArticlesFailure = (error: any): HomeAction => ({
     error,
+    articles: [],
     type: fetchStatus.FETCH_STATUS_FAILURE
 })
 
