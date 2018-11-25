@@ -6,12 +6,13 @@ import { Table, Divider, Button } from 'antd'
 import { ColumnProps } from 'antd/es/table'
 import { StoreState } from '../../../store'
 import style from './index.less'
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 
 const columns: Array<ColumnProps<Article>> = [
     {
         title: 'ID',
         dataIndex: 'id',
-        render: text => <a href="javascript:;">{text}</a>
+        render: text => <a href="javascript:;">{ text }</a>
     },
     {
         title: '文章标题',
@@ -22,7 +23,7 @@ const columns: Array<ColumnProps<Article>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <a href="javascript:;">编辑</a>
+                <Link to={ `/edit/${record.id}` }>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />
@@ -32,7 +33,7 @@ const columns: Array<ColumnProps<Article>> = [
     }
 ]
 
-interface Props {
+interface Props extends RouteComponentProps {
     articles: Article[],
     fetchArticles: () => void
 }
@@ -41,13 +42,13 @@ class Home extends React.Component<Props> {
     render() {
         const { articles } = this.props
         return (
-            <div className={style.home}>
-                <div className={style['home-header']}>
+            <div className={ style.home }>
+                <div className={ style['home-header'] }>
                     <Button type="primary">新增</Button>
                 </div>
                 <Table
-                    columns={columns}
-                    dataSource={articles}
+                    columns={ columns }
+                    dataSource={ articles }
                     rowKey="id"
                 />
             </div>
@@ -69,4 +70,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Home)
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Home))
