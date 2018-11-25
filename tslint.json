@@ -1,7 +1,8 @@
 {
     "extends": [
         "tslint:latest",
-        "tslint-config-airbnb"
+        "tslint-config-airbnb",
+        "tslint-react"
     ],
     "rules": {
         "prefer-template": false,
@@ -39,7 +40,10 @@
                 "SwitchCase": 1
             }
         ],
-        "trailing-comma": [false],
-        "variable-name": [true, "allow-pascal-case"]
+        "trailing-comma": [true, "never"],
+        "variable-name": [true, "allow-pascal-case"],
+        "jsx-curly-spacing": [true, "always"],
+        "jsx-no-multiline-js": [false],
+        "jsx-boolean-value": [true, "never"]
     }
 }

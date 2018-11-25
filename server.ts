@@ -14,9 +14,10 @@ app.use(history())
 // configuration file as a base.
 app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackDevConfig.output.publicPath
-}));
+}))
 
-app.listen(3001, function () {
+app.listen(3001, () => {
     opn(`http://localhost:${port}`)
+    // tslint:disable-next-line:no-console
     console.log(`Example app listening on port ${port}!\n`)
 })
