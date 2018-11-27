@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { StoreState } from '../../../store'
+import { StoreState } from '../../../../store'
 import { fetchArticle, updateArticle } from '../actions'
 import { Form, Icon, Input, Button, Spin, Row, Col, Select, message } from 'antd'
 import { FormComponentProps } from 'antd/lib/form'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { Article } from '../../../models/article'
+import { Article } from '../../../../models/article'
 
 const FormItem = Form.Item
 const TextArea = Input.TextArea

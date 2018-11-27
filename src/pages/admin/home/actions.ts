@@ -1,27 +1,28 @@
 import { actionTypes } from './actionTypes'
-import { fetchWithRedux } from '../../utils/fetch'
+import { fetchWithRedux, APIBaseResponse } from '../../../utils/fetch'
+import { Article } from '../../../models/article'
+
+interface APIResponse extends APIBaseResponse {
+    results?: Article[]
+}
 
 export interface HomeAction {
     type: string
-    articles: []
-    success?: any
-    error?: any
+    api?: APIResponse | null
 }
 
 export const fetchArticlesStarted = (): HomeAction => ({
     type: actionTypes.HOME_GET_ARTICLES_STARTED,
-    articles: []
+    api: null
 })
 
-export const fetchArticlesSuccess = (success: any): HomeAction => ({
-    success,
-    articles: success,
+export const fetchArticlesSuccess = (api: APIResponse): HomeAction => ({
+    api,
     type: actionTypes.HOME_GET_ARTICLES_SUCCESS
 })
 
-export const fetchArticlesFailure = (error: any): HomeAction => ({
-    error,
-    articles: [],
+export const fetchArticlesFailure = (api: APIResponse): HomeAction => ({
+    api,
     type: actionTypes.HOME_GET_ARTICLES_FAILURE
 })
 

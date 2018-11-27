@@ -1,6 +1,6 @@
 import { EditAction } from './actions'
 import { actionTypes } from './actionTypes'
-import { Article } from '../../models/article'
+import { Article } from '../../../models/article'
 
 export interface EditState {
     article: Article

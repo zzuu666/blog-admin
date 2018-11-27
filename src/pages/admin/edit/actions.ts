@@ -1,10 +1,9 @@
 import { actionTypes } from './actionTypes'
-import { fetchStatus } from '../../utils/fetch-status'
-import { fetchWithRedux } from '../../utils/fetch'
-import { Article } from '../../models/article'
+import { fetchWithRedux } from '../../../utils/fetch'
+import { Article } from '../../../models/article'
 
 export interface EditAction {
-    type: fetchStatus | actionTypes
+    type: actionTypes
     article?: Article
     success?: any
     error?: any

@@ -1,29 +1,34 @@
 import { HomeAction } from './actions'
 import { actionTypes } from './actionTypes'
+import { Article } from '../../../models/article'
 
 export interface HomeState {
-    articles: []
+    articles: Article[]
     total: number
-    status: 'success' | 'loading' | 'error'
+    status: 'success' | 'loading' | 'error',
+    error: number
 }
-
-export default (state: HomeState = { articles: [], total: 0, status: 'loading' }, action: HomeAction): HomeState => {
+export default (
+    state: HomeState = { articles: [], total: 0, status: 'loading', error: 0 },
+    action: HomeAction
+): HomeState => {
     switch (action.type) {
         case actionTypes.HOME_GET_ARTICLES_SUCCESS: {
             return {
                 ...state,
-                articles: action.articles
+                articles: action.api && action.api.results || []
             }
         }
         case actionTypes.HOME_GET_ARTICLES_FAILURE: {
             return {
-                ...state
+                ...state,
+                status: 'error',
+                error: action.api && action.api.error || -1
             }
         }
         case actionTypes.HOME_GET_ARTICLES_STARTED: {
             return {
-                ...state,
-                articles: action.success
+                ...state
             }
         }
         default: {

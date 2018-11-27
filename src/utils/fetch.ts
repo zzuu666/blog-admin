@@ -12,6 +12,11 @@ interface FetchPayload {
     headers?: Headers
 }
 
+export interface APIBaseResponse {
+    error: number
+    message: string
+}
+
 export const fetchWithRedux = (payload: FetchPayload) => {
     const {
         params,
@@ -37,16 +42,14 @@ export const fetchWithRedux = (payload: FetchPayload) => {
             body: params || null,
             headers: fetchHeaders
         }).then((response: Response) => {
-            if (response.status !== 200) {
-                throw new Error(`Fail to get response with status ${response.status}`)
-            }
-            response.json().then((json: any) => {
-                dispatch(success && success(json))
-            }).catch((error: any) => {
-                dispatch(failure && failure(error))
+            response.json().then((json: APIBaseResponse) => {
+                if (json.error === 0) {
+                    dispatch(success && success(json))
+                }
+                else {
+                    dispatch(failure && failure(json))
+                }
             })
-        }).catch((error) => {
-            dispatch(failure && failure(error))
         })
     }
 }

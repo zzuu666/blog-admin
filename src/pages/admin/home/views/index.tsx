@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { fetchArticles } from '../actions'
-import { Article } from '../../../models/article'
+import { Article } from '../../../../models/article'
 import { Table, Divider, Button } from 'antd'
 import { ColumnProps } from 'antd/es/table'
-import { StoreState } from '../../../store'
+import { StoreState } from '../../../../store'
 import style from './index.less'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 
@@ -34,7 +34,8 @@ const columns: Array<ColumnProps<Article>> = [
 ]
 
 interface Props extends RouteComponentProps {
-    articles: Article[],
+    articles: Article[]
+    error: number
     fetchArticles: () => void
 }
 
@@ -60,8 +61,9 @@ class Home extends React.Component<Props> {
     }
 }
 
-const mapStatetoProps = (state: StoreState) => ({
-    articles: state.home.articles
+const mapStateToProps = (state: StoreState) => ({
+    articles: state.home.articles,
+    error: state.home.error
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -70,4 +72,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Home))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
