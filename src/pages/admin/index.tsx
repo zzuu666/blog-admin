@@ -14,11 +14,13 @@ import { Layout, Menu, Icon } from 'antd'
 import { view as Home } from './home'
 import { view as Edit } from './edit'
 import { fetchAuth } from './actions'
+import { fetchStatus } from '../../utils/fetch'
 
 const { Header, Content, Footer, Sider } = Layout
 
 interface Props extends RouteComponentProps {
     authenticate: boolean
+    status: fetchStatus
     fetchAuth: () => void
 }
 
@@ -67,6 +69,7 @@ const RedirectRoute = (match: match, path: string): React.ReactNode => {
 class AdminLayout extends React.Component<Props> {
     render() {
         const { match, authenticate } = this.props
+
         return (
             authenticate ? ProtectedComponent(match) : RedirectRoute(match, '/login')
         )

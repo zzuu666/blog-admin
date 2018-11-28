@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
 import { fetchArticle, updateArticle } from '../actions'
 import { Form, Icon, Input, Button, Spin, Row, Col, Select, message } from 'antd'
-import { FormComponentProps } from 'antd/lib/form'
+import { FormComponentProps } from 'antd/es/form'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
 
@@ -14,7 +14,7 @@ interface RoutePathParams {
     id: string
 }
 
-interface FormData {
+interface AntdFormData {
     title: string,
     desc: string,
     tags: string[],
@@ -37,7 +37,7 @@ class Edit extends React.Component<Props> {
 
     handleSubmit(e: React.SyntheticEvent) {
         e.preventDefault()
-        const form: FormData = this.props.form.getFieldsValue() as FormData
+        const form: AntdFormData = this.props.form.getFieldsValue() as AntdFormData
         const article: Article = {
             ...form,
             tags: form.tags.join(',')
