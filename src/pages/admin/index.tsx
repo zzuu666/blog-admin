@@ -8,16 +8,31 @@ import {
     Switch,
     match
 } from 'react-router-dom'
-import * as H from 'history'
 import { connect } from 'react-redux'
 import { StoreState } from '../../store'
 import { Layout, Menu, Icon, Spin } from 'antd'
 import { view as Home } from './home'
 import { view as Edit } from './edit'
+import { view as Create } from './create'
 import { fetchAuth } from './actions'
 import { fetchStatus } from '../../utils/fetch'
 
 const { Header, Content, Footer, Sider } = Layout
+
+const routerMap = [
+    {
+        path: '/',
+        component: Home
+    },
+    {
+        path: '/edit/:id',
+        component: Edit
+    },
+    {
+        path: '/create',
+        component: Create
+    }
+]
 
 interface Props extends RouteComponentProps {
     authenticate: boolean
@@ -41,8 +56,13 @@ const ProtectedComponent = (match: match): JSX.Element => (
         <Layout style={ { marginLeft: 200 } }>
             <Header style={ { background: '#fff', padding: 0 } } />
             <Content style={ { margin: '24px 16px 0', overflow: 'initial' } }>
-                <Route path={ `${match.url}/` } exact component={ Home } />
-                <Route path={ `${match.url}/edit/:id` } component={ Edit } />
+                <Switch>
+                {
+                    routerMap.map(el => (
+                        <Route key={ el.path } path={ `${match.url}${el.path}` } exact component={ el.component } />
+                    ))
+                }
+                </Switch>
             </Content>
             <Footer style={ { textAlign: 'center' } }>
                 Ant Design ©2018 Created by Ant UED
@@ -61,8 +81,11 @@ const RedirectRoute = (match: match, path: string): React.ReactNode => {
 
     return (
         <Switch>
-            <Route path={ `${match.url}/` } render={ RedirectComponent }/>
-            <Route path={ `${match.url}/edit/:id` } render={ RedirectComponent } />
+            {
+                routerMap.map(el => (
+                    <Route key={ el.path } path={ `${match.url}${el.path}` } exact render={ RedirectComponent } />
+                ))
+            }
         </Switch>
     )
 }
@@ -74,8 +97,11 @@ const LoadingRoute = (match: match): React.ReactNode => {
 
     return (
         <Switch>
-            <Route path={ `${match.url}/` } render={ SpinComponent } />
-            <Route path={ `${match.url}/edit/:id` } render={ SpinComponent } />
+            {
+                routerMap.map(el => (
+                    <Route key={ el.path } path={ `${match.url}${el.path}` } exact render={ SpinComponent } />
+                ))
+            }
         </Switch>
     )
 }

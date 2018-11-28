@@ -45,7 +45,9 @@ class Home extends React.Component<Props> {
         return (
             <div className={ style.home }>
                 <div className={ style['home-header'] }>
-                    <Button type="primary">新增</Button>
+                    <Button type="primary">
+                        <Link to="/admin/create">新增</Link>
+                    </Button>
                 </div>
                 <Table
                     columns={ columns }
