@@ -33,11 +33,7 @@ class CreateArticle extends React.Component<Props> {
             <div>
                 <h2>新建文章</h2>
                 <Spin spinning={ status === fetchStatus.LOADING }>
-                    <Row>
-                        <Col offset={ 6 } span={ 12 }>
-                            <ArticleForm article={ article } handleSubmit={ this.handleSubmit }/>
-                        </Col>
-                    </Row>
+                    <ArticleForm article={ article } handleSubmit={ this.handleSubmit }/>
                 </Spin>
             </div>
         )

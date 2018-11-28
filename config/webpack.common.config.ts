@@ -59,7 +59,7 @@ const config: webpack.Configuration = {
             },
             {
                 test: /\.css$/,
-                include: /node_modules\/antd/,
+                include: /node_modules/,
                 use: [
                     {
                         loader: 'style-loader'
