@@ -5,12 +5,13 @@ import {
     Redirect,
     withRouter,
     RouteComponentProps,
+    Switch,
     match
 } from 'react-router-dom'
 import * as H from 'history'
 import { connect } from 'react-redux'
 import { StoreState } from '../../store'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Menu, Icon, Spin } from 'antd'
 import { view as Home } from './home'
 import { view as Edit } from './edit'
 import { fetchAuth } from './actions'
@@ -54,24 +55,41 @@ const RedirectRoute = (match: match, path: string): React.ReactNode => {
 
     const RedirectComponent = (props: RouteComponentProps): React.ReactNode => (
         <div>
-            <Redirect to={ { pathname: path, state: { from: props.location.state } } }/>
+            <Redirect to={ { pathname: path, state: { from: props.location.pathname } } }/>
         </div>
     )
 
     return (
-        <div>
+        <Switch>
             <Route path={ `${match.url}/` } render={ RedirectComponent }/>
             <Route path={ `${match.url}/edit/:id` } render={ RedirectComponent } />
-        </div>
+        </Switch>
+    )
+}
+
+const LoadingRoute = (match: match): React.ReactNode => {
+    const SpinComponent = (props: RouteComponentProps): React.ReactNode => (
+        <Spin />
+    )
+
+    return (
+        <Switch>
+            <Route path={ `${match.url}/` } render={ SpinComponent } />
+            <Route path={ `${match.url}/edit/:id` } render={ SpinComponent } />
+        </Switch>
     )
 }
 
 class AdminLayout extends React.Component<Props> {
     render() {
-        const { match, authenticate } = this.props
+        const { match, authenticate, status } = this.props
 
         return (
-            authenticate ? ProtectedComponent(match) : RedirectRoute(match, '/login')
+            status === fetchStatus.LOADING
+            ? LoadingRoute(match)
+            : authenticate
+                ? ProtectedComponent(match)
+                : RedirectRoute(match, '/login')
         )
     }
 
@@ -81,7 +99,8 @@ class AdminLayout extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-    authenticate: state.admin.authenticate
+    authenticate: state.admin.authenticate,
+    status: state.admin.status
 })
 
 const mapDispatchToProps = (dispatch: any) => ({

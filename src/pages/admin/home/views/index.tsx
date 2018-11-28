@@ -23,7 +23,7 @@ const columns: Array<ColumnProps<Article>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={ `/edit/${record.id}` }>编辑</Link>
+                <Link to={ `/admin/edit/${record.id}` }>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />

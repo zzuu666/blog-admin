@@ -25,7 +25,7 @@ export default (state: EditState = { article: {}, status: 'loading' }, action: E
         case actionTypes.EDIT_GET_ARTICLE_SUCCESS: {
             return {
                 ...state,
-                article: action.success,
+                article: action.api ? action.api.results : {},
                 status: 'success'
             }
         }
@@ -33,7 +33,7 @@ export default (state: EditState = { article: {}, status: 'loading' }, action: E
             return {
                 ...state,
                 status: 'success',
-                message: action.success && action.success.message
+                message: action.api && action.api.message
             }
         }
         default: {

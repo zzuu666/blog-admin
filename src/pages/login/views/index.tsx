@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Row, Col, Form, Input, Icon, Button } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
 import { StoreState } from '../../../store'
@@ -13,7 +14,7 @@ interface LoginFormData {
     password: string
 }
 
-interface Props extends FormComponentProps {
+interface Props extends FormComponentProps, RouteComponentProps {
     token: string,
     fetchLogin: (email: string, password: string) => void
 }
@@ -75,7 +76,7 @@ class Login extends React.Component<Props> {
     shouldComponentUpdate(next: Props) {
         if (next.token !== '') {
             localStorage.setItem('AUTH_TOKEN', next.token)
-            return false
+            this.props.history.push(this.props.location.state.from)
         }
         return true
     }
@@ -91,4 +92,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login)))

@@ -1,30 +1,32 @@
 import { actionTypes } from './actionTypes'
-import { fetchWithRedux } from '../../../utils/fetch'
+import { fetchWithRedux, APIBaseResponse } from '../../../utils/fetch'
 import { Article } from '../../../models/article'
+
+interface APIResponse extends APIBaseResponse {
+    results: Article
+}
 
 export interface EditAction {
     type: actionTypes
-    article?: Article
-    success?: any
-    error?: any
+    api?: APIResponse
 }
 
 export const fetchArticleStarted = (): EditAction => ({
     type: actionTypes.EDIT_GET_ARTICLE_STARTED
 })
 
-export const fetchArticleSuccess = (success: any): EditAction => ({
-    success,
+export const fetchArticleSuccess = (api: APIResponse): EditAction => ({
+    api,
     type: actionTypes.EDIT_GET_ARTICLE_SUCCESS
 })
 
-export const fetchArticleFailure = (error: any): EditAction => ({
-    error,
+export const fetchArticleFailure = (api: APIResponse): EditAction => ({
+    api,
     type: actionTypes.EDIT_GET_ARTICLE_FAILURE
 })
 
-export const updateArticleSuccess = (success: any): EditAction => ({
-    success,
+export const updateArticleSuccess = (api: APIResponse): EditAction => ({
+    api,
     type: actionTypes.EDIT_UPDATE_ARTICLE_SUCCESS
 })
 
