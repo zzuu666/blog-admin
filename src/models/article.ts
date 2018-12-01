@@ -4,6 +4,7 @@ export interface Article {
     created_at?: string
     desc?: string
     id?: number
+    image?: string
     origin?: string
     scan?: string
     tags?: string

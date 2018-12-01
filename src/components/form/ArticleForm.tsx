@@ -4,6 +4,8 @@ import { FormComponentProps } from 'antd/es/form'
 import { Article } from '../../models/article'
 import 'highlight.js/styles/github.css'
 import marked from 'marked'
+import style from './ArticleForm.less'
+import Image from '../image/index'
 
 marked.setOptions({
     highlight (code) {
@@ -21,22 +23,43 @@ interface Props extends FormComponentProps {
 
 interface State {
     articleContent: string
+    articleImage: string
 }
 
 export interface ArtilceFormData {
-    title: string,
-    desc: string,
-    tags: string[],
+    title: string
+    desc: string
+    tags: string[]
     content: string
+    image: string
+    author: string
+    origin: string
 }
+
+const ArticleImageInput = (
+    { onButtonClick }: { onButtonClick: (e: React.SyntheticEvent) => void }
+): React.ReactNode => (
+    <Row>
+        <Col span={ 18 }>
+            <Input placeholder="http://image.example.com" />
+        </Col>
+        <Col span={ 6 }>
+            <Button onClick={ onButtonClick } style={ { float: 'right' } } type={ 'primary' }>预览</Button>
+        </Col>
+    </Row>
+)
 
 class ArticleForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
+
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleArticleContentChange = this.handleArticleContentChange.bind(this)
+        this.handleImageInputButtonClick = this.handleImageInputButtonClick.bind(this)
+
         this.state = {
-            articleContent: this.props.article.content || ''
+            articleContent: this.props.article.content || '',
+            articleImage: this.props.article.image || ''
         }
     }
 
@@ -44,6 +67,13 @@ class ArticleForm extends React.Component<Props, State> {
         e.preventDefault()
         const form: ArtilceFormData = this.props.form.getFieldsValue() as ArtilceFormData
         this.props.handleSubmit(form)
+    }
+
+    handleImageInputButtonClick() {
+        const imageUrl = this.props.form.getFieldValue('image') || ''
+        this.setState({
+            articleImage: imageUrl
+        })
     }
 
     handleArticleContentChange() {
@@ -77,7 +107,7 @@ class ArticleForm extends React.Component<Props, State> {
         }
 
         return (
-            <Row>
+            <Row gutter={ 32 }>
                 <Col span={ 12 }>
                     <Form onSubmit={ this.handleSubmit }>
                         <FormItem
@@ -122,8 +152,10 @@ class ArticleForm extends React.Component<Props, State> {
                         >
                             {
                                 getFieldDecorator('image', {
-                                    initialValue: article.desc,
-                                })(<Input placeholder="http://image.example.com" />)
+                                    initialValue: article.image,
+                                })(ArticleImageInput({
+                                    onButtonClick: this.handleImageInputButtonClick
+                                }))
                             }
                         </FormItem>
                         <FormItem
@@ -146,7 +178,7 @@ class ArticleForm extends React.Component<Props, State> {
                         >
                             {
                                 getFieldDecorator('author', {
-                                    initialValue: article.desc,
+                                    initialValue: article.author,
                                 })(<Input placeholder="作者" />)
                             }
                         </FormItem>
@@ -155,8 +187,8 @@ class ArticleForm extends React.Component<Props, State> {
                             label="来源"
                         >
                             {
-                                getFieldDecorator('author', {
-                                    initialValue: article.desc,
+                                getFieldDecorator('origin', {
+                                    initialValue: article.origin,
                                 })(<Input placeholder="来源" />)
                             }
                         </FormItem>
@@ -165,8 +197,16 @@ class ArticleForm extends React.Component<Props, State> {
                         </FormItem>
                     </Form>
                 </Col>
-                <Col span={ 12 }>
-                    <div dangerouslySetInnerHTML={ { __html: marked(this.state.articleContent) } } />
+                <Col className={ style['form-right'] } span={ 10 }>
+                    <h3>文章图片预览</h3>
+                    <div className={ style['form-right-image'] }>
+                        <Image src={ this.state.articleImage } />
+                    </div>
+                    <h3>文章内容预览</h3>
+                    <div
+                        className={ style['form-right-article'] }
+                        dangerouslySetInnerHTML={ { __html: marked(this.state.articleContent) } }
+                    />
                 </Col>
             </Row>
         )

@@ -2,18 +2,16 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
-import { Form, Icon, Input, Button, Spin, Row, Col, Select, message } from 'antd'
-import { FormComponentProps } from 'antd/es/form'
+import { createArticle } from '../actions'
+import { Spin } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
 import ArticleForm, { ArtilceFormData } from '../../../../components/form/ArticleForm'
 
-const FormItem = Form.Item
-const TextArea = Input.TextArea
-
-interface Props extends FormComponentProps, RouteComponentProps {
+interface Props extends RouteComponentProps {
     article: Article
     status: fetchStatus
+    postCreateArticle: (article: Article) => void
 }
 
 class CreateArticle extends React.Component<Props> {
@@ -24,6 +22,11 @@ class CreateArticle extends React.Component<Props> {
     }
 
     handleSubmit(value: ArtilceFormData) {
+        const article: Article = {
+            ...value,
+            tags: value.tags.join(',')
+        }
+        this.props.postCreateArticle(article)
         // console.log(value)
     }
 
@@ -46,6 +49,9 @@ const mapStatetoProps = (state: StoreState) => ({
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
+    postCreateArticle(article: Article) {
+        dispatch(createArticle(article))
+    }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Form.create()(CreateArticle)))
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CreateArticle))
