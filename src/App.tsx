@@ -1,21 +1,34 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import AdminLayout from './pages/admin'
-import { view as Login } from './pages/login'
+import Loadable from 'react-loadable'
+
+const AsyncLogin = Loadable({
+    // tslint:disable-next-line: space-in-parens
+    loader: () => import(/* webpackChunkName: "login" */'./pages/login/views/index'),
+    loading() {
+        return <div>Loading...</div>
+    }
+})
+
+const AsyncAdmin = Loadable({
+    // tslint:disable-next-line: space-in-parens
+    loader: () => import(/* webpackChunkName: "admin" */'./pages/admin/index'),
+    loading() {
+        return <div>Loading...</div>
+    }
+})
 
 class App extends React.Component<{}> {
     render() {
         return (
             <Router>
                 <Switch>
-                    <Route path="/login" component={ Login } />
-                    <Route path="/admin" component={ AdminLayout } />
+                    <Route path="/login" component={ AsyncLogin } />
+                    <Route path="/admin" component={ AsyncAdmin } />
                 </Switch>
             </Router>
         )
     }
 }
-
-const BeforeLoginLayout = (): JSX.Element => (<Route path="/login" component={ Login } />)
 
 export default App

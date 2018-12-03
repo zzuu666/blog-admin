@@ -16,21 +16,46 @@ import { view as Edit } from './edit'
 import { view as Create } from './create'
 import { fetchAuth } from './actions'
 import { fetchStatus } from '../../utils/fetch'
+import Loadable from 'react-loadable'
 
 const { Header, Content, Footer, Sider } = Layout
+
+const AsyncHome = Loadable({
+    // tslint:disable-next-line: space-in-parens
+    loader: () => import(/* webpackChunkName: "admin-home" */'./home/views/index'),
+    loading() {
+        return <div>Loading...</div>
+    }
+})
+
+const AsyncEdit = Loadable({
+    // tslint:disable-next-line: space-in-parens
+    loader: () => import(/* webpackChunkName: "admin-edit" */'./edit/views/index'),
+    loading() {
+        return <div>Loading...</div>
+    }
+})
+
+const AsyncCreate = Loadable({
+    // tslint:disable-next-line: space-in-parens
+    loader: () => import(/* webpackChunkName: "admin-create" */'./create/views/index'),
+    loading() {
+        return <div>Loading...</div>
+    }
+})
 
 const routerMap = [
     {
         path: '/',
-        component: Home
+        component: AsyncHome
     },
     {
         path: '/edit/:id',
-        component: Edit
+        component: AsyncEdit
     },
     {
         path: '/create',
-        component: Create
+        component: AsyncCreate
     }
 ]
 
