@@ -36,19 +36,6 @@ export interface ArtilceFormData {
     origin: string
 }
 
-const ArticleImageInput = (
-    { onButtonClick }: { onButtonClick: (e: React.SyntheticEvent) => void }
-): React.ReactNode => (
-    <Row>
-        <Col span={ 18 }>
-            <Input placeholder="http://image.example.com" />
-        </Col>
-        <Col span={ 6 }>
-            <Button onClick={ onButtonClick } style={ { float: 'right' } } type={ 'primary' }>预览</Button>
-        </Col>
-    </Row>
-)
-
 class ArticleForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
@@ -151,11 +138,23 @@ class ArticleForm extends React.Component<Props, State> {
                             label="文章配图"
                         >
                             {
-                                getFieldDecorator('image', {
-                                    initialValue: article.image,
-                                })(ArticleImageInput({
-                                    onButtonClick: this.handleImageInputButtonClick
-                                }))
+                                <Row>
+                                    <Col span={ 18 }>
+                                    {
+                                        getFieldDecorator('image', {
+                                            initialValue: article.image,
+                                        })(<Input placeholder="http://image.example.com" />)
+                                    }
+                                    </Col>
+                                    <Col span={ 6 }>
+                                        <Button
+                                            onClick={ this.handleImageInputButtonClick }
+                                            style={ { float: 'right' } }
+                                            type={ 'primary' }
+                                        >预览
+                                        </Button>
+                                    </Col>
+                                </Row>
                             }
                         </FormItem>
                         <FormItem

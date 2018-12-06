@@ -137,3 +137,6 @@ $RECYCLE.BIN/
 
 # package-lock
 package-lock.json
+
+# production env output
+/dist

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Loadable from 'react-loadable'
+import { deployPath } from './config'
 
 const AsyncLogin = Loadable({
     // tslint:disable-next-line: space-in-parens
@@ -23,8 +24,8 @@ class App extends React.Component<{}> {
         return (
             <Router>
                 <Switch>
-                    <Route path="/login" component={ AsyncLogin } />
-                    <Route path="/admin" component={ AsyncAdmin } />
+                    <Route path={ `${deployPath}/login` } component={ AsyncLogin } />
+                    <Route path={ `${deployPath}/admin` } component={ AsyncAdmin } />
                 </Switch>
             </Router>
         )
