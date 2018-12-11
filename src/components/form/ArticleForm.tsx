@@ -57,19 +57,15 @@ class ArticleForm extends React.Component<Props, State> {
     }
 
     handleImageInputButtonClick() {
-        const imageUrl = this.props.form.getFieldValue('image') || ''
-        this.setState({
-            articleImage: imageUrl
-        })
+        this.setState((state: State, props: Props) => ({
+            articleImage: props.form.getFieldValue('image') || ''
+        }))
     }
 
     handleArticleContentChange() {
-        setTimeout(() => {
-            this.setState({
-                articleContent: this.props.form.getFieldValue('content') || ''
-            })
-        }, 0)
-
+        this.setState((state: State, props: Props) => ({
+            articleContent: props.form.getFieldValue('content') || ''
+        }))
     }
 
     render() {
