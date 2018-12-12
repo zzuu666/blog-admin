@@ -7,7 +7,6 @@ import { ColumnProps } from 'antd/es/table'
 import { StoreState } from '../../../../store'
 import style from './index.less'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
-import { deployPath } from '../../../../config'
 
 const columns: Array<ColumnProps<Article>> = [
     {
@@ -24,7 +23,7 @@ const columns: Array<ColumnProps<Article>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={ `${deployPath}/admin/edit/${record.id}` }>编辑</Link>
+                <Link to={ `/admin/edit/${record.id}` }>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />
@@ -47,7 +46,7 @@ class Home extends React.Component<Props> {
             <div className={ style.home }>
                 <div className={ style['home-header'] }>
                     <Button type="primary">
-                        <Link to={ `${deployPath}/admin/create` }>新增</Link>
+                        <Link to="/admin/create">新增</Link>
                     </Button>
                 </div>
                 <Table

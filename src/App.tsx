@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Loadable from 'react-loadable'
-import { deployPath } from './config'
 
 const AsyncLogin = Loadable({
     // tslint:disable-next-line: space-in-parens
@@ -21,11 +20,12 @@ const AsyncAdmin = Loadable({
 
 class App extends React.Component<{}> {
     render() {
+        const basename = process.env.NODE_ENV === 'prodcution' ? '/markii' : ''
         return (
-            <Router>
+            <Router basename={ basename }>
                 <Switch>
-                    <Route path={ `${deployPath}/login` } component={ AsyncLogin } />
-                    <Route path={ `${deployPath}/admin` } component={ AsyncAdmin } />
+                    <Route path="/login" component={ AsyncLogin } />
+                    <Route path="/admin" component={ AsyncAdmin } />
                 </Switch>
             </Router>
         )
