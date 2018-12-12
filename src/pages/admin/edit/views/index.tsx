@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
-import { fetchArticle, updateArticle } from '../actions'
+import { fetchArticle, updateArticle, cacheArticle } from '../actions'
 import { Spin, message } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
@@ -17,21 +17,31 @@ interface Props extends FormComponentProps, RouteComponentProps<RoutePathParams>
     status: 'loading' | 'success' | 'error'
     message?: string
     fetchArticle: (id: string) => void
-    updateArticle: (id: string, content: Article) => void
+    updateArticle: (id: string, content: Article) => void,
+    cacheArticle: (artilce: Article) => void
 }
 
 class Edit extends React.Component<Props> {
     constructor(props: Props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleFormValueChange = this.handleFormValueChange.bind(this)
     }
 
     handleSubmit(value: ArtilceFormData) {
         const article: Article = {
             ...value,
-            tags: value.tags.join(',')
+            tags: value.tags ? value.tags.join(',') : undefined
         }
         this.props.updateArticle(this.props.match.params.id, article)
+    }
+
+    handleFormValueChange(value: ArtilceFormData) {
+        const article: Article = {
+            ...value,
+            tags: value.tags.join(',')
+        }
+        this.props.cacheArticle(article)
     }
 
     render () {
@@ -40,7 +50,11 @@ class Edit extends React.Component<Props> {
             <div>
                 <h2>编辑 { article.title }</h2>
                 <Spin spinning={ status === 'loading' }>
-                    <ArticleForm article={ article } handleSubmit={ this.handleSubmit }/>
+                    <ArticleForm
+                        article={ article }
+                        onSubmit={ this.handleSubmit }
+                        onFormValueChange={ this.handleFormValueChange }
+                    />
                 </Spin>
             </div>
         )
@@ -68,6 +82,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     },
     updateArticle: (id: string, content: Article) => {
         dispatch(updateArticle(id, content))
+    },
+    cacheArticle: (article: Article) => {
+        dispatch(cacheArticle(article))
     }
 })
 

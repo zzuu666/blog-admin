@@ -31,6 +31,12 @@ export default (
                 status: fetchStatus.SUCCESS
             }
         }
+        case actionTypes.CREATE_ARTICLE_SET_CACHE: {
+            return {
+                ...state,
+                article: action.article ? action.article : {}
+            }
+        }
         default: {
             return state
         }

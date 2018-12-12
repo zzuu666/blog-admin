@@ -4,7 +4,8 @@ import { Article } from '../../../models/article'
 
 export interface CreateAction {
     type: actionTypes,
-    api?: APIBaseResponse
+    api?: APIBaseResponse,
+    article?: Article
 }
 
 export const createArticleStarted = (): CreateAction => ({
@@ -19,6 +20,11 @@ export const createArticleFailure = (api: APIBaseResponse): CreateAction => ({
 export const createArticleSuccess = (api: APIBaseResponse): CreateAction => ({
     api,
     type: actionTypes.CREATE_ARTICLE_SUCCESS
+})
+
+export const createArticleSetCache = (article: Article): CreateAction => ({
+    article,
+    type: actionTypes.CREATE_ARTICLE_SET_CACHE
 })
 
 export const createArticle = (acticle: Article) => {

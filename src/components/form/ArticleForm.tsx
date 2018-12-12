@@ -18,7 +18,8 @@ const TextArea = Input.TextArea
 
 interface Props extends FormComponentProps {
     article: Article
-    handleSubmit: (value: ArtilceFormData) => any
+    onSubmit: (value: ArtilceFormData) => any
+    onFormValueChange?: (value: ArtilceFormData) => void
 }
 
 interface State {
@@ -40,7 +41,7 @@ class ArticleForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
 
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
         this.handleArticleContentChange = this.handleArticleContentChange.bind(this)
         this.handleImageInputButtonClick = this.handleImageInputButtonClick.bind(this)
 
@@ -50,10 +51,10 @@ class ArticleForm extends React.Component<Props, State> {
         }
     }
 
-    handleSubmit(e: React.SyntheticEvent) {
+    onSubmit(e: React.SyntheticEvent) {
         e.preventDefault()
         const form: ArtilceFormData = this.props.form.getFieldsValue() as ArtilceFormData
-        this.props.handleSubmit(form)
+        this.props.onSubmit(form)
     }
 
     handleImageInputButtonClick() {
@@ -92,7 +93,7 @@ class ArticleForm extends React.Component<Props, State> {
         return (
             <Row gutter={ 32 }>
                 <Col span={ 12 }>
-                    <Form onSubmit={ this.handleSubmit }>
+                    <Form onSubmit={ this.onSubmit }>
                         <FormItem
                             { ...formItemLayout }
                             label="文章标题"
@@ -195,12 +196,12 @@ class ArticleForm extends React.Component<Props, State> {
                 <Col className={ style['form-right'] } span={ 10 }>
                     <h3>文章图片预览</h3>
                     <div className={ style['form-right-image'] }>
-                        <Image src={ this.state.articleImage } />
+                        <Image src={ article.image || '' } />
                     </div>
                     <h3>文章内容预览</h3>
                     <div
                         className={ style['form-right-article'] }
-                        dangerouslySetInnerHTML={ { __html: marked(this.state.articleContent) } }
+                        dangerouslySetInnerHTML={ { __html: marked(article.content || '') } }
                     />
                 </Col>
             </Row>
@@ -208,4 +209,8 @@ class ArticleForm extends React.Component<Props, State> {
     }
 }
 
-export default Form.create()(ArticleForm)
+export default Form.create({
+    onValuesChange: (props: Props, changedValues, allValues: ArtilceFormData) => {
+        props.onFormValueChange && props.onFormValueChange(allValues)
+    }
+})(ArticleForm)

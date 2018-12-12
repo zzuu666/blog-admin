@@ -9,6 +9,7 @@ interface APIResponse extends APIBaseResponse {
 export interface EditAction {
     type: actionTypes
     api?: APIResponse
+    article?: Article
 }
 
 export const fetchArticleStarted = (): EditAction => ({
@@ -28,6 +29,11 @@ export const fetchArticleFailure = (api: APIResponse): EditAction => ({
 export const updateArticleSuccess = (api: APIResponse): EditAction => ({
     api,
     type: actionTypes.EDIT_UPDATE_ARTICLE_SUCCESS
+})
+
+export const cacheArticle = (article: Article): EditAction => ({
+    article,
+    type: actionTypes.EDIT_CACHE_ARTICLE
 })
 
 export const fetchArticle = (id: string) => {

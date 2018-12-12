@@ -36,6 +36,12 @@ export default (state: EditState = { article: {}, status: 'loading' }, action: E
                 message: action.api && action.api.message
             }
         }
+        case actionTypes.EDIT_CACHE_ARTICLE: {
+            return {
+                ...state,
+                article: action.article ? action.article : {}
+            }
+        }
         default: {
             return state
         }
