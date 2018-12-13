@@ -1,18 +1,14 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { Row, Col, Form, Input, Icon, Button } from 'antd'
+import { Row, Col, Layout } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
 import { StoreState } from '../../../store'
 import { fetchLogin } from '../actions'
 import style from './index.less'
+import LoginForm, { LoginFormData } from '../../../components/form/LoginForm'
 
-const FormItem = Form.Item
-
-interface LoginFormData {
-    email: string
-    password: string
-}
+const { Content } = Layout
 
 interface Props extends FormComponentProps, RouteComponentProps {
     token: string,
@@ -20,56 +16,20 @@ interface Props extends FormComponentProps, RouteComponentProps {
 }
 class Login extends React.Component<Props> {
 
-    constructor(props: Props) {
-        super(props)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
-        const form: LoginFormData = this.props.form.getFieldsValue() as LoginFormData
-        const { email, password } = form
+    handleSubmit = (value: LoginFormData) => {
+        const { email, password } = value
         this.props.fetchLogin(email, password)
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form
         return (
-            <div>
+            <Content>
                 <Row className={ style['login-main'] }>
-                    <Col span={ 14 }>
-                        Welcome
-                    </Col>
-                    <Col span={ 6 }>
-                        <Form onSubmit={ this.handleSubmit } className="login-form">
-                            <FormItem>
-                            { getFieldDecorator('email', {
-                                rules: [{ required: true, message: 'Please input your username!' }],
-                            })(
-                                <Input
-                                    prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
-                                    placeholder="Email"
-                                />
-                            ) }
-                            </FormItem>
-                            <FormItem>
-                            { getFieldDecorator('password', {
-                                rules: [{ required: true, message: 'Please input your Password!' }],
-                            })(
-                                <Input
-                                    prefix={ <Icon type="lock" style={ { color: 'rgba(0,0,0,.25)' } } /> }
-                                    type="password"
-                                    placeholder="Password"
-                                />
-                            ) }
-                            </FormItem>
-                            <FormItem>
-                                <Button type="primary" htmlType="submit">Log in</Button>
-                            </FormItem>
-                        </Form>
+                    <Col offset={ 9 } span={ 6 }>
+                        <LoginForm onSubmit={ this.handleSubmit } />
                     </Col>
                 </Row>
-            </div>
+            </Content>
         )
     }
 
@@ -92,4 +52,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login)))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

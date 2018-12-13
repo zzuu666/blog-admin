@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Form, Icon, Input, Button, Spin, Row, Col, Select, message } from 'antd'
+import { Form, Input, Button, Row, Col, Select } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
-import { Article } from '../../models/article'
+import { Article } from '../../../models/article'
 import 'highlight.js/styles/github.css'
 import marked from 'marked'
-import style from './ArticleForm.less'
-import Image from '../image/index'
+import style from './index.less'
+import Image from '../../image/index'
 
 marked.setOptions({
     highlight (code) {
@@ -22,11 +22,6 @@ interface Props extends FormComponentProps {
     onFormValueChange?: (value: ArtilceFormData) => void
 }
 
-interface State {
-    articleContent: string
-    articleImage: string
-}
-
 export interface ArtilceFormData {
     title: string
     desc: string
@@ -37,36 +32,17 @@ export interface ArtilceFormData {
     origin: string
 }
 
-class ArticleForm extends React.Component<Props, State> {
+class ArticleForm extends React.Component<Props> {
     constructor(props: Props) {
         super(props)
 
         this.onSubmit = this.onSubmit.bind(this)
-        this.handleArticleContentChange = this.handleArticleContentChange.bind(this)
-        this.handleImageInputButtonClick = this.handleImageInputButtonClick.bind(this)
-
-        this.state = {
-            articleContent: this.props.article.content || '',
-            articleImage: this.props.article.image || ''
-        }
     }
 
     onSubmit(e: React.SyntheticEvent) {
         e.preventDefault()
         const form: ArtilceFormData = this.props.form.getFieldsValue() as ArtilceFormData
         this.props.onSubmit(form)
-    }
-
-    handleImageInputButtonClick() {
-        this.setState((state: State, props: Props) => ({
-            articleImage: props.form.getFieldValue('image') || ''
-        }))
-    }
-
-    handleArticleContentChange() {
-        this.setState((state: State, props: Props) => ({
-            articleContent: props.form.getFieldValue('content') || ''
-        }))
     }
 
     render() {
@@ -135,23 +111,9 @@ class ArticleForm extends React.Component<Props, State> {
                             label="文章配图"
                         >
                             {
-                                <Row>
-                                    <Col span={ 18 }>
-                                    {
-                                        getFieldDecorator('image', {
-                                            initialValue: article.image,
-                                        })(<Input placeholder="http://image.example.com" />)
-                                    }
-                                    </Col>
-                                    <Col span={ 6 }>
-                                        <Button
-                                            onClick={ this.handleImageInputButtonClick }
-                                            style={ { float: 'right' } }
-                                            type={ 'primary' }
-                                        >预览
-                                        </Button>
-                                    </Col>
-                                </Row>
+                                getFieldDecorator('image', {
+                                    initialValue: article.image,
+                                })(<Input placeholder="http://image.example.com" />)
                             }
                         </FormItem>
                         <FormItem
@@ -162,10 +124,7 @@ class ArticleForm extends React.Component<Props, State> {
                                 getFieldDecorator('content', {
                                     initialValue: article.content,
                                     rules: [{ required: true, message: '文章内容不能为空' }]
-                                })(<TextArea
-                                        autosize={ { minRows: 2, maxRows: 6 } }
-                                        onChange={ this.handleArticleContentChange }
-                                />)
+                                })(<TextArea autosize={ { minRows: 2, maxRows: 6 } }/>)
                             }
                         </FormItem>
                         <FormItem

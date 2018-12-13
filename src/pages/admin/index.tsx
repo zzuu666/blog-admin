@@ -67,9 +67,13 @@ interface Props extends RouteComponentProps {
 
 const ProtectedComponent = (match: match): JSX.Element => (
     <Layout>
-        <Sider style={ { overflow: 'auto', height: '100vh', position: 'fixed', left: 0 } }>
-            <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={ ['1'] }>
+        <Sider theme="light" width={ 240 } >
+            <Menu
+                mode="inline"
+                theme="light"
+                defaultSelectedKeys={ ['1'] }
+                style={ { height: '100%', borderRight: 0 } }
+            >
                 <Menu.Item key="1">
                     <Link to="/"><Icon type="user" />文章列表</Link>
                 </Menu.Item>
@@ -78,8 +82,7 @@ const ProtectedComponent = (match: match): JSX.Element => (
                 </Menu.Item>
             </Menu>
         </Sider>
-        <Layout style={ { marginLeft: 200 } }>
-            <Header style={ { background: '#fff', padding: 0 } } />
+        <Layout>
             <Content style={ { margin: '24px 16px 0', overflow: 'initial' } }>
                 <Switch>
                 {
@@ -89,9 +92,6 @@ const ProtectedComponent = (match: match): JSX.Element => (
                 }
                 </Switch>
             </Content>
-            <Footer style={ { textAlign: 'center' } }>
-                Ant Design ©2018 Created by Ant UED
-            </Footer>
         </Layout>
     </Layout>
 )
