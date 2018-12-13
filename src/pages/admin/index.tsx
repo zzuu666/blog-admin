@@ -11,51 +11,31 @@ import {
 import { connect } from 'react-redux'
 import { StoreState } from '../../store'
 import { Layout, Menu, Icon, Spin } from 'antd'
-import { view as Home } from './home'
-import { view as Edit } from './edit'
-import { view as Create } from './create'
 import { fetchAuth } from './actions'
 import { fetchStatus } from '../../utils/fetch'
-import Loadable from 'react-loadable'
 
-const { Header, Content, Footer, Sider } = Layout
+const { Content, Sider } = Layout
+const { lazy, Suspense } = React
 
-const AsyncHome = Loadable({
-    // tslint:disable-next-line: space-in-parens
-    loader: () => import(/* webpackChunkName: "admin-home" */'./home/views/index'),
-    loading() {
-        return <div>Loading...</div>
-    }
-})
-
-const AsyncEdit = Loadable({
-    // tslint:disable-next-line: space-in-parens
-    loader: () => import(/* webpackChunkName: "admin-edit" */'./edit/views/index'),
-    loading() {
-        return <div>Loading...</div>
-    }
-})
-
-const AsyncCreate = Loadable({
-    // tslint:disable-next-line: space-in-parens
-    loader: () => import(/* webpackChunkName: "admin-create" */'./create/views/index'),
-    loading() {
-        return <div>Loading...</div>
-    }
-})
+// tslint:disable-next-line: space-in-parens
+const Home = lazy(() => import(/* webpackChunkName: "admin-home" */'./home/views/index'))
+// tslint:disable-next-line: space-in-parens
+const Edit = lazy(() => import(/* webpackChunkName: "admin-edit" */'./edit/views/index'))
+// tslint:disable-next-line: space-in-parens
+const Create = lazy(() => import(/* webpackChunkName: "admin-create" */'./create/views/index'))
 
 const routerMap = [
     {
         path: '/',
-        component: AsyncHome
+        component: Home
     },
     {
         path: '/edit/:id',
-        component: AsyncEdit
+        component: Edit
     },
     {
         path: '/create',
-        component: AsyncCreate
+        component: Create
     }
 ]
 
@@ -84,13 +64,15 @@ const ProtectedComponent = (match: match): JSX.Element => (
         </Sider>
         <Layout>
             <Content style={ { margin: '24px 16px 0', overflow: 'initial' } }>
-                <Switch>
-                {
-                    routerMap.map(el => (
-                        <Route key={ el.path } path={ `${match.url}${el.path}` } exact component={ el.component } />
-                    ))
-                }
-                </Switch>
+                <Suspense fallback={ <div>Loading...</div> }>
+                    <Switch>
+                    {
+                        routerMap.map(el => (
+                            <Route key={ el.path } path={ `${match.url}${el.path}` } exact component={ el.component } />
+                        ))
+                    }
+                    </Switch>
+                </Suspense>
             </Content>
         </Layout>
     </Layout>

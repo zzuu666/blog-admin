@@ -1,27 +1,17 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Row, Col, Menu, Layout } from 'antd'
-import Loadable from 'react-loadable'
 import logo from './assets/login/logo.png'
 import style from './App.less'
 
 const { Header, Footer } = Layout
+const { lazy, Suspense } = React
 
-const AsyncLogin = Loadable({
-    // tslint:disable-next-line: space-in-parens
-    loader: () => import(/* webpackChunkName: "login" */'./pages/login/views/index'),
-    loading() {
-        return <div>Loading...</div>
-    }
-})
+// tslint:disable-next-line: space-in-parens
+const Login = lazy(() => import(/* webpackChunkName: "login" */'./pages/login/views/index'))
 
-const AsyncAdmin = Loadable({
-    // tslint:disable-next-line: space-in-parens
-    loader: () => import(/* webpackChunkName: "admin" */'./pages/admin/index'),
-    loading() {
-        return <div>Loading...</div>
-    }
-})
+// tslint:disable-next-line: space-in-parens
+const Admin = lazy(() => import(/* webpackChunkName: "admin" */'./pages/admin/index'))
 
 class App extends React.Component<{}> {
     render() {
@@ -45,10 +35,12 @@ class App extends React.Component<{}> {
                     </Row>
                 </Header>
                 <Router basename={ basename }>
-                    <Switch>
-                        <Route path="/login" component={ AsyncLogin } />
-                        <Route path="/admin" component={ AsyncAdmin } />
-                    </Switch>
+                    <Suspense fallback={ <div>Loading...</div> }>
+                        <Switch>
+                            <Route path="/login" component={ Login } />
+                            <Route path="/admin" component={ Admin } />
+                        </Switch>
+                    </Suspense>
                 </Router>
                 <Footer className={ style.footer } >
                         STark Park ©2018 Created by Tark Sun
