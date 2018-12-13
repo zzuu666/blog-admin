@@ -28,30 +28,30 @@ class App extends React.Component<{}> {
         const basename = process.env.NODE_ENV === 'production' ? '/markii' : ''
         return (
             <Layout>
-            <Header>
-                <Row>
-                    <Col span={ 6 }>
-                        <img src={ logo } style={ { height: '24px' } } />
-                    </Col>
-                    <Col span={ 18 }>
-                        { /* <Menu
-                            mode="horizontal"
-                            theme="dark"
-                            style={ { lineHeight: '64px' } }
-                        >
-                            <MenuItem key="1">NAVI</MenuItem>
-                        </Menu> */ }
-                    </Col>
-                </Row>
-            </Header>
-            <Router basename={ basename }>
-                <Switch>
-                    <Route path="/login" component={ AsyncLogin } />
-                    <Route path="/admin" component={ AsyncAdmin } />
-                </Switch>
-            </Router>
-            <Footer className={ style.footer } >
-                    STark Park ©2018 Created by Tark Sun
+                <Header>
+                    <Row>
+                        <Col span={ 6 }>
+                            <img src={ logo } style={ { height: '24px' } } />
+                        </Col>
+                        <Col span={ 18 }>
+                            { /* <Menu
+                                mode="horizontal"
+                                theme="dark"
+                                style={ { lineHeight: '64px' } }
+                            >
+                                <MenuItem key="1">NAVI</MenuItem>
+                            </Menu> */ }
+                        </Col>
+                    </Row>
+                </Header>
+                <Router basename={ basename }>
+                    <Switch>
+                        <Route path="/login" component={ AsyncLogin } />
+                        <Route path="/admin" component={ AsyncAdmin } />
+                    </Switch>
+                </Router>
+                <Footer className={ style.footer } >
+                        STark Park ©2018 Created by Tark Sun
                 </Footer>
             </Layout>
         )
