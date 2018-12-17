@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import homeReducer, { HomeState } from './pages/admin/home/reducer'
 import editReducer, { EditState } from './pages/admin/edit/reducer'
 import createReducer, { CreateState } from './pages/admin/create/reducer'
+import categoryReducer, { CategoryState } from './pages/admin/category/reducer'
 import adminReducer, { AdminState } from './pages/admin/reducer'
 import loginReducer, { LoginState } from './pages/login/reducer'
 
@@ -13,7 +14,8 @@ export interface StoreState {
     edit: EditState
     admin: AdminState
     login: LoginState
-    create: CreateState
+    create: CreateState,
+    category: CategoryState
 }
 
 const reducer: Reducer<StoreState> = combineReducers<StoreState>({
@@ -21,7 +23,8 @@ const reducer: Reducer<StoreState> = combineReducers<StoreState>({
     edit: editReducer,
     admin: adminReducer,
     login: loginReducer,
-    create: createReducer
+    create: createReducer,
+    category: categoryReducer
 })
 
 const middlewares: [Middleware] = [thunkMiddleware]
