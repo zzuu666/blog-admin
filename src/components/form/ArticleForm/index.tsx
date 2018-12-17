@@ -139,7 +139,7 @@ class ArticleForm extends React.Component<Props> {
                         >
                             {
                                 getFieldDecorator('category', {
-                                    initialValue: article.category_id + '' || 'Category',
+                                    initialValue: article.category_id ? article.category_id + '' : 'Category',
                                     rules: [{ required: true, message: 'Category is required' }]
                                 })(
                                     <Select
