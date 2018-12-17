@@ -55,10 +55,10 @@ const ProtectedComponent = (match: match): JSX.Element => (
                 style={ { height: '100%', borderRight: 0 } }
             >
                 <Menu.Item key="1">
-                    <Link to="/"><Icon type="user" />文章列表</Link>
+                    <Link to="/admin"><Icon type="user" />Article</Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to="/about"><Icon type="video-camera" />作者列表</Link>
+                    <Link to="/admin/category"><Icon type="video-camera" />Category</Link>
                 </Menu.Item>
             </Menu>
         </Sider>

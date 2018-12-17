@@ -1,9 +1,13 @@
 import { actionTypes } from './actionTypes'
 import { fetchWithRedux, APIBaseResponse } from '../../../utils/fetch'
 import { Article } from '../../../models/article'
+import { Category } from '../../../models/category'
 
 interface APIResponse extends APIBaseResponse {
-    results: Article
+    results: {
+        article: Article,
+        categories: Category[]
+    }
 }
 
 export interface EditAction {
@@ -47,11 +51,10 @@ export const fetchArticle = (id: string) => {
 }
 
 export const updateArticle = (id: string, content: Article) => {
-    const params = { article: content }
     return fetchWithRedux({
         method: 'post',
         path: `/articles/${id}`,
-        params: JSON.stringify(params),
+        params: JSON.stringify(content),
         success: updateArticleSuccess,
         started: fetchArticleStarted,
         failure: fetchArticleFailure

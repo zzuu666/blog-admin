@@ -1,5 +1,6 @@
 export interface Article {
     author?: string
+    category_id?: number
     content?: string
     created_at?: string
     desc?: string

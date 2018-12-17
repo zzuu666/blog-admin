@@ -6,6 +6,7 @@ import { Spin, message } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
+import { Category } from '../../../../models/category'
 import ArticleForm, { ArtilceFormData } from '../../../../components/form/ArticleForm'
 
 interface RoutePathParams {
@@ -13,7 +14,8 @@ interface RoutePathParams {
 }
 
 interface Props extends FormComponentProps, RouteComponentProps<RoutePathParams> {
-    article: Article
+    article: Article,
+    categories: Category[],
     status: 'loading' | 'success' | 'error'
     message?: string
     fetchArticle: (id: string) => void
@@ -31,7 +33,8 @@ class Edit extends React.Component<Props> {
     handleSubmit(value: ArtilceFormData) {
         const article: Article = {
             ...value,
-            tags: value.tags ? value.tags.join(',') : undefined
+            tags: value.tags ? value.tags.join(',') : undefined,
+            category_id: value.category ? parseInt(value.category, 10) : 0
         }
         this.props.updateArticle(this.props.match.params.id, article)
     }
@@ -45,12 +48,13 @@ class Edit extends React.Component<Props> {
     }
 
     render () {
-        const { article, status } = this.props
+        const { article, status, categories } = this.props
         return (
             <div>
                 <h2>编辑 { article.title }</h2>
                 <Spin spinning={ status === 'loading' }>
                     <ArticleForm
+                        categories={ categories }
                         article={ article }
                         onSubmit={ this.handleSubmit }
                         onFormValueChange={ this.handleFormValueChange }
@@ -72,6 +76,7 @@ class Edit extends React.Component<Props> {
 
 const mapStatetoProps = (state: StoreState) => ({
     article: state.edit.article,
+    categories: state.edit.categories,
     status: state.edit.status,
     message: state.edit.message
 })

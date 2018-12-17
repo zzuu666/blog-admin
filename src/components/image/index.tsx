@@ -12,10 +12,6 @@ interface Props {
 }
 
 class Image extends React.Component<Props> {
-    static defaultProps = {
-        type: '16x9',
-        alt: ''
-    }
     render() {
         const { type, ...props } = this.props
         return (
@@ -25,6 +21,11 @@ class Image extends React.Component<Props> {
                 </div>
             </div>
         )
+    }
+
+    static defaultProps = {
+        type: '16x9',
+        alt: ''
     }
 }
 

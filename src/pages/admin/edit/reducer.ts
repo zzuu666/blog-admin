@@ -1,14 +1,19 @@
 import { EditAction } from './actions'
 import { actionTypes } from './actionTypes'
 import { Article } from '../../../models/article'
+import { Category } from '../../../models/category'
 
 export interface EditState {
     article: Article
-    status: 'success' | 'loading' | 'error',
+    categories: Category[]
+    status: 'success' | 'loading' | 'error'
     message?: string
 }
 
-export default (state: EditState = { article: {}, status: 'loading' }, action: EditAction): EditState => {
+export default (
+    state: EditState = { article: {}, categories: [], status: 'loading' },
+    action: EditAction
+): EditState => {
     switch (action.type) {
         case actionTypes.EDIT_GET_ARTICLE_STARTED: {
             return {
@@ -25,7 +30,8 @@ export default (state: EditState = { article: {}, status: 'loading' }, action: E
         case actionTypes.EDIT_GET_ARTICLE_SUCCESS: {
             return {
                 ...state,
-                article: action.api ? action.api.results : {},
+                article: action.api ? action.api.results.article : {},
+                categories: action.api ? action.api.results.categories : [],
                 status: 'success'
             }
         }

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Form, Input, Button, Row, Col, Select } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
 import { Article } from '../../../models/article'
+import { Category } from '../../../models/category'
 import 'highlight.js/styles/github.css'
 import marked from 'marked'
 import style from './index.less'
@@ -15,11 +16,14 @@ marked.setOptions({
 
 const FormItem = Form.Item
 const TextArea = Input.TextArea
+const Option = Select.Option
 
 interface Props extends FormComponentProps {
     article: Article
-    onSubmit: (value: ArtilceFormData) => any
+    categories: Category[]
+    onSubmit?: (value: ArtilceFormData) => any
     onFormValueChange?: (value: ArtilceFormData) => void
+    onCategorySelectFocus?: () => void
 }
 
 export interface ArtilceFormData {
@@ -29,24 +33,26 @@ export interface ArtilceFormData {
     content: string
     image: string
     author: string
-    origin: string
+    origin: string,
+    category: string
 }
 
 class ArticleForm extends React.Component<Props> {
-    constructor(props: Props) {
-        super(props)
-
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-
-    onSubmit(e: React.SyntheticEvent) {
+    onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
+        if (this.props.onSubmit === undefined) {
+            return
+        }
         const form: ArtilceFormData = this.props.form.getFieldsValue() as ArtilceFormData
         this.props.onSubmit(form)
     }
 
+    onCategorySelectFocus = () => {
+        this.props.onCategorySelectFocus && this.props.onCategorySelectFocus()
+    }
+
     render() {
-        const { article, form } = this.props
+        const { article, categories, form } = this.props
 
         const { getFieldDecorator } = form
         const formItemLayout = {
@@ -129,6 +135,32 @@ class ArticleForm extends React.Component<Props> {
                         </FormItem>
                         <FormItem
                             { ...formItemLayout }
+                            label="Category"
+                        >
+                            {
+                                getFieldDecorator('category', {
+                                    initialValue: article.category_id + '' || 'Category',
+                                    rules: [{ required: true, message: 'Category is required' }]
+                                })(
+                                    <Select
+                                        style={ { width: 120 } }
+                                        onFocus={ this.onCategorySelectFocus }
+                                    >
+                                        {
+                                            categories.map(category => (
+                                                <Option
+                                                    key={ category.id + '' }
+                                                >{ category.name }
+                                                </Option>
+                                            ))
+                                        }
+                                    </Select>
+                                )
+                            }
+                        </FormItem>
+
+                        { /* <FormItem
+                            { ...formItemLayout }
                             label="作者"
                         >
                             {
@@ -136,8 +168,8 @@ class ArticleForm extends React.Component<Props> {
                                     initialValue: article.author,
                                 })(<Input placeholder="作者" />)
                             }
-                        </FormItem>
-                        <FormItem
+                        </FormItem> */ }
+                        { /* <FormItem
                             { ...formItemLayout }
                             label="来源"
                         >
@@ -146,7 +178,7 @@ class ArticleForm extends React.Component<Props> {
                                     initialValue: article.origin,
                                 })(<Input placeholder="来源" />)
                             }
-                        </FormItem>
+                        </FormItem> */ }
                         <FormItem { ...tailFormItemLayout }>
                             <Button type="primary" htmlType="submit">提交</Button>
                         </FormItem>
@@ -165,6 +197,11 @@ class ArticleForm extends React.Component<Props> {
                 </Col>
             </Row>
         )
+    }
+
+    static defaultProps = {
+        article: {},
+        categories: []
     }
 }
 
