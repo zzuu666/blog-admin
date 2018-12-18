@@ -15,11 +15,11 @@ const columns: Array<ColumnProps<Article>> = [
         render: text => <a href="javascript:;">{ text }</a>
     },
     {
-        title: '文章标题',
+        title: 'Title',
         dataIndex: 'title'
     },
     {
-        title: '操作',
+        title: 'Options',
         key: 'action',
         render: (text, record) => (
             <span>
@@ -30,6 +30,10 @@ const columns: Array<ColumnProps<Article>> = [
                 <a href="javascript:;">删除</a>
             </span>
         )
+    },
+    {
+        title: 'Scan',
+        dataIndex: 'scan'
     }
 ]
 
