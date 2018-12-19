@@ -19,7 +19,7 @@ interface Props extends FormComponentProps, RouteComponentProps<RoutePathParams>
     status: 'loading' | 'success' | 'error'
     message?: string
     fetchArticle: (id: string) => void
-    updateArticle: (id: string, content: Article) => void,
+    updateArticle: (id: string, content: Article) => void
     cacheArticle: (artilce: Article) => void
 }
 

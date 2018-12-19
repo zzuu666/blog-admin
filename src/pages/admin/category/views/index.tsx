@@ -40,11 +40,16 @@ interface Props extends RouteComponentProps {
     fetchCategories: () => void
 }
 
-class CategoryList extends React.Component<Props> {
+class CategoryHome extends React.Component<Props> {
     render() {
         const { categories } = this.props
         return (
             <div>
+                <div>
+                    <Button type="primary">
+                        <Link to="/admin/category/create">新增</Link>
+                    </Button>
+                </div>
                 <Table
                     columns={ columns }
                     dataSource={ categories }
@@ -68,4 +73,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CategoryList))
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CategoryHome))

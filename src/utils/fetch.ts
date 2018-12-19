@@ -58,6 +58,8 @@ export const fetchWithRedux = <APIResponse extends APIBaseResponse>(payload: Fet
                 else {
                     dispatch(failure && failure(json))
                 }
+            }).catch(error => {
+                dispatch(failure && failure(error))
             })
         })
     }
