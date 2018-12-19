@@ -25,6 +25,8 @@ const Edit = lazy(() => import(/* webpackChunkName: "admin-edit" */'./edit/views
 const Create = lazy(() => import(/* webpackChunkName: "admin-create" */'./create/views/index'))
 // tslint:disable-next-line: space-in-parens
 const Category = lazy(() => import(/* webpackChunkName: "admin-category" */'./category/views/index'))
+// tslint:disable-next-line: space-in-parens
+const CategoryCreate = lazy(() => import(/* webpackChunkName: "admin-category" */'./categoryCreate/views/index'))
 
 const routerMap = [
     {
@@ -42,6 +44,10 @@ const routerMap = [
     {
         path: '/category',
         component: Category
+    },
+    {
+        path: '/category/create',
+        component: CategoryCreate
     }
 ]
 
