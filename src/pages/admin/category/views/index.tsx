@@ -24,7 +24,7 @@ const columns: Array<ColumnProps<Category>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={ `/admin/edit/${record.id}` }>编辑</Link>
+                <Link to={ `/admin/category/edit/${record.id}` }>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />

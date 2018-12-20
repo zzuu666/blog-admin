@@ -6,6 +6,7 @@ interface FetchPayload<T extends APIBaseResponse> {
     method: Method
     path: string
     params?: Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string
+    qs?: string | URLSearchParams | string[][] | Record<string, string> | undefined
     started?: () => void
     success?: (success: T) => any
     failure?: (error: T) => any,
@@ -29,13 +30,18 @@ export const fetchWithRedux = <APIResponse extends APIBaseResponse>(payload: Fet
         started,
         success,
         failure,
-        headers
+        headers,
+        qs,
     } = payload
     const method = payload.method ? payload.method : 'get'
     const path = payload.path[0] === '/' ? payload.path : `/${payload.path}`
     const authorizationHeader = localStorage.getItem('AUTH_TOKEN') || ''
 
-    const fetchUrl = `${fetchHost}/${apiRoute}/${apiVersion}${path}`
+    const fetchUrl = new URL(`${fetchHost}/${apiRoute}/${apiVersion}${path}`)
+    if (qs !== undefined) {
+        const search = new URLSearchParams(qs)
+        fetchUrl.search = search.toString()
+    }
     const fetchHeaders: Headers = headers || new Headers({
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
@@ -46,7 +52,7 @@ export const fetchWithRedux = <APIResponse extends APIBaseResponse>(payload: Fet
     })
     return (dispatch: any) => {
         dispatch(started && started())
-        fetch(fetchUrl, {
+        fetch(fetchUrl.href, {
             method,
             body: params || null,
             headers: fetchHeaders

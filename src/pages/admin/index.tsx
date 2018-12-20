@@ -17,16 +17,14 @@ import { fetchStatus } from '../../utils/fetch'
 const { Content, Sider } = Layout
 const { lazy, Suspense } = React
 
-// tslint:disable-next-line: space-in-parens
+// tslint:disable space-in-parens
 const Home = lazy(() => import(/* webpackChunkName: "admin-home" */'./home/views/index'))
-// tslint:disable-next-line: space-in-parens
 const Edit = lazy(() => import(/* webpackChunkName: "admin-edit" */'./edit/views/index'))
-// tslint:disable-next-line: space-in-parens
 const Create = lazy(() => import(/* webpackChunkName: "admin-create" */'./create/views/index'))
-// tslint:disable-next-line: space-in-parens
 const Category = lazy(() => import(/* webpackChunkName: "admin-category" */'./category/views/index'))
-// tslint:disable-next-line: space-in-parens
-const CategoryCreate = lazy(() => import(/* webpackChunkName: "admin-category" */'./categoryCreate/views/index'))
+const CategoryCreate = lazy(() => import(/* webpackChunkName: "admin-category-create" */'./categoryCreate/views/index'))
+const CategoryEdit = lazy(() => import(/* webpackChunkName: "admin-category-edit" */'./categoryEdit/views/index'))
+// tslint:enable space-in-parens
 
 const routerMap = [
     {
@@ -48,6 +46,10 @@ const routerMap = [
     {
         path: '/category/create',
         component: CategoryCreate
+    },
+    {
+        path: '/category/edit/:id',
+        component: CategoryEdit
     }
 ]
 

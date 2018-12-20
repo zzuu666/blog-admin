@@ -5,13 +5,13 @@ import { Category } from '../../../models/category'
 
 export interface CategoryCreateState {
     status: fetchStatus,
-    catecory: Category
+    category: Category
 }
 
 export default (
     state: CategoryCreateState = {
         status: fetchStatus.SUCCESS,
-        catecory: {
+        category: {
             id: -1,
             desc: '',
             name: '',

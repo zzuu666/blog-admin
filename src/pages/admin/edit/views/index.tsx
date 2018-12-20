@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
 import { fetchArticle, updateArticle, cacheArticle } from '../actions'
 import { Spin, message } from 'antd'
-import { FormComponentProps } from 'antd/es/form'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
 import { Category } from '../../../../models/category'
@@ -13,7 +12,7 @@ interface RoutePathParams {
     id: string
 }
 
-interface Props extends FormComponentProps, RouteComponentProps<RoutePathParams> {
+interface Props extends RouteComponentProps<RoutePathParams> {
     article: Article,
     categories: Category[],
     status: 'loading' | 'success' | 'error'

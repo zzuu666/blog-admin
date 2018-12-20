@@ -7,6 +7,7 @@ import editReducer, { EditState } from './pages/admin/edit/reducer'
 import createReducer, { CreateState } from './pages/admin/create/reducer'
 import categoryReducer, { CategoryState } from './pages/admin/category/reducer'
 import categoryCreateReducer, { CategoryCreateState } from './pages/admin/categoryCreate/reducer'
+import categoryEditReducer, { CategoryEditState } from './pages/admin/categoryEdit/reducer'
 import adminReducer, { AdminState } from './pages/admin/reducer'
 import loginReducer, { LoginState } from './pages/login/reducer'
 
@@ -17,7 +18,8 @@ export interface StoreState {
     login: LoginState
     create: CreateState,
     category: CategoryState,
-    categoryCreate: CategoryCreateState
+    categoryCreate: CategoryCreateState,
+    categoryEdit: CategoryEditState
 }
 
 const reducer: Reducer<StoreState> = combineReducers<StoreState>({
@@ -27,7 +29,8 @@ const reducer: Reducer<StoreState> = combineReducers<StoreState>({
     login: loginReducer,
     create: createReducer,
     category: categoryReducer,
-    categoryCreate: categoryCreateReducer
+    categoryCreate: categoryCreateReducer,
+    categoryEdit: categoryEditReducer
 })
 
 const middlewares: [Middleware] = [thunkMiddleware]

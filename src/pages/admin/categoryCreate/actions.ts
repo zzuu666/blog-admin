@@ -19,7 +19,7 @@ export const categoryCreateFailure = (api: APIBaseResponse): CategoryCreateActio
 
 export const categoryCreateSuccess = (api: APIBaseResponse): CategoryCreateAction => ({
     api,
-    type: actionTypes.CATEGORY_CREATE_POST_FAILURE
+    type: actionTypes.CATEGORY_CREATE_POST_SUCCESS
 })
 
 export const categorySetCache = (category: Category): CategoryCreateAction => ({

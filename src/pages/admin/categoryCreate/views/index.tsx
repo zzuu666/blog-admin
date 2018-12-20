@@ -34,6 +34,7 @@ class CategoryCreate extends React.Component<Props> {
                     <Row>
                         <Col offset={ 6 } span={ 12 }>
                             <CategoryForm
+                                model="create"
                                 category={ category }
                                 onSubmit={ this.onFormSubmit }
                                 onFormValueChange={ this.onFormValueChange }
@@ -47,7 +48,7 @@ class CategoryCreate extends React.Component<Props> {
 }
 
 const mapStatetoProps = (state: StoreState) => ({
-    category: state.categoryCreate.catecory,
+    category: state.categoryCreate.category,
     status: state.categoryCreate.status
 })
 
