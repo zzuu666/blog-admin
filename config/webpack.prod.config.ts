@@ -4,7 +4,6 @@ import * as path from 'path'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import * as CleanWebpackPlugin from 'clean-webpack-plugin'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import * as autoprefixer from 'autoprefixer'
 import commonConfig from './webpack.common.config'
 
@@ -83,9 +82,6 @@ const config: webpack.Configuration = merge(commonConfig, {
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new CleanWebpackPlugin([path.resolve(__dirname, '..', 'dist')], { root: path.resolve(__dirname, '..') }),
-        new BundleAnalyzerPlugin({
-            openAnalyzer: false
-        }),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             chunkFilename: '[name].[chunkhash].css'
