@@ -46,9 +46,10 @@ const CategoryFeaturedIdFormItem = (
                 })(
                     <Select
                         showSearch
+                        showArrow={ false }
+                        filterOption={ false }
                         onSearch={ onFeatureIdSelectSearch }
                         placeholder="Select Category Featured"
-                        notFoundContent={ null }
                     >
                         { options }
                     </Select>
