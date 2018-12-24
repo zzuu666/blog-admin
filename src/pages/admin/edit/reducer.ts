@@ -32,6 +32,7 @@ export default (
                 ...state,
                 article: action.api ? action.api.results.article : {},
                 categories: action.api ? action.api.results.categories : [],
+                message: undefined,
                 status: 'success'
             }
         }
