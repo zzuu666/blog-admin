@@ -75,8 +75,8 @@ const config: webpack.Configuration = merge(commonConfig, {
     // },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html.erb',
-            filename: 'index.html.erb'
+            template: './src/index.html',
+            filename: 'index.html'
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
