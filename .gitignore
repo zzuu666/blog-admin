@@ -140,3 +140,6 @@ package-lock.json
 
 # production env output
 /dist
+
+# auto generate tmp files
+/scripts/tmp
