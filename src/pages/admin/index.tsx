@@ -77,7 +77,7 @@ const ProtectedComponent = (match: match): JSX.Element => (
             </Menu>
         </Sider>
         <Layout>
-            <Content style={ { margin: '24px 16px 0', overflow: 'initial' } }>
+            <Content style={ { margin: '24px 16px 0', overflow: 'initial', minHeight: '100vh' } }>
                 <Suspense fallback={ <div>Loading...</div> }>
                     <Switch>
                     {
