@@ -36,7 +36,7 @@ class ModelTemplate {
         catch (err) {
             fs.mkdirSync(output)
         }
-        shell.cp(path.join(__dirname, '../templates/model.template'), outputFile)
+        shell.cp(path.join(__dirname, '../templates/model.ts'), outputFile)
         shell.sed('-i', '<%= name %>', toPascalCase(schema.model), outputFile)
         shell.sed('-i', '<%= properties %>', this.generateExportContent(schema.properties), outputFile)
     }

@@ -2,6 +2,8 @@ import { Schema } from '../types/schema'
 
 const schema: Schema = {
     model: 'user',
+    plural: 'users',
+    prefixPath: '/admin',
     properties: [
         {
             name: 'nickname',

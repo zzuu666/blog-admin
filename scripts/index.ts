@@ -1,6 +1,7 @@
 import User from './schemas/user'
 import config from './config'
 import ModelGenerator from './generators/model'
+import ListGenerator from './generators/list'
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -20,4 +21,10 @@ const modelGenerator = new ModelGenerator({
     schema: User
 })
 
+const listGenerator = new ListGenerator({
+    golbalConfig: config,
+    schema: User
+})
+
 modelGenerator.generateFile()
+listGenerator.generateFile()

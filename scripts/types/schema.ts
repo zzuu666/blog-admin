@@ -6,5 +6,7 @@ export interface Property {
 
 export interface Schema {
     model: string
+    prefixPath: string
+    plural: string
     properties: Property[]
 }
