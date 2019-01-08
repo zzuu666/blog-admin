@@ -47,7 +47,9 @@ export default (
         case actionTypes.CATEGORY_EDIT_FEATURED_SUCCESS: {
             return {
                 ...state,
-                categoryFeatures: action.featuredApi ? action.featuredApi.results : []
+                categoryFeatures: action.featuredApi
+                    ? action.featuredApi.results
+                    : []
             }
         }
         default: {

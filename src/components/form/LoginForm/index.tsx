@@ -24,37 +24,61 @@ class LoginForm extends React.Component<Props> {
         const { form } = this.props
         const { getFieldDecorator } = form
         return (
-            <Form onSubmit={ this.onSubmit }>
+            <Form onSubmit={this.onSubmit}>
                 <FormItem>
-                    { getFieldDecorator('email', {
-                        rules: [{ required: true, message: 'Please input your email!' }],
+                    {getFieldDecorator('email', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your email!'
+                            }
+                        ]
                     })(
                         <Input
-                            prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
+                            prefix={
+                                <Icon
+                                    type="user"
+                                    style={{ color: 'rgba(0,0,0,.25)' }}
+                                />
+                            }
                             placeholder="Username"
                         />
-                    ) }
+                    )}
                 </FormItem>
                 <FormItem>
-                    { getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    {getFieldDecorator('password', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your Password!'
+                            }
+                        ]
                     })(
                         <Input
-                            prefix={ <Icon type="lock" style={ { color: 'rgba(0,0,0,.25)' } } /> }
+                            prefix={
+                                <Icon
+                                    type="lock"
+                                    style={{ color: 'rgba(0,0,0,.25)' }}
+                                />
+                            }
                             type="password"
                             placeholder="Password"
                         />
-                    ) }
+                    )}
                 </FormItem>
                 <FormItem>
-                    { getFieldDecorator('remember', {
+                    {getFieldDecorator('remember', {
                         valuePropName: 'checked',
-                        initialValue: true,
-                    })(
-                        <Checkbox>Remember me</Checkbox>
-                    ) }
-                    <a className="login-form-forgot" href="">Forgot password</a>
-                    <Button type="primary" htmlType="submit" style={ { width: '100%' } }>
+                        initialValue: true
+                    })(<Checkbox>Remember me</Checkbox>)}
+                    <a className="login-form-forgot" href="">
+                        Forgot password
+                    </a>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        style={{ width: '100%' }}
+                    >
                         Log in
                     </Button>
                     Or <a href="">register now!</a>

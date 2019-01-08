@@ -13,7 +13,7 @@ const columns: Array<ColumnProps<Category>> = [
     {
         title: 'ID',
         dataIndex: 'id',
-        render: text => <a href="javascript:;">{ text }</a>
+        render: text => <a href="javascript:;">{text}</a>
     },
     {
         title: 'Category Name',
@@ -24,7 +24,7 @@ const columns: Array<ColumnProps<Category>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={ `/admin/category/edit/${record.id}` }>编辑</Link>
+                <Link to={`/admin/category/edit/${record.id}`}>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />
@@ -50,11 +50,7 @@ class CategoryHome extends React.Component<Props> {
                         <Link to="/admin/category/create">新增</Link>
                     </Button>
                 </div>
-                <Table
-                    columns={ columns }
-                    dataSource={ categories }
-                    rowKey="id"
-                />
+                <Table columns={columns} dataSource={categories} rowKey="id" />
             </div>
         )
     }
@@ -73,4 +69,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CategoryHome))
+export default withRouter(
+    connect(
+        mapStatetoProps,
+        mapDispatchToProps
+    )(CategoryHome)
+)

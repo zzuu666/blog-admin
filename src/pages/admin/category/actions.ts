@@ -1,14 +1,18 @@
 import { actionTypes } from './actionTypes'
 import { Category } from '../../../models/category'
-import { fetchStatus, fetchWithRedux, APIBaseResponse } from '../../../utils/fetch'
+import {
+    fetchStatus,
+    fetchWithRedux,
+    APIBaseResponse
+} from '../../../utils/fetch'
 
 interface CategoryAPI extends APIBaseResponse {
     results: Category[]
 }
 
 export interface CategoryAction {
-    type: actionTypes,
-    status: fetchStatus,
+    type: actionTypes
+    status: fetchStatus
     api?: CategoryAPI
 }
 

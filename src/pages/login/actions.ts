@@ -6,7 +6,7 @@ export interface APIResponse extends APIBaseResponse {
 }
 
 export interface LoginAction {
-    type: actionTypes,
+    type: actionTypes
     api?: APIResponse
 }
 

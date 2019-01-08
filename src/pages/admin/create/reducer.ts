@@ -6,12 +6,16 @@ import { CreateAction } from './actions'
 
 export interface CreateState {
     status: fetchStatus
-    article: Article,
+    article: Article
     categories: Category[]
 }
 
 export default (
-    state: CreateState = { status: fetchStatus.SUCCESS, article: {}, categories: [] },
+    state: CreateState = {
+        status: fetchStatus.SUCCESS,
+        article: {},
+        categories: []
+    },
     action: CreateAction
 ): CreateState => {
     switch (action.type) {
@@ -42,7 +46,7 @@ export default (
         case actionTypes.CREATE_ARTICLE_GET_ATEGORY_STARTED: {
             return {
                 ...state,
-                status: fetchStatus.LOADING,
+                status: fetchStatus.LOADING
             }
         }
         case actionTypes.CREATE_ARTICLE_GET_ATEGORY_FAILURE: {

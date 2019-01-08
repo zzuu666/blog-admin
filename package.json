@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node -P ./tsconfig.webpack.json ./server.ts",
     "lint": "tslint -p . -t stylish",
-    "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack --config ./config/webpack.prod.config.ts"
+    "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack --config ./config/webpack.prod.config.ts",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,less}\""
   },
   "keywords": [],
   "author": "",
@@ -48,6 +49,7 @@
     "opn": "^5.4.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
+    "prettier": "1.15.3",
     "react-loadable": "^5.5.0",
     "redux-devtools-extension": "^2.13.7",
     "style-loader": "^0.23.1",

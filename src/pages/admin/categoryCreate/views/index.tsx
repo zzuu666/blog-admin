@@ -6,7 +6,9 @@ import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Category } from '../../../../models/category'
-import CategoryForm, { CategoryFormData } from '../../../../components/form/CategoryForm'
+import CategoryForm, {
+    CategoryFormData
+} from '../../../../components/form/CategoryForm'
 import { Spin, Col, Row } from 'antd'
 
 interface Props extends RouteComponentProps {
@@ -25,19 +27,19 @@ class CategoryCreate extends React.Component<Props> {
         this.props.categorySetCache(value)
     }
 
-    render () {
+    render() {
         const { category, status } = this.props
         return (
             <div>
                 <h2>Category Create</h2>
-                <Spin spinning={ status === fetchStatus.LOADING }>
+                <Spin spinning={status === fetchStatus.LOADING}>
                     <Row>
-                        <Col offset={ 6 } span={ 12 }>
+                        <Col offset={6} span={12}>
                             <CategoryForm
                                 model="create"
-                                category={ category }
-                                onSubmit={ this.onFormSubmit }
-                                onFormValueChange={ this.onFormValueChange }
+                                category={category}
+                                onSubmit={this.onFormSubmit}
+                                onFormValueChange={this.onFormValueChange}
                             />
                         </Col>
                     </Row>
@@ -61,4 +63,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CategoryCreate))
+export default withRouter(
+    connect(
+        mapStatetoProps,
+        mapDispatchToProps
+    )(CategoryCreate)
+)

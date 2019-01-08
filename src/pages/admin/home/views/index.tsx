@@ -12,7 +12,7 @@ const columns: Array<ColumnProps<Article>> = [
     {
         title: 'ID',
         dataIndex: 'id',
-        render: text => <a href="javascript:;">{ text }</a>
+        render: text => <a href="javascript:;">{text}</a>
     },
     {
         title: 'Title',
@@ -23,7 +23,7 @@ const columns: Array<ColumnProps<Article>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={ `/admin/edit/${record.id}` }>编辑</Link>
+                <Link to={`/admin/edit/${record.id}`}>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />
@@ -47,17 +47,13 @@ class Home extends React.Component<Props> {
     render() {
         const { articles } = this.props
         return (
-            <div className={ style.home }>
-                <div className={ style['home-header'] }>
+            <div className={style.home}>
+                <div className={style['home-header']}>
                     <Button type="primary">
                         <Link to="/admin/create">新增</Link>
                     </Button>
                 </div>
-                <Table
-                    columns={ columns }
-                    dataSource={ articles }
-                    rowKey="id"
-                />
+                <Table columns={columns} dataSource={articles} rowKey="id" />
             </div>
         )
     }
@@ -78,4 +74,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Home)
+)

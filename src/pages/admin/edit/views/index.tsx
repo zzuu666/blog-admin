@@ -6,15 +6,17 @@ import { Spin, message } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
 import { Category } from '../../../../models/category'
-import ArticleForm, { ArtilceFormData } from '../../../../components/form/ArticleForm'
+import ArticleForm, {
+    ArtilceFormData
+} from '../../../../components/form/ArticleForm'
 
 interface RoutePathParams {
     id: string
 }
 
 interface Props extends RouteComponentProps<RoutePathParams> {
-    article: Article,
-    categories: Category[],
+    article: Article
+    categories: Category[]
     status: 'loading' | 'success' | 'error'
     message?: string
     fetchArticle: (id: string) => void
@@ -46,17 +48,17 @@ class Edit extends React.Component<Props> {
         this.props.cacheArticle(article)
     }
 
-    render () {
+    render() {
         const { article, status, categories } = this.props
         return (
             <div>
-                <h2>编辑 { article.title }</h2>
-                <Spin spinning={ status === 'loading' }>
+                <h2>编辑 {article.title}</h2>
+                <Spin spinning={status === 'loading'}>
                     <ArticleForm
-                        categories={ categories }
-                        article={ article }
-                        onSubmit={ this.handleSubmit }
-                        onFormValueChange={ this.handleFormValueChange }
+                        categories={categories}
+                        article={article}
+                        onSubmit={this.handleSubmit}
+                        onFormValueChange={this.handleFormValueChange}
                     />
                 </Spin>
             </div>
@@ -66,7 +68,10 @@ class Edit extends React.Component<Props> {
         this.props.fetchArticle(this.props.match.params.id)
     }
     shouldComponentUpdate(props: Props) {
-        const showSuccessMessage = this.props.status === 'loading' && props.status === 'success' && props.message
+        const showSuccessMessage =
+            this.props.status === 'loading' &&
+            props.status === 'success' &&
+            props.message
         if (showSuccessMessage) {
             message.success(props.message)
         }
@@ -93,4 +98,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Edit))
+export default withRouter(
+    connect(
+        mapStatetoProps,
+        mapDispatchToProps
+    )(Edit)
+)

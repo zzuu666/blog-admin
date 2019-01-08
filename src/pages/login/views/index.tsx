@@ -11,11 +11,10 @@ import LoginForm, { LoginFormData } from '../../../components/form/LoginForm'
 const { Content } = Layout
 
 interface Props extends FormComponentProps, RouteComponentProps {
-    token: string,
+    token: string
     fetchLogin: (email: string, password: string) => void
 }
 class Login extends React.Component<Props> {
-
     handleSubmit = (value: LoginFormData) => {
         const { email, password } = value
         this.props.fetchLogin(email, password)
@@ -24,9 +23,9 @@ class Login extends React.Component<Props> {
     render() {
         return (
             <Content>
-                <Row className={ style['login-main'] }>
-                    <Col offset={ 9 } span={ 6 }>
-                        <LoginForm onSubmit={ this.handleSubmit } />
+                <Row className={style['login-main']}>
+                    <Col offset={9} span={6}>
+                        <LoginForm onSubmit={this.handleSubmit} />
                     </Col>
                 </Row>
             </Content>
@@ -52,4 +51,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Login)
+)

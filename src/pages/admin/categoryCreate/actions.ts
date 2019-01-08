@@ -12,12 +12,16 @@ export const categoryCreateStarted = (): CategoryCreateAction => ({
     type: actionTypes.CATEGORY_CREATE_POST_STARTED
 })
 
-export const categoryCreateFailure = (api: APIBaseResponse): CategoryCreateAction => ({
+export const categoryCreateFailure = (
+    api: APIBaseResponse
+): CategoryCreateAction => ({
     api,
     type: actionTypes.CATEGORY_CREATE_POST_FAILURE
 })
 
-export const categoryCreateSuccess = (api: APIBaseResponse): CategoryCreateAction => ({
+export const categoryCreateSuccess = (
+    api: APIBaseResponse
+): CategoryCreateAction => ({
     api,
     type: actionTypes.CATEGORY_CREATE_POST_SUCCESS
 })

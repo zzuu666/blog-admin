@@ -12,7 +12,9 @@ import { fetchStatus } from '../../../../utils/fetch'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Category } from '../../../../models/category'
 import { Article } from '../../../../models/article'
-import CategoryForm, { CategoryFormData } from '../../../../components/form/CategoryForm'
+import CategoryForm, {
+    CategoryFormData
+} from '../../../../components/form/CategoryForm'
 import { Spin, Col, Row } from 'antd'
 import debounce from 'lodash.debounce'
 
@@ -50,21 +52,24 @@ class CategoryCreate extends React.Component<Props> {
         this.props.categoryEditGet(id)
     }
 
-    render () {
+    render() {
         const { category, status, categoryFeatures } = this.props
         return (
             <div>
                 <h2>Category Create</h2>
-                <Spin spinning={ status === fetchStatus.LOADING }>
+                <Spin spinning={status === fetchStatus.LOADING}>
                     <Row>
-                        <Col offset={ 6 } span={ 12 }>
+                        <Col offset={6} span={12}>
                             <CategoryForm
                                 model="edit"
-                                category={ category }
-                                categoryFeatures={ categoryFeatures }
-                                onSubmit={ this.onFormSubmit }
-                                onFormValueChange={ this.onFormValueChange }
-                                onFeatureIdSelectSearch={ debounce(this.onFeatureIdSelectSearch, 400) }
+                                category={category}
+                                categoryFeatures={categoryFeatures}
+                                onSubmit={this.onFormSubmit}
+                                onFormValueChange={this.onFormValueChange}
+                                onFeatureIdSelectSearch={debounce(
+                                    this.onFeatureIdSelectSearch,
+                                    400
+                                )}
                             />
                         </Col>
                     </Row>
@@ -95,4 +100,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CategoryCreate))
+export default withRouter(
+    connect(
+        mapStatetoProps,
+        mapDispatchToProps
+    )(CategoryCreate)
+)

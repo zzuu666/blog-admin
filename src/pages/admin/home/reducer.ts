@@ -5,7 +5,7 @@ import { Article } from '../../../models/article'
 export interface HomeState {
     articles: Article[]
     total: number
-    status: 'success' | 'loading' | 'error',
+    status: 'success' | 'loading' | 'error'
     error: number
 }
 export default (
@@ -16,14 +16,14 @@ export default (
         case actionTypes.HOME_GET_ARTICLES_SUCCESS: {
             return {
                 ...state,
-                articles: action.api && action.api.results || []
+                articles: (action.api && action.api.results) || []
             }
         }
         case actionTypes.HOME_GET_ARTICLES_FAILURE: {
             return {
                 ...state,
                 status: 'error',
-                error: action.api && action.api.error || -1
+                error: (action.api && action.api.error) || -1
             }
         }
         case actionTypes.HOME_GET_ARTICLES_STARTED: {

@@ -2,24 +2,29 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
-import { createArticle, createArticleSetCache, createArticleGetCategory } from '../actions'
+import {
+    createArticle,
+    createArticleSetCache,
+    createArticleGetCategory
+} from '../actions'
 import { Spin } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
 import { Category } from '../../../../models/category'
-import ArticleForm, { ArtilceFormData } from '../../../../components/form/ArticleForm'
+import ArticleForm, {
+    ArtilceFormData
+} from '../../../../components/form/ArticleForm'
 
 interface Props extends RouteComponentProps {
     article: Article
     status: fetchStatus
     categories: Category[]
-    postCreateArticle: (article: Article) => void,
-    createArticleSetCache: (article: Article) => void,
+    postCreateArticle: (article: Article) => void
+    createArticleSetCache: (article: Article) => void
     createArticleGetCategory: () => void
 }
 
 class CreateArticle extends React.Component<Props> {
-
     constructor(props: Props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -48,17 +53,17 @@ class CreateArticle extends React.Component<Props> {
         this.props.createArticleGetCategory()
     }
 
-    render () {
+    render() {
         const { article, status, categories } = this.props
         return (
             <div>
                 <h2>新建文章</h2>
-                <Spin spinning={ status === fetchStatus.LOADING }>
+                <Spin spinning={status === fetchStatus.LOADING}>
                     <ArticleForm
-                        article={ article }
-                        categories={ categories }
-                        onSubmit={ this.handleSubmit }
-                        onFormValueChange={ this.handleFormValueChange }
+                        article={article}
+                        categories={categories}
+                        onSubmit={this.handleSubmit}
+                        onFormValueChange={this.handleFormValueChange}
                     />
                 </Spin>
             </div>
@@ -84,4 +89,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(CreateArticle))
+export default withRouter(
+    connect(
+        mapStatetoProps,
+        mapDispatchToProps
+    )(CreateArticle)
+)

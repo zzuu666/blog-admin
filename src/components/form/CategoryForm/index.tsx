@@ -31,30 +31,29 @@ const CategoryFeaturedIdFormItem = (
     const { getFieldDecorator } = form
 
     const options = categoryFeatures
-        ? categoryFeatures.map(sug => (<Option key={ sug.id + '' }>{ sug.title }</Option>))
+        ? categoryFeatures.map(sug => (
+              <Option key={sug.id + ''}>{sug.title}</Option>
+          ))
         : null
 
     return (
-        <FormItem
-            { ...formItemLayout }
-            label="Category Featured"
-        >
-            {
-                getFieldDecorator('featured_id', {
-                    initialValue: category.featured_id,
-                    rules: [{ required: true, message: 'Category Key is required!' }]
-                })(
-                    <Select
-                        showSearch
-                        showArrow={ false }
-                        filterOption={ false }
-                        onSearch={ onFeatureIdSelectSearch }
-                        placeholder="Select Category Featured"
-                    >
-                        { options }
-                    </Select>
-                )
-            }
+        <FormItem {...formItemLayout} label="Category Featured">
+            {getFieldDecorator('featured_id', {
+                initialValue: category.featured_id,
+                rules: [
+                    { required: true, message: 'Category Key is required!' }
+                ]
+            })(
+                <Select
+                    showSearch
+                    showArrow={false}
+                    filterOption={false}
+                    onSearch={onFeatureIdSelectSearch}
+                    placeholder="Select Category Featured"
+                >
+                    {options}
+                </Select>
+            )}
         </FormItem>
     )
 }
@@ -67,7 +66,8 @@ class CategoryForm extends React.Component<Props> {
     }
 
     onFeatureIdSelectSearch = (value: string) => {
-        this.props.onFeatureIdSelectSearch && this.props.onFeatureIdSelectSearch(value)
+        this.props.onFeatureIdSelectSearch &&
+            this.props.onFeatureIdSelectSearch(value)
     }
 
     render() {
@@ -83,57 +83,61 @@ class CategoryForm extends React.Component<Props> {
             wrapperCol: {
                 xs: {
                     span: 24,
-                    offset: 0,
+                    offset: 0
                 },
                 sm: {
                     span: 18,
-                    offset: 6,
+                    offset: 6
                 }
             }
         }
 
         return (
-            <Form onSubmit={ this.onSubmit }>
-                <FormItem
-                    { ...formItemLayout }
-                    label="Category Name"
-                >
-                    {
-                        getFieldDecorator('name', {
-                            initialValue: category.name,
-                            rules: [{ required: true, message: 'Category Name is required!' }]
-                        })(<Input placeholder="Category Name" />)
-                    }
+            <Form onSubmit={this.onSubmit}>
+                <FormItem {...formItemLayout} label="Category Name">
+                    {getFieldDecorator('name', {
+                        initialValue: category.name,
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Category Name is required!'
+                            }
+                        ]
+                    })(<Input placeholder="Category Name" />)}
                 </FormItem>
-                <FormItem
-                    { ...formItemLayout }
-                    label="Category Desc"
-                >
-                    {
-                        getFieldDecorator('desc', {
-                            initialValue: category.desc,
-                            rules: [{ required: true, message: 'Category Desc is required!' }]
-                        })(<Input placeholder="Category Desc" />)
-                    }
+                <FormItem {...formItemLayout} label="Category Desc">
+                    {getFieldDecorator('desc', {
+                        initialValue: category.desc,
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Category Desc is required!'
+                            }
+                        ]
+                    })(<Input placeholder="Category Desc" />)}
                 </FormItem>
-                <FormItem
-                    { ...formItemLayout }
-                    label="Category Key"
-                >
-                    {
-                        getFieldDecorator('key', {
-                            initialValue: category.key,
-                            rules: [{ required: true, message: 'Category Key is required!' }]
-                        })(<Input placeholder="Category Key" />)
-                    }
+                <FormItem {...formItemLayout} label="Category Key">
+                    {getFieldDecorator('key', {
+                        initialValue: category.key,
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Category Key is required!'
+                            }
+                        ]
+                    })(<Input placeholder="Category Key" />)}
                 </FormItem>
-                {
-                    model === 'edit'
-                        ? CategoryFeaturedIdFormItem(this.props, formItemLayout, this.onFeatureIdSelectSearch)
-                        : null
-                }
-                <FormItem { ...tailFormItemLayout }>
-                    <Button type="primary" htmlType="submit">提交</Button>
+                {model === 'edit'
+                    ? CategoryFeaturedIdFormItem(
+                          this.props,
+                          formItemLayout,
+                          this.onFeatureIdSelectSearch
+                      )
+                    : null}
+                <FormItem {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">
+                        提交
+                    </Button>
                 </FormItem>
             </Form>
         )
@@ -141,7 +145,11 @@ class CategoryForm extends React.Component<Props> {
 }
 
 export default Form.create({
-    onValuesChange: (props: Props, changedValues, allValues: CategoryFormData) => {
+    onValuesChange: (
+        props: Props,
+        changedValues,
+        allValues: CategoryFormData
+    ) => {
         props.onFormValueChange && props.onFormValueChange(allValues)
     }
 })(CategoryForm)

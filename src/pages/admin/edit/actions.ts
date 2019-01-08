@@ -5,7 +5,7 @@ import { Category } from '../../../models/category'
 
 interface APIResponse extends APIBaseResponse {
     results: {
-        article: Article,
+        article: Article
         categories: Category[]
     }
 }

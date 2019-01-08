@@ -23,12 +23,16 @@ export const categoryEditGetStarted = (): CategoryEditAction => ({
     type: actionTypes.CATEGORY_EDIT_GET_STARTED
 })
 
-export const categoryEditGetFailure = (api: GetAPIResponse): CategoryEditAction => ({
+export const categoryEditGetFailure = (
+    api: GetAPIResponse
+): CategoryEditAction => ({
     api,
     type: actionTypes.CATEGORY_EDIT_GET_FAILURE
 })
 
-export const categoryEditGetSuccess = (api: GetAPIResponse): CategoryEditAction => ({
+export const categoryEditGetSuccess = (
+    api: GetAPIResponse
+): CategoryEditAction => ({
     api,
     type: actionTypes.CATEGORY_EDIT_GET_SUCCESS
 })
@@ -37,12 +41,16 @@ export const categoryEditPostStarted = (): CategoryEditAction => ({
     type: actionTypes.CATEGORY_EDIT_POST_STARTED
 })
 
-export const categoryEditPostFailure = (api: GetAPIResponse): CategoryEditAction => ({
+export const categoryEditPostFailure = (
+    api: GetAPIResponse
+): CategoryEditAction => ({
     api,
     type: actionTypes.CATEGORY_EDIT_POST_FAILURE
 })
 
-export const categoryEditPostSuccess = (api: GetAPIResponse): CategoryEditAction => ({
+export const categoryEditPostSuccess = (
+    api: GetAPIResponse
+): CategoryEditAction => ({
     api,
     type: actionTypes.CATEGORY_EDIT_POST_SUCCESS
 })
@@ -51,23 +59,28 @@ export const categoryEditFeaturedStarted = (): CategoryEditAction => ({
     type: actionTypes.CATEGORY_EDIT_FEATURED_STARTED
 })
 
-export const categoryEditFeaturedFailure = (featuredApi: FeaturedAPIResponse): CategoryEditAction => ({
+export const categoryEditFeaturedFailure = (
+    featuredApi: FeaturedAPIResponse
+): CategoryEditAction => ({
     featuredApi,
     type: actionTypes.CATEGORY_EDIT_FEATURED_FAILURE
 })
 
-export const categoryEditFeaturedSuccess = (featuredApi: FeaturedAPIResponse): CategoryEditAction => ({
+export const categoryEditFeaturedSuccess = (
+    featuredApi: FeaturedAPIResponse
+): CategoryEditAction => ({
     featuredApi,
     type: actionTypes.CATEGORY_EDIT_FEATURED_SUCCESS
 })
 
-export const categoryEditCacheSuccess = (category: Category): CategoryEditAction => ({
+export const categoryEditCacheSuccess = (
+    category: Category
+): CategoryEditAction => ({
     category,
     type: actionTypes.CATEGORY_EDIT_CACHE_SUCCESS
 })
 
 export const categoryEditGet = (id: string) => {
-
     return fetchWithRedux({
         method: 'get',
         path: `/categories/${id}`,

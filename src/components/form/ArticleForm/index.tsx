@@ -9,7 +9,7 @@ import style from './index.less'
 import Image from '../../image/index'
 
 marked.setOptions({
-    highlight (code) {
+    highlight(code) {
         return require('highlight.js').highlightAuto(code).value
     }
 })
@@ -33,7 +33,7 @@ export interface ArtilceFormData {
     content: string
     image: string
     author: string
-    origin: string,
+    origin: string
     category: string
 }
 
@@ -63,103 +63,96 @@ class ArticleForm extends React.Component<Props> {
             wrapperCol: {
                 xs: {
                     span: 24,
-                    offset: 0,
+                    offset: 0
                 },
                 sm: {
                     span: 18,
-                    offset: 6,
+                    offset: 6
                 }
             }
         }
 
         return (
-            <Row gutter={ 32 }>
-                <Col span={ 12 }>
-                    <Form onSubmit={ this.onSubmit }>
-                        <FormItem
-                            { ...formItemLayout }
-                            label="文章标题"
-                        >
-                            {
-                                getFieldDecorator('title', {
-                                    initialValue: article.title,
-                                    rules: [{ required: true, message: '文章标题不能为空' }]
-                                })(<Input placeholder="文章标题" />)
-                            }
+            <Row gutter={32}>
+                <Col span={12}>
+                    <Form onSubmit={this.onSubmit}>
+                        <FormItem {...formItemLayout} label="文章标题">
+                            {getFieldDecorator('title', {
+                                initialValue: article.title,
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: '文章标题不能为空'
+                                    }
+                                ]
+                            })(<Input placeholder="文章标题" />)}
                         </FormItem>
-                        <FormItem
-                            { ...formItemLayout }
-                            label="文章描述"
-                        >
-                            {
-                                getFieldDecorator('desc', {
-                                    initialValue: article.desc,
-                                })(<Input placeholder="文章描述" />)
-                            }
+                        <FormItem {...formItemLayout} label="文章描述">
+                            {getFieldDecorator('desc', {
+                                initialValue: article.desc
+                            })(<Input placeholder="文章描述" />)}
                         </FormItem>
-                        <FormItem
-                            { ...formItemLayout }
-                            label="文章标签"
-                        >
-                            {
-                                getFieldDecorator('tags', {
-                                    initialValue: article.tags && article.tags.split(','),
-                                })(<Select
+                        <FormItem {...formItemLayout} label="文章标签">
+                            {getFieldDecorator('tags', {
+                                initialValue:
+                                    article.tags && article.tags.split(',')
+                            })(
+                                <Select
                                     mode="tags"
-                                    style={ { width: '100%' } }
-                                    tokenSeparators={ [','] }
-                                    maxTagCount={ 5 }
-                                />)
-                            }
+                                    style={{ width: '100%' }}
+                                    tokenSeparators={[',']}
+                                    maxTagCount={5}
+                                />
+                            )}
                         </FormItem>
-                        <FormItem
-                            { ...formItemLayout }
-                            label="文章配图"
-                        >
-                            {
-                                getFieldDecorator('image', {
-                                    initialValue: article.image,
-                                })(<Input placeholder="http://image.example.com" />)
-                            }
+                        <FormItem {...formItemLayout} label="文章配图">
+                            {getFieldDecorator('image', {
+                                initialValue: article.image
+                            })(
+                                <Input placeholder="http://image.example.com" />
+                            )}
                         </FormItem>
-                        <FormItem
-                            { ...formItemLayout }
-                            label="文章内容"
-                        >
-                            {
-                                getFieldDecorator('content', {
-                                    initialValue: article.content,
-                                    rules: [{ required: true, message: '文章内容不能为空' }]
-                                })(<TextArea autosize={ { minRows: 2, maxRows: 6 } }/>)
-                            }
+                        <FormItem {...formItemLayout} label="文章内容">
+                            {getFieldDecorator('content', {
+                                initialValue: article.content,
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: '文章内容不能为空'
+                                    }
+                                ]
+                            })(
+                                <TextArea
+                                    autosize={{ minRows: 2, maxRows: 6 }}
+                                />
+                            )}
                         </FormItem>
-                        <FormItem
-                            { ...formItemLayout }
-                            label="Category"
-                        >
-                            {
-                                getFieldDecorator('category', {
-                                    initialValue: article.category_id ? article.category_id + '' : 'Category',
-                                    rules: [{ required: true, message: 'Category is required' }]
-                                })(
-                                    <Select
-                                        style={ { width: 120 } }
-                                        onFocus={ this.onCategorySelectFocus }
-                                    >
-                                        {
-                                            categories.map(category => (
-                                                <Option
-                                                    key={ category.id + '' }
-                                                >{ category.name }
-                                                </Option>
-                                            ))
-                                        }
-                                    </Select>
-                                )
-                            }
+                        <FormItem {...formItemLayout} label="Category">
+                            {getFieldDecorator('category', {
+                                initialValue: article.category_id
+                                    ? article.category_id + ''
+                                    : 'Category',
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Category is required'
+                                    }
+                                ]
+                            })(
+                                <Select
+                                    style={{ width: 120 }}
+                                    onFocus={this.onCategorySelectFocus}
+                                >
+                                    {categories.map(category => (
+                                        <Option key={category.id + ''}>
+                                            {category.name}
+                                        </Option>
+                                    ))}
+                                </Select>
+                            )}
                         </FormItem>
 
-                        { /* <FormItem
+                        {/* <FormItem
                             { ...formItemLayout }
                             label="作者"
                         >
@@ -168,8 +161,8 @@ class ArticleForm extends React.Component<Props> {
                                     initialValue: article.author,
                                 })(<Input placeholder="作者" />)
                             }
-                        </FormItem> */ }
-                        { /* <FormItem
+                        </FormItem> */}
+                        {/* <FormItem
                             { ...formItemLayout }
                             label="来源"
                         >
@@ -178,21 +171,25 @@ class ArticleForm extends React.Component<Props> {
                                     initialValue: article.origin,
                                 })(<Input placeholder="来源" />)
                             }
-                        </FormItem> */ }
-                        <FormItem { ...tailFormItemLayout }>
-                            <Button type="primary" htmlType="submit">提交</Button>
+                        </FormItem> */}
+                        <FormItem {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">
+                                提交
+                            </Button>
                         </FormItem>
                     </Form>
                 </Col>
-                <Col className={ style['form-right'] } span={ 10 }>
+                <Col className={style['form-right']} span={10}>
                     <h3>文章图片预览</h3>
-                    <div className={ style['form-right-image'] }>
-                        <Image src={ article.image || '' } />
+                    <div className={style['form-right-image']}>
+                        <Image src={article.image || ''} />
                     </div>
                     <h3>文章内容预览</h3>
                     <div
-                        className={ style['form-right-article'] }
-                        dangerouslySetInnerHTML={ { __html: marked(article.content || '') } }
+                        className={style['form-right-article']}
+                        dangerouslySetInnerHTML={{
+                            __html: marked(article.content || '')
+                        }}
                     />
                 </Col>
             </Row>
@@ -206,7 +203,11 @@ class ArticleForm extends React.Component<Props> {
 }
 
 export default Form.create({
-    onValuesChange: (props: Props, changedValues, allValues: ArtilceFormData) => {
+    onValuesChange: (
+        props: Props,
+        changedValues,
+        allValues: ArtilceFormData
+    ) => {
         props.onFormValueChange && props.onFormValueChange(allValues)
     }
 })(ArticleForm)

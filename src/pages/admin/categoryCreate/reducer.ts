@@ -4,7 +4,7 @@ import { fetchStatus } from '../../../utils/fetch'
 import { Category } from '../../../models/category'
 
 export interface CategoryCreateState {
-    status: fetchStatus,
+    status: fetchStatus
     category: Category
 }
 

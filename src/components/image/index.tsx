@@ -15,9 +15,15 @@ class Image extends React.Component<Props> {
     render() {
         const { type, ...props } = this.props
         return (
-            <div className={ style['c-image'] }>
-                <div className={ style['c-image-wrapper'] + ' ' + style[`c-image-type-${type}`] }>
-                    <img className={ style['c-image-source'] } { ...props } />
+            <div className={style['c-image']}>
+                <div
+                    className={
+                        style['c-image-wrapper'] +
+                        ' ' +
+                        style[`c-image-type-${type}`]
+                    }
+                >
+                    <img className={style['c-image-source']} {...props} />
                 </div>
             </div>
         )

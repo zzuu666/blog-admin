@@ -8,7 +8,7 @@
         "prefer-template": false,
         "ter-arrow-parens": false,
         "align": [true, "parameters", "statements", "members"],
-        "brace-style": [true, "stroustrup"],
+        "brace-style": [true, "1tbs"],
         "function-name": [
             true,
             {
@@ -42,7 +42,6 @@
         ],
         "trailing-comma": [true, "never"],
         "variable-name": [true, "allow-pascal-case"],
-        "jsx-curly-spacing": [true, "always"],
         "jsx-no-multiline-js": [false],
         "jsx-boolean-value": [true, "never"]
     }
