@@ -90,10 +90,14 @@
     }
   },
   "lint-staged": {
-      "src/**/*.{ts,tsx,less}": [
-          "npm run lint",
-          "npm run prettier",
-          "git add"
+      "src/**/*.{ts,tsx}": [
+        "npm run lint",
+        "prettier --write",
+        "git add"
+      ],
+      "src/**/*.less": [
+        "prettier --write",
+        "git add"
       ]
   },
   "config": {
