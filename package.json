@@ -7,7 +7,8 @@
     "dev": "ts-node -P ./tsconfig.webpack.json ./server.ts",
     "lint": "tslint -p . -t stylish",
     "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack --config ./config/webpack.prod.config.ts",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx,less}\""
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,less}\"",
+    "commit": "git-cz"
   },
   "keywords": [],
   "author": "",
@@ -37,9 +38,12 @@
     "autoprefixer": "^9.4.4",
     "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.11.0",
+    "chalk": "^2.4.2",
     "clean-webpack-plugin": "^1.0.0",
+    "commitizen": "^3.0.5",
     "connect-history-api-fallback": "^1.5.0",
     "css-loader": "^1.0.1",
+    "cz-conventional-changelog": "^2.1.0",
     "express": "^4.16.4",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.3.1",
@@ -80,7 +84,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint",
+      "commit-msg": "ts-node -P ./tsconfig.webpack.json scripts/verify-commit-msg.js"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
