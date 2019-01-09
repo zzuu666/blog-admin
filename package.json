@@ -85,7 +85,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint",
-      "commit-msg": "ts-node -P ./tsconfig.webpack.json scripts/verify-commit-msg.js"
+      "commit-msg": "ts-node -P ./tsconfig.webpack.json scripts/verify-commit-msg.ts"
     }
   },
   "config": {

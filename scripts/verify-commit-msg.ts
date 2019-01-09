@@ -1,8 +1,8 @@
 // tslint:disable max-line-length no-console quotemark
 import chalk from 'chalk'
-import fs from 'fs'
+import * as fs from 'fs'
 
-const msgPath = process.env.GIT_PARAMS
+const msgPath = process.env.HUSKY_GIT_PARAMS
 const msg = fs.readFileSync(msgPath, 'utf-8').trim()
 
 const commitRE = /^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build)(\(.+\))?: .{1,50}/
