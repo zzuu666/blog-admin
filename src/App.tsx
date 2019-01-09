@@ -15,6 +15,10 @@ const Login = lazy(() =>
 const Admin = lazy(() =>
     import(/* webpackChunkName: "admin" */ './pages/admin/index')
 )
+
+const Home = lazy(() =>
+    import(/* webpackChunkName: "admin" */ './pages/home/index')
+)
 // tslint:enable space-in-parens
 class App extends React.Component<{}> {
     render() {
@@ -42,6 +46,7 @@ class App extends React.Component<{}> {
                         <Switch>
                             <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
+                            <Route path="/" component={Home} />
                         </Switch>
                     </Suspense>
                 </Router>
