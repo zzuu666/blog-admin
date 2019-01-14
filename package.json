@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node -P ./tsconfig.webpack.json ./server.ts",
     "lint": "tslint -p . -t stylish",
-    "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack --config ./config/webpack.prod.config.ts",
+    "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" NODE_ENV=production webpack --config ./config/webpack.prod.config.ts",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,less}\"",
     "commit": "git-cz"
   },

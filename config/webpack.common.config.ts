@@ -1,4 +1,9 @@
 import * as webpack from 'webpack'
+import * as autoprefixer from 'autoprefixer'
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import * as path from 'path'
+
+const isDevMode = process.env.NODE_ENV !== 'production'
 
 const config: webpack.Configuration = {
     resolve: {
@@ -21,6 +26,65 @@ const config: webpack.Configuration = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.less$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                            importLoaders: 2,
+                            namedExport: true,
+                            camelCase: true,
+                            // getLocalIdent: (context, localIdentName, localName, options) => {
+                            //     if (
+                            //         path
+                            //             .parse(context.resourcePath)
+                            //             .dir
+                            //             .includes(
+                            //                 path.join('components', 'styles')
+                            //             )
+                            //     ) {
+                            //         return localName
+                            //     }
+                            //     return localIdentName
+                            // }
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            // Necessary for external CSS imports to work
+                            // https://github.com/facebookincubator/create-react-app/issues/2677
+                            ident: 'postcss',
+                            plugins: () => [
+                                require('postcss-flexbugs-fixes'),
+                                autoprefixer({
+                                    browsers: [
+                                        '>1%',
+                                        'last 4 versions',
+                                        'Firefox ESR',
+                                        'not ie < 9', // React doesn't support IE8 anyway
+                                    ],
+                                    flexbox: 'no-2009',
+                                }),
+                            ],
+                        }
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
                         }
                     }
                 ]
