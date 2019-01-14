@@ -13,6 +13,7 @@ import { StoreState } from '../../store'
 import { Layout, Menu, Icon, Spin } from 'antd'
 import { fetchAuth } from './actions'
 import { fetchStatus } from '../../utils/fetch'
+import Loading from '../../components/loading'
 
 const { Content, Sider } = Layout
 const { lazy, Suspense } = React
@@ -98,11 +99,11 @@ const ProtectedComponent = (match: match): JSX.Element => (
             <Content
                 style={{
                     margin: '24px 16px 0',
-                    overflow: 'initial',
-                    minHeight: '100vh'
+                    overflow: 'initial'
                 }}
+                className="c-layout-full-height"
             >
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={Loading()}>
                     <Switch>
                         {routerMap.map(el => (
                             <Route
@@ -145,24 +146,18 @@ const RedirectRoute = (match: match, path: string): React.ReactNode => {
     )
 }
 
-const LoadingRoute = (match: match): React.ReactNode => {
-    const SpinComponent = (props: RouteComponentProps): React.ReactNode => (
-        <Spin />
-    )
-
-    return (
-        <Switch>
-            {routerMap.map(el => (
-                <Route
-                    key={el.path}
-                    path={`${match.url}${el.path}`}
-                    exact
-                    render={SpinComponent}
-                />
-            ))}
-        </Switch>
-    )
-}
+const LoadingRoute = (match: match): React.ReactNode => (
+    <Switch>
+        {routerMap.map(el => (
+            <Route
+                key={el.path}
+                path={`${match.url}${el.path}`}
+                exact
+                render={Loading}
+            />
+        ))}
+    </Switch>
+)
 
 class AdminLayout extends React.Component<Props> {
     render() {

@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Row, Col, Menu, Layout } from 'antd'
+import Loading from './components/loading'
 import logo from './assets/login/logo.png'
 import style from './App.less'
+import './components/styles'
 
 const { Header, Footer } = Layout
 const { lazy, Suspense } = React
@@ -42,7 +44,7 @@ class App extends React.Component<{}> {
                     </Row>
                 </Header>
                 <Router basename={basename}>
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={Loading()}>
                         <Switch>
                             <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
