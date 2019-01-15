@@ -20,7 +20,7 @@ const config: webpack.Configuration = {
                 include: /node_modules/,
                 use: [
                     {
-                        loader: 'style-loader'
+                        loader: isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader
                     },
                     {
                         loader: 'css-loader',
