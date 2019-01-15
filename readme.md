@@ -1,6 +1,8 @@
 # Blog Admin
 My blog admin website.
 
+[![Build Status](https://travis-ci.org/zzuu666/blog-admin.svg?branch=master)](https://travis-ci.org/zzuu666/blog-admin)
+
 # Feature
 
 + React
