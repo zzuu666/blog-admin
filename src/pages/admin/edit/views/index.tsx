@@ -35,7 +35,7 @@ class Edit extends React.Component<Props> {
         const article: Article = {
             ...value,
             tags: value.tags ? value.tags.join(',') : undefined,
-            category_id: value.category ? parseInt(value.category, 10) : 0
+            category_id: value.category_id ? parseInt(value.category_id, 10) : 0
         }
         this.props.updateArticle(this.props.match.params.id, article)
     }
@@ -43,7 +43,8 @@ class Edit extends React.Component<Props> {
     handleFormValueChange(value: ArtilceFormData) {
         const article: Article = {
             ...value,
-            tags: value.tags.join(',')
+            tags: value.tags.join(','),
+            category_id: value.category_id ? parseInt(value.category_id, 10) : 0
         }
         this.props.cacheArticle(article)
     }

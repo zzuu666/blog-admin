@@ -34,7 +34,7 @@ export interface ArtilceFormData {
     image: string
     author: string
     origin: string
-    category: string
+    category_id: string
 }
 
 class ArticleForm extends React.Component<Props> {
@@ -128,7 +128,7 @@ class ArticleForm extends React.Component<Props> {
                             )}
                         </FormItem>
                         <FormItem {...formItemLayout} label="Category">
-                            {getFieldDecorator('category', {
+                            {getFieldDecorator('category_id', {
                                 initialValue: article.category_id
                                     ? article.category_id + ''
                                     : 'Category',
