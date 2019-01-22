@@ -4,7 +4,6 @@ import * as path from 'path'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import * as CleanWebpackPlugin from 'clean-webpack-plugin'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import * as autoprefixer from 'autoprefixer'
 import commonConfig from './webpack.common.config'
 
 const config: webpack.Configuration = merge(commonConfig, {
@@ -16,7 +15,7 @@ const config: webpack.Configuration = merge(commonConfig, {
         filename: '[name].[hash].js',
         chunkFilename: '[name].[chunkhash].js',
         path: path.resolve(__dirname, '..', 'dist'),
-        publicPath: '/jarvis/'
+        publicPath: '/markii/'
     },
     // optimization: {
     //     splitChunks: {
