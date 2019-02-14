@@ -44,7 +44,6 @@ const config: webpack.Configuration = {
                             modules: true,
                             localIdentName: '[local]___[hash:base64:5]',
                             importLoaders: 2,
-                            namedExport: true,
                             camelCase: true,
                             // getLocalIdent: (context, localIdentName, localName, options) => {
                             //     if (
