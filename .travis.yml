@@ -9,4 +9,4 @@ before_install:
 script:
 - npm run build
 after_success:
--scp -o stricthostkeychecking=no ./dist/* work@188.131.195.98:/home/work/markii
+- scp -o stricthostkeychecking=no ./dist/* work@188.131.195.98:/home/work/markii
