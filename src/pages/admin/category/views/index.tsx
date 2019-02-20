@@ -8,6 +8,7 @@ import { ColumnProps } from 'antd/es/table'
 import { Category } from '../../../../models/category'
 import { fetchStatus } from '../../../../utils/fetch'
 import { fetchCategories } from '../actions'
+import style from './index.less'
 
 const columns: Array<ColumnProps<Category>> = [
     {
@@ -45,7 +46,7 @@ class CategoryHome extends React.Component<Props> {
         const { categories } = this.props
         return (
             <div>
-                <div>
+                <div className={style['category-header']}>
                     <Button type="primary">
                         <Link to="/admin/category/create">新增</Link>
                     </Button>
