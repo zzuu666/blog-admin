@@ -60,7 +60,7 @@ class CategoryHome extends React.Component<Props> {
     }
 }
 
-const mapStatetoProps = (state: StoreState) => ({
+const mapStateToProps = (state: StoreState) => ({
     categories: state.category.categories
 })
 
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
 
 export default withRouter(
     connect(
-        mapStatetoProps,
+        mapStateToProps,
         mapDispatchToProps
     )(CategoryHome)
 )

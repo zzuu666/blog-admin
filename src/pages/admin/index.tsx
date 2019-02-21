@@ -37,6 +37,9 @@ const CategoryCreate = lazy(() =>
 const CategoryEdit = lazy(() =>
     import(/* webpackChunkName: "admin-category-edit" */ './categoryEdit/views/index')
 )
+const Recommend = lazy(() =>
+    import(/* webpackChunkName: "admin-recommend" */ './recommend/views/index')
+)
 // tslint:enable space-in-parens
 
 const routerMap = [
@@ -63,6 +66,38 @@ const routerMap = [
     {
         path: '/category/edit/:id',
         component: CategoryEdit
+    },
+    {
+        path: '/recommend',
+        component: Recommend
+    }
+]
+
+interface MenuConfig {
+    key: string
+    icon?: string
+    path: string
+    name: string
+}
+
+const menuMap: MenuConfig[] = [
+    {
+        key: 'article',
+        icon: 'file-text',
+        path: '/admin',
+        name: 'Article'
+    },
+    {
+        key: 'category',
+        icon: 'folder',
+        path: '/admin/category',
+        name: 'Category'
+    },
+    {
+        key: 'recommend',
+        icon: 'like',
+        path: '/admin/recommend',
+        name: 'Recommend'
     }
 ]
 
@@ -78,21 +113,17 @@ const ProtectedComponent = (match: match): JSX.Element => (
             <Menu
                 mode="inline"
                 theme="light"
-                defaultSelectedKeys={['1']}
+                defaultSelectedKeys={['article']}
                 style={{ height: '100%', borderRight: 0 }}
             >
-                <Menu.Item key="1">
-                    <Link to="/admin">
-                        <Icon type="user" />
-                        Article
-                    </Link>
-                </Menu.Item>
-                <Menu.Item key="2">
-                    <Link to="/admin/category">
-                        <Icon type="video-camera" />
-                        Category
-                    </Link>
-                </Menu.Item>
+                {menuMap.map(menu => (
+                    <Menu.Item key={menu.key}>
+                        <Link to={menu.path}>
+                            <Icon type={menu.icon} />
+                            {menu.name}
+                        </Link>
+                    </Menu.Item>
+                ))}
             </Menu>
         </Sider>
         <Layout>
@@ -170,7 +201,7 @@ class AdminLayout extends React.Component<Props> {
             : RedirectRoute(match, '/login')
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchAuth()
     }
 }
