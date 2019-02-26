@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { fetchArticles } from '../actions'
 import { Article } from '../../../../models/article'
@@ -43,24 +43,23 @@ interface Props extends RouteComponentProps {
     fetchArticles: () => void
 }
 
-class Home extends React.Component<Props> {
-    render() {
-        const { articles } = this.props
-        return (
-            <div className={style.home}>
-                <div className={style['home-header']}>
-                    <Button type="primary">
-                        <Link to="/admin/create">新增</Link>
-                    </Button>
-                </div>
-                <Table columns={columns} dataSource={articles} rowKey="id" />
-            </div>
-        )
-    }
+const Home: FunctionComponent<Props> = props => {
+    const { articles, fetchArticles } = props
 
-    componentDidMount() {
-        this.props.fetchArticles()
-    }
+    useEffect(() => {
+        fetchArticles()
+    }, [])
+
+    return (
+        <div className={style.home}>
+            <div className={style['home-header']}>
+                <Button type="primary">
+                    <Link to="/admin/create">新增</Link>
+                </Button>
+            </div>
+            <Table columns={columns} dataSource={articles} rowKey="id" />
+        </div>
+    )
 }
 
 const mapStateToProps = (state: StoreState) => ({

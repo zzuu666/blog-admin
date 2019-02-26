@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { categoryCreate, categorySetCache } from '../actions'
@@ -18,35 +18,34 @@ interface Props extends RouteComponentProps {
     categorySetCache: (category: Category) => void
 }
 
-class CategoryCreate extends React.Component<Props> {
-    onFormSubmit = (value: CategoryFormData) => {
-        this.props.categoryCreate(value)
+const CategoryCreate: FunctionComponent<Props> = props => {
+    const { category, status } = props
+
+    const onFormSubmit = (value: CategoryFormData) => {
+        props.categoryCreate(value)
     }
 
-    onFormValueChange = (value: CategoryFormData) => {
-        this.props.categorySetCache(value)
+    const onFormValueChange = (value: CategoryFormData) => {
+        props.categorySetCache(value)
     }
 
-    render() {
-        const { category, status } = this.props
-        return (
-            <div>
-                <h2>Category Create</h2>
-                <Spin spinning={status === fetchStatus.LOADING}>
-                    <Row>
-                        <Col offset={6} span={12}>
-                            <CategoryForm
-                                model="create"
-                                category={category}
-                                onSubmit={this.onFormSubmit}
-                                onFormValueChange={this.onFormValueChange}
-                            />
-                        </Col>
-                    </Row>
-                </Spin>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h2>Category Create</h2>
+            <Spin spinning={status === fetchStatus.LOADING}>
+                <Row>
+                    <Col offset={6} span={12}>
+                        <CategoryForm
+                            model="create"
+                            category={category}
+                            onSubmit={onFormSubmit}
+                            onFormValueChange={onFormValueChange}
+                        />
+                    </Col>
+                </Row>
+            </Spin>
+        </div>
+    )
 }
 
 const mapStatetoProps = (state: StoreState) => ({

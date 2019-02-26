@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
@@ -24,51 +24,46 @@ interface Props extends RouteComponentProps {
     createArticleGetCategory: () => void
 }
 
-class CreateArticle extends React.Component<Props> {
-    constructor(props: Props) {
-        super(props)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleFormValueChange = this.handleFormValueChange.bind(this)
-    }
+const CreateArticle: FunctionComponent<Props> = props => {
+    const { article, status, categories } = props
 
-    handleSubmit(value: ArtilceFormData) {
+    const handleSubmit = (value: ArtilceFormData) => {
         const article: Article = {
             ...value,
             tags: value.tags.join(','),
-            category_id: value.category ? parseInt(value.category, 10) : 0
+            category_id: value.category_id ? parseInt(value.category_id, 10) : 0
         }
-        this.props.postCreateArticle(article)
-        // console.log(value)
+        props.postCreateArticle(article)
     }
 
-    handleFormValueChange(value: ArtilceFormData) {
+    const handleFormValueChange = (value: ArtilceFormData) => {
         const article: Article = {
             ...value,
+            category_id: value.category_id
+                ? parseInt(value.category_id, 10)
+                : 0,
             tags: value.tags ? value.tags.join(',') : undefined
         }
-        this.props.createArticleSetCache(article)
+        props.createArticleSetCache(article)
     }
 
-    componentDidMount() {
-        this.props.createArticleGetCategory()
-    }
+    useEffect(() => {
+        props.createArticleGetCategory()
+    }, [])
 
-    render() {
-        const { article, status, categories } = this.props
-        return (
-            <div>
-                <h2>新建文章</h2>
-                <Spin spinning={status === fetchStatus.LOADING}>
-                    <ArticleForm
-                        article={article}
-                        categories={categories}
-                        onSubmit={this.handleSubmit}
-                        onFormValueChange={this.handleFormValueChange}
-                    />
-                </Spin>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h2>新建文章</h2>
+            <Spin spinning={status === fetchStatus.LOADING}>
+                <ArticleForm
+                    article={article}
+                    categories={categories}
+                    onSubmit={handleSubmit}
+                    onFormValueChange={handleFormValueChange}
+                />
+            </Spin>
+        </div>
+    )
 }
 
 const mapStatetoProps = (state: StoreState) => ({

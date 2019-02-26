@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, FunctionComponent } from 'react'
 import {
     Route,
     Link,
@@ -107,7 +107,7 @@ interface Props extends RouteComponentProps {
     fetchAuth: () => void
 }
 
-const ProtectedComponent = (match: match): JSX.Element => (
+const ProtectedComponent: FunctionComponent<match> = match => (
     <Layout>
         <Sider theme="light" width={240}>
             <Menu
@@ -151,8 +151,11 @@ const ProtectedComponent = (match: match): JSX.Element => (
     </Layout>
 )
 
-const RedirectRoute = (match: match, path: string): React.ReactNode => {
-    const RedirectComponent = (props: RouteComponentProps): React.ReactNode => (
+const RedirectRoute: FunctionComponent<{ match: match; path: string }> = ({
+    match,
+    path
+}) => {
+    const RedirectComponent: FunctionComponent<RouteComponentProps> = props => (
         <div>
             <Redirect
                 to={{
@@ -177,7 +180,7 @@ const RedirectRoute = (match: match, path: string): React.ReactNode => {
     )
 }
 
-const LoadingRoute = (match: match): React.ReactNode => (
+const LoadingRoute: FunctionComponent<match> = match => (
     <Switch>
         {routerMap.map(el => (
             <Route
@@ -190,20 +193,18 @@ const LoadingRoute = (match: match): React.ReactNode => (
     </Switch>
 )
 
-class AdminLayout extends React.Component<Props> {
-    render() {
-        const { match, authenticate, status } = this.props
+const AdminLayout: FunctionComponent<Props> = props => {
+    const { match, authenticate, status, fetchAuth } = props
 
-        return status === fetchStatus.LOADING
-            ? LoadingRoute(match)
-            : authenticate
-            ? ProtectedComponent(match)
-            : RedirectRoute(match, '/login')
-    }
+    useEffect(() => {
+        fetchAuth()
+    }, [])
 
-    componentDidMount() {
-        this.props.fetchAuth()
-    }
+    return status === fetchStatus.LOADING
+        ? LoadingRoute(match)
+        : authenticate
+        ? ProtectedComponent(match)
+        : RedirectRoute({ match, path: '/login' })
 }
 
 const mapStateToProps = (state: StoreState) => ({

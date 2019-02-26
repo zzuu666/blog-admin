@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import {
@@ -31,52 +31,58 @@ interface Props extends RouteComponentProps<RoutePathParams> {
     categoryEditCache: (value: Category) => void
     categoryEditFeatured: (category: string, search: string) => void
 }
+const CategoryCreate: FunctionComponent<Props> = props => {
+    const {
+        category,
+        status,
+        categoryFeatures,
+        match,
+        categoryEditPost,
+        categoryEditCache,
+        categoryEditFeatured
+    } = props
 
-class CategoryCreate extends React.Component<Props> {
-    onFormSubmit = (value: CategoryFormData) => {
-        const id: string = this.props.match.params.id
-        this.props.categoryEditPost(id, value)
+    const onFormSubmit = (value: CategoryFormData) => {
+        const id: string = match.params.id
+        categoryEditPost(id, value)
     }
 
-    onFormValueChange = (value: CategoryFormData) => {
-        this.props.categoryEditCache(value)
+    const onFormValueChange = (value: CategoryFormData) => {
+        categoryEditCache(value)
     }
 
-    onFeatureIdSelectSearch = (value: string) => {
-        const id: string = this.props.match.params.id
-        this.props.categoryEditFeatured(id, value)
+    const onFeatureIdSelectSearch = (value: string) => {
+        const id: string = match.params.id
+        categoryEditFeatured(id, value)
     }
 
-    componentWillMount = () => {
-        const id = this.props.match.params.id
-        this.props.categoryEditGet(id)
-    }
+    useEffect(() => {
+        const id = match.params.id
+        categoryEditGet(id)
+    }, [])
 
-    render() {
-        const { category, status, categoryFeatures } = this.props
-        return (
-            <div>
-                <h2>Category Create</h2>
-                <Spin spinning={status === fetchStatus.LOADING}>
-                    <Row>
-                        <Col offset={6} span={12}>
-                            <CategoryForm
-                                model="edit"
-                                category={category}
-                                categoryFeatures={categoryFeatures}
-                                onSubmit={this.onFormSubmit}
-                                onFormValueChange={this.onFormValueChange}
-                                onFeatureIdSelectSearch={debounce(
-                                    this.onFeatureIdSelectSearch,
-                                    400
-                                )}
-                            />
-                        </Col>
-                    </Row>
-                </Spin>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h2>Category Create</h2>
+            <Spin spinning={status === fetchStatus.LOADING}>
+                <Row>
+                    <Col offset={6} span={12}>
+                        <CategoryForm
+                            model="edit"
+                            category={category}
+                            categoryFeatures={categoryFeatures}
+                            onSubmit={onFormSubmit}
+                            onFormValueChange={onFormValueChange}
+                            onFeatureIdSelectSearch={debounce(
+                                onFeatureIdSelectSearch,
+                                400
+                            )}
+                        />
+                    </Col>
+                </Row>
+            </Spin>
+        </div>
+    )
 }
 
 const mapStatetoProps = (state: StoreState) => ({

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, FunctionComponent } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
@@ -41,23 +41,23 @@ interface Props extends RouteComponentProps {
     fetchCategories: () => void
 }
 
-class CategoryHome extends React.Component<Props> {
-    render() {
-        const { categories } = this.props
-        return (
-            <div>
-                <div className={style['category-header']}>
-                    <Button type="primary">
-                        <Link to="/admin/category/create">新增</Link>
-                    </Button>
-                </div>
-                <Table columns={columns} dataSource={categories} rowKey="id" />
+const CategoryHome: FunctionComponent<Props> = props => {
+    const { categories, fetchCategories } = props
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+
+    return (
+        <div>
+            <div className={style['category-header']}>
+                <Button type="primary">
+                    <Link to="/admin/category/create">新增</Link>
+                </Button>
             </div>
-        )
-    }
-    componentWillMount() {
-        this.props.fetchCategories()
-    }
+            <Table columns={columns} dataSource={categories} rowKey="id" />
+        </div>
+    )
 }
 
 const mapStateToProps = (state: StoreState) => ({

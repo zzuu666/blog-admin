@@ -68,6 +68,7 @@ class Edit extends React.Component<Props> {
     componentDidMount() {
         this.props.fetchArticle(this.props.match.params.id)
     }
+
     shouldComponentUpdate(props: Props) {
         const showSuccessMessage =
             this.props.status === 'loading' &&
