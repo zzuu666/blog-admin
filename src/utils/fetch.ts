@@ -24,6 +24,9 @@ interface FetchPayload<T extends APIBaseResponse> {
     headers?: Headers
 }
 
+/**
+ * Rails 接口返回数据结构基类
+ */
 export interface APIBaseResponse {
     error: number
     message: string

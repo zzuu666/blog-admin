@@ -48,7 +48,7 @@ const CategoryCreate: FunctionComponent<Props> = props => {
     )
 }
 
-const mapStatetoProps = (state: StoreState) => ({
+const mapStateToProps = (state: StoreState) => ({
     category: state.categoryCreate.category,
     status: state.categoryCreate.status
 })
@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
 
 export default withRouter(
     connect(
-        mapStatetoProps,
+        mapStateToProps,
         mapDispatchToProps
     )(CategoryCreate)
 )

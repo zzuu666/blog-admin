@@ -16,12 +16,7 @@ export default (
     action: RecommendAction
 ): RecommendState => {
     switch (action.type) {
-        case actionTypes.RECOMMENDS_GET_LIST_STARTED: {
-            return {
-                ...state,
-                status: action.payload.status
-            }
-        }
+        case actionTypes.RECOMMENDS_GET_LIST_STARTED:
         case actionTypes.RECOMMENDS_GET_LIST_FAILURE: {
             return {
                 ...state,
