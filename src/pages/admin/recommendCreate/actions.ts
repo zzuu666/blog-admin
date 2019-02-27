@@ -4,7 +4,7 @@ import {
     fetchWithRedux,
     fetchStatus
 } from '../../../utils/fetch'
-import { Recommend, RecommendCreate } from '../../../models/recommend'
+import { Recommend, RecommendBase } from '../../../models/recommend'
 
 interface CreateAPI extends APIBaseResponse {
     results: Recommend
@@ -44,7 +44,7 @@ export const recommendPostCreateSuccess = (
     }
 })
 
-export const recommendPostCreate = (recommend: RecommendCreate) =>
+export const recommendPostCreate = (recommend: RecommendBase) =>
     fetchWithRedux({
         path: 'recommends',
         method: 'post',

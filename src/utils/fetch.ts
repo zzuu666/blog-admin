@@ -1,6 +1,6 @@
 import { fetchHost, apiRoute, apiVersion } from './fetch-host'
 
-type Method = 'get' | 'post' | 'put' | 'delete'
+export type Method = 'get' | 'post' | 'put' | 'delete'
 
 interface FetchPayload<T extends APIBaseResponse> {
     method: Method

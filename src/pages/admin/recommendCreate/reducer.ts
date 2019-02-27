@@ -1,11 +1,11 @@
 import { actionTypes } from './actionTypes'
-import { RecommendCreate, Recommend } from '../../../models/recommend'
+import { RecommendBase, Recommend } from '../../../models/recommend'
 import { fetchStatus } from '../../../utils/fetch'
 import { RecommendCreateAction } from './actions'
 
 export interface RecommendCreateState {
     status: fetchStatus
-    recommend: RecommendCreate | Recommend
+    recommend: RecommendBase | Recommend
 }
 
 export default (

@@ -35,8 +35,9 @@ const CategoryCreate: FunctionComponent<Props> = props => {
     const {
         category,
         status,
-        categoryFeatures,
         match,
+        categoryFeatures,
+        categoryEditGet,
         categoryEditPost,
         categoryEditCache,
         categoryEditFeatured
