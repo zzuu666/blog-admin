@@ -57,7 +57,7 @@ const CategoryFeaturedIdFormItem = (
     )
 }
 const RecommendForm: FunctionComponent<Props> = props => {
-    const { form, recommend, model } = props
+    const { form, recommend } = props
     const { getFieldDecorator } = form
 
     const onSubmit = (e: React.SyntheticEvent) => {
@@ -88,7 +88,7 @@ const RecommendForm: FunctionComponent<Props> = props => {
         <Form onSubmit={onSubmit}>
             {CategoryFeaturedIdFormItem(props, formItemLayout)}
             <FormItem {...formItemLayout} label="Recommend Reason">
-                {getFieldDecorator('name', {
+                {getFieldDecorator('reason', {
                     initialValue: recommend.reason,
                     rules: [
                         {

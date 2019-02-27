@@ -1,11 +1,11 @@
 import { actionTypes } from './actionTypes'
-import { RecommendBase, Recommend } from '../../../models/recommend'
+import { RecommendBase } from '../../../models/recommend'
 import { fetchStatus } from '../../../utils/fetch'
 import { RecommendCreateAction } from './actions'
 
 export interface RecommendCreateState {
     status: fetchStatus
-    recommend: RecommendBase | Recommend
+    recommend: RecommendBase
 }
 
 export default (
@@ -24,14 +24,26 @@ export default (
             return {
                 ...state,
                 status: action.payload.status
+                    ? action.payload.status
+                    : state.status
             }
         }
         case actionTypes.RECOMMEND_POST_CREATE_SUCCESS: {
             return {
                 ...state,
-                status: action.payload.status,
+                status: action.payload.status
+                    ? action.payload.status
+                    : state.status,
                 recommend: action.payload.response
                     ? action.payload.response.results
+                    : state.recommend
+            }
+        }
+        case actionTypes.RECOMMEND_POST_CREATE_CACHE: {
+            return {
+                ...state,
+                recommend: action.payload.cache
+                    ? action.payload.cache
                     : state.recommend
             }
         }

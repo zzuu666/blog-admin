@@ -5,7 +5,7 @@ import { Dispatch } from 'redux'
 import { StoreState } from '../../../../store'
 import { RecommendBase } from '../../../../models/recommend'
 import { fetchStatus } from '../../../../utils/fetch'
-import { recommendPostCreate } from '../actions'
+import { recommendPostCreate, recommendPostCreateCache } from '../actions'
 import RecommendForm from '../../../../components/form/RecommendForm'
 import { Spin, Col, Row } from 'antd'
 import { Article } from '../../../../models/article'
@@ -20,17 +20,32 @@ interface Props extends RouteComponentProps {
     status: fetchStatus
     suggestions: Article[]
     recommendPostCreate: (recommend: RecommendBase) => void
+    recommendPostCreateCache: (recommend: RecommendBase) => void
     suggestionGet: (params: SuggestionGetParams) => void
 }
 
 const RecommendCreate: FunctionComponent<Props> = props => {
-    const { recommend, suggestions, suggestionGet } = props
+    const {
+        recommend,
+        suggestions,
+        suggestionGet,
+        recommendPostCreateCache,
+        recommendPostCreate
+    } = props
 
     const onSuggestionSelectChange = (search: string) => {
         suggestionGet({
             path: `/articles${apiAdminSuffix}`,
             qs: { search }
         })
+    }
+
+    const onFormValueChange = (value: RecommendBase) => {
+        recommendPostCreateCache({ ...value })
+    }
+
+    const onSubmit = (value: RecommendBase) => {
+        recommendPostCreate(value)
     }
 
     return (
@@ -43,6 +58,8 @@ const RecommendCreate: FunctionComponent<Props> = props => {
                             model="create"
                             recommend={recommend}
                             recommendArticles={suggestions}
+                            onSubmit={onSubmit}
+                            onFormValueChange={onFormValueChange}
                             onSuggestionSelectChange={onSuggestionSelectChange}
                         />
                     </Col>
@@ -61,6 +78,9 @@ const mapStateToProps = (store: StoreState) => ({
 const mapDispatchToProps = (dispath: Dispatch<any>) => ({
     recommendPostCreate(recommend: RecommendBase) {
         dispath(recommendPostCreate(recommend))
+    },
+    recommendPostCreateCache(recommend: RecommendBase) {
+        dispath(recommendPostCreateCache(recommend))
     },
     suggestionGet(params: SuggestionGetParams) {
         dispath(suggestionGet(params))

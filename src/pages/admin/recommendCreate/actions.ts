@@ -11,8 +11,9 @@ interface CreateAPI extends APIBaseResponse {
 }
 
 interface Payload {
-    status: fetchStatus
+    status?: fetchStatus
     response?: CreateAPI
+    cache?: RecommendBase
 }
 
 export interface RecommendCreateAction {
@@ -53,3 +54,12 @@ export const recommendPostCreate = (recommend: RecommendBase) =>
         failure: recommendPostCreateFailure,
         success: recommendPostCreateSuccess
     })
+
+export const recommendPostCreateCache = (
+    recommend: RecommendBase
+): RecommendCreateAction => ({
+    type: actionTypes.RECOMMEND_POST_CREATE_CACHE,
+    payload: {
+        cache: recommend
+    }
+})
