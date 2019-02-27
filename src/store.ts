@@ -27,6 +27,9 @@ import recommendCreateReducer, {
 } from './pages/admin/recommendCreate/reducer'
 import adminReducer, { AdminState } from './pages/admin/reducer'
 import loginReducer, { LoginState } from './pages/login/reducer'
+import suggestionReducer, {
+    SuggestionState
+} from './components/suggestion/reducer'
 
 export interface StoreState {
     home: HomeState
@@ -39,6 +42,7 @@ export interface StoreState {
     categoryEdit: CategoryEditState
     recommend: RecommendState
     recommendCreate: RecommendCreateState
+    suggestion: SuggestionState
 }
 
 const reducer: Reducer<StoreState> = combineReducers<StoreState>({
@@ -51,7 +55,8 @@ const reducer: Reducer<StoreState> = combineReducers<StoreState>({
     categoryCreate: categoryCreateReducer,
     categoryEdit: categoryEditReducer,
     recommend: recommendReducer,
-    recommendCreate: recommendCreateReducer
+    recommendCreate: recommendCreateReducer,
+    suggestion: suggestionReducer
 })
 
 const middlewares: [Middleware] = [thunkMiddleware]
