@@ -43,6 +43,9 @@ const Recommend = lazy(() =>
 const RecommendCreate = lazy(() =>
     import(/* webpackChunkName: "admin-recommend-create" */ './recommendCreate/views/index')
 )
+const RecommendEdit = lazy(() =>
+    import(/* webpackChunkName: "admin-recommend-edit" */ './recommendEdit/views/index')
+)
 // tslint:enable space-in-parens
 
 const routerMap = [
@@ -77,6 +80,10 @@ const routerMap = [
     {
         path: '/recommend/create',
         component: RecommendCreate
+    },
+    {
+        path: '/recommend/edit/:id',
+        component: RecommendEdit
     }
 ]
 

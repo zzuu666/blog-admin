@@ -29,7 +29,7 @@ const columns: Array<ColumnProps<Recommend>> = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={`/admin/category/edit/${record.id}`}>编辑</Link>
+                <Link to={`/admin/recommend/edit/${record.id}`}>编辑</Link>
                 <Divider type="vertical" />
                 <a href="javascript:;">屏蔽</a>
                 <Divider type="vertical" />
