@@ -1,4 +1,5 @@
 import { fetchHost, apiRoute, apiVersion } from './fetch-host'
+import { Dispatch } from 'redux'
 
 /**
  * Restful style fetch request method include: 'get' 'post' 'put' 'delete'
@@ -64,7 +65,7 @@ export const fetchWithRedux = <APIResponse extends APIBaseResponse>(
             // tslint:disable-next-line:object-literal-key-quotes
             Authorization: authorizationHeader
         })
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<any>) => {
         dispatch(started && started())
         fetch(fetchUrl.href, {
             method,

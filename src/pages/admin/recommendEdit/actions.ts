@@ -5,14 +5,16 @@ import {
     fetchWithRedux
 } from '../../../utils/fetch'
 import { Recommend, RecommendBase } from '../../../models/recommend'
+import { message } from 'antd'
 
 interface ResponseAPI extends APIBaseResponse {
     results: Recommend
 }
 
 interface Payload {
-    status: fetchStatus
+    status?: fetchStatus
     recommend?: RecommendBase
+    message?: string
 }
 
 export interface Action {
@@ -38,7 +40,8 @@ export const recommendEditUpdateSuccess = (response: ResponseAPI): Action => ({
     type: actionTypes.RECOMMEND_EDIT_UPDATE_SUCCESS,
     payload: {
         status: fetchStatus.SUCCESS,
-        recommend: response.results
+        recommend: response.results,
+        message: response.message
     }
 })
 
@@ -87,3 +90,10 @@ export const recommendEditUpdate = ({ id, recommend }: SubmitParams) =>
         failure: recommendEditUpdateFailure,
         success: recommendEditUpdateSuccess
     })
+
+export const recommendEditCache = (recommend: RecommendBase): Action => ({
+    type: actionTypes.RECOMMEND_EDIT_CACHE,
+    payload: {
+        recommend
+    }
+})

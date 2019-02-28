@@ -36,11 +36,14 @@ const CategoryFeaturedIdFormItem = (
         : null
 
     return (
-        <FormItem {...formItemLayout} label="Category Featured">
+        <FormItem {...formItemLayout} label="Recommend Article">
             {getFieldDecorator('article_id', {
                 initialValue: recommend.article_id,
                 rules: [
-                    { required: true, message: 'Category Key is required!' }
+                    {
+                        required: true,
+                        message: 'Recommend Article is required!'
+                    }
                 ]
             })(
                 <Select
@@ -48,7 +51,7 @@ const CategoryFeaturedIdFormItem = (
                     showArrow={false}
                     filterOption={false}
                     onSearch={onSuggestionSelectChange}
-                    placeholder="Select Category Featured"
+                    placeholder="Select Recommend Article"
                 >
                     {options}
                 </Select>

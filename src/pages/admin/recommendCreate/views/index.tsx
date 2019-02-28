@@ -14,6 +14,7 @@ import {
     SuggestionGetParams
 } from '../../../../components/suggestion/actions'
 import { apiAdminSuffix } from '../../../../utils/fetch-host'
+import debounce from 'lodash.debounce'
 
 interface Props extends RouteComponentProps {
     recommend: RecommendBase
@@ -60,7 +61,10 @@ const RecommendCreate: FunctionComponent<Props> = props => {
                             recommendArticles={suggestions}
                             onSubmit={onSubmit}
                             onFormValueChange={onFormValueChange}
-                            onSuggestionSelectChange={onSuggestionSelectChange}
+                            onSuggestionSelectChange={debounce(
+                                onSuggestionSelectChange,
+                                400
+                            )}
                         />
                     </Col>
                 </Row>
