@@ -3,7 +3,8 @@ import {
     recommendEditUpdate,
     recommendEditShow,
     SubmitParams,
-    recommendEditCache
+    recommendEditCache,
+    recommendEditInit
 } from '../actions'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { fetchStatus } from '../../../../utils/fetch'
@@ -33,6 +34,7 @@ interface Props extends RouteComponentProps<RoutePathParams> {
     submitNewRecommend: (params: SubmitParams) => void
     fetchSuggestionArticles: (params: SuggestionGetParams) => void
     cacheRecommend: (recommend: RecommendBase) => void
+    initRecommend: () => void
 }
 
 const RecommendEdit: FunctionComponent<Props> = props => {
@@ -44,12 +46,17 @@ const RecommendEdit: FunctionComponent<Props> = props => {
         fetchOriginRecommend,
         submitNewRecommend,
         cacheRecommend,
-        fetchSuggestionArticles
+        fetchSuggestionArticles,
+        initRecommend
     } = props
 
     useEffect(() => {
         const id = match.params.id
         fetchOriginRecommend(id)
+
+        return () => {
+            initRecommend()
+        }
     }, [])
 
     useEffect(
@@ -120,6 +127,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     },
     cacheRecommend(params: RecommendBase) {
         dispatch(recommendEditCache(params))
+    },
+    initRecommend() {
+        dispatch(recommendEditInit())
     }
 })
 

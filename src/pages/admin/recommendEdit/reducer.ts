@@ -48,6 +48,16 @@ export default (
                 message: action.payload.message ? action.payload.message : ''
             }
         }
+        case actionTypes.RECOMMEND_EDIT_INIT: {
+            return {
+                status: fetchStatus.SUCCESS,
+                recommend: {
+                    reason: '',
+                    article_id: ''
+                },
+                message: ''
+            }
+        }
         default: {
             return state
         }

@@ -97,3 +97,8 @@ export const recommendEditCache = (recommend: RecommendBase): Action => ({
         recommend
     }
 })
+
+export const recommendEditInit = (): Action => ({
+    type: actionTypes.RECOMMEND_EDIT_INIT,
+    payload: {}
+})
