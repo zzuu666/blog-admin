@@ -1,4 +1,4 @@
-import React, { useEffect, FunctionComponent } from 'react'
+import React, { useEffect, FunctionComponent, useState } from 'react'
 import {
     Route,
     Link,
@@ -121,13 +121,16 @@ interface Props extends RouteComponentProps {
     fetchAuth: () => void
 }
 
-const ProtectedComponent: FunctionComponent<match> = match => (
+const ProtectedComponent: FunctionComponent<{
+    match: match
+    selectKey: string
+}> = ({ match, selectKey }) => (
     <Layout>
         <Sider theme="light" width={240}>
             <Menu
                 mode="inline"
                 theme="light"
-                defaultSelectedKeys={['article']}
+                defaultSelectedKeys={[selectKey]}
                 style={{ height: '100%', borderRight: 0 }}
             >
                 {menuMap.map(menu => (
@@ -208,7 +211,9 @@ const LoadingRoute: FunctionComponent<match> = match => (
 )
 
 const AdminLayout: FunctionComponent<Props> = props => {
-    const { match, authenticate, status, fetchAuth } = props
+    const { match, authenticate, status, fetchAuth, location } = props
+
+    const selectKey: string = useSetMenu(location.pathname.split('/')[2] || '')
 
     useEffect(() => {
         fetchAuth()
@@ -217,8 +222,22 @@ const AdminLayout: FunctionComponent<Props> = props => {
     return status === fetchStatus.LOADING
         ? LoadingRoute(match)
         : authenticate
-        ? ProtectedComponent(match)
+        ? ProtectedComponent({ match, selectKey })
         : RedirectRoute({ match, path: '/login' })
+}
+
+/**
+ * Set sider menu active item hook
+ * @param key sider menu defaultSelectKey
+ */
+const useSetMenu = (key: string) => {
+    const [value, setValue] = useState<string>(menuMap[0].key)
+
+    useEffect(() => {
+        key !== '' && setValue(key)
+    }, [])
+
+    return value
 }
 
 const mapStateToProps = (state: StoreState) => ({

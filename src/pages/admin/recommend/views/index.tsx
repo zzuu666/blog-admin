@@ -4,49 +4,62 @@ import { connect } from 'react-redux'
 import { StoreState } from '../../../../store'
 import { Dispatch } from 'redux'
 import { fetchStatus } from '../../../../utils/fetch'
-import { fetchRecommends } from '../actions'
+import { fetchRecommends, recommendDelete } from '../actions'
 import { Recommend } from '../../../../models/recommend'
-import { Table, Divider, Button } from 'antd'
+import { Table, Divider, Button, Popconfirm } from 'antd'
 import { ColumnProps } from 'antd/es/table'
 import style from './index.less'
-
-const columns: Array<ColumnProps<Recommend>> = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-        render: text => <a href="javascript:;">{text}</a>
-    },
-    {
-        title: 'Title',
-        dataIndex: 'article_title'
-    },
-    {
-        title: 'Author',
-        dataIndex: 'article_author'
-    },
-    {
-        title: 'Options',
-        key: 'action',
-        render: (text, record) => (
-            <span>
-                <Link to={`/admin/recommend/edit/${record.id}`}>编辑</Link>
-                <Divider type="vertical" />
-                <a href="javascript:;">屏蔽</a>
-                <Divider type="vertical" />
-                <a href="javascript:;">删除</a>
-            </span>
-        )
-    }
-]
 
 interface Props extends RouteComponentProps {
     recommends: Recommend[]
     status: fetchStatus
+    message: string
     fetchRecommends: () => void
+    deleteRecommend: (id: string) => void
 }
 
 const RecommendHome = (props: Props) => {
-    const { recommends, fetchRecommends } = props
+    const { recommends, fetchRecommends, deleteRecommend } = props
+
+    const handleColumnConfirm = (id: string) => {
+        deleteRecommend(id)
+    }
+
+    const columns: Array<ColumnProps<Recommend>> = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            render: text => <a href="javascript:;">{text}</a>
+        },
+        {
+            title: 'Title',
+            dataIndex: 'article_title'
+        },
+        {
+            title: 'Author',
+            dataIndex: 'article_author'
+        },
+        {
+            title: 'Options',
+            key: 'action',
+            render: (text, record) => (
+                <span>
+                    <Link to={`/admin/recommend/edit/${record.id}`}>编辑</Link>
+                    <Divider type="vertical" />
+                    <Popconfirm
+                        title={`Are you sure delete recommend for ${
+                            record.article_title
+                        }`}
+                        onConfirm={handleColumnConfirm.bind(null, record.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <a>删除</a>
+                    </Popconfirm>
+                </span>
+            )
+        }
+    ]
 
     useEffect(() => {
         fetchRecommends()
@@ -66,12 +79,16 @@ const RecommendHome = (props: Props) => {
 
 const mapStateToProps = (state: StoreState) => ({
     recommends: state.recommend.recommends,
-    status: state.recommend.status
+    status: state.recommend.status,
+    message: state.recommend.message
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     fetchRecommends() {
         dispatch(fetchRecommends())
+    },
+    deleteRecommend(id: string) {
+        dispatch(recommendDelete(id))
     }
 })
 
