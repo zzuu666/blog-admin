@@ -25,15 +25,7 @@ export default (
         case actionTypes.RECOMMEND_EDIT_SHOW_STARTED:
         case actionTypes.RECOMMEND_EDIT_SHOW_FAILURE:
         case actionTypes.RECOMMEND_EDIT_UPDATE_STARTED:
-        case actionTypes.RECOMMEND_EDIT_UPDATE_FAILURE: {
-            return {
-                ...state,
-                message: action.payload.message ? action.payload.message : '',
-                status: action.payload.status
-                    ? action.payload.status
-                    : state.status
-            }
-        }
+        case actionTypes.RECOMMEND_EDIT_UPDATE_FAILURE:
         case actionTypes.RECOMMEND_EDIT_CACHE:
         case actionTypes.RECOMMEND_EDIT_SHOW_SUCCESS:
         case actionTypes.RECOMMEND_EDIT_UPDATE_SUCCESS: {

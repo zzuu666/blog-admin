@@ -19,6 +19,7 @@ import {
     suggestionGet,
     SuggestionGetParams
 } from '../../../../components/suggestion/actions'
+import { useMessagePop } from '../../../../components/hooks'
 import { apiAdminSuffix } from '../../../../utils/fetch-host'
 import debounce from 'lodash.debounce'
 
@@ -50,6 +51,8 @@ const RecommendEdit: FunctionComponent<Props> = props => {
         initRecommend
     } = props
 
+    useMessagePop(props.message)
+
     useEffect(() => {
         const id = match.params.id
         fetchOriginRecommend(id)
@@ -58,15 +61,6 @@ const RecommendEdit: FunctionComponent<Props> = props => {
             initRecommend()
         }
     }, [])
-
-    useEffect(
-        () => {
-            if (props.message !== '') {
-                message.success(props.message)
-            }
-        },
-        [props.message]
-    )
 
     const onSubmit = (value: RecommendBase) => {
         const id = match.params.id

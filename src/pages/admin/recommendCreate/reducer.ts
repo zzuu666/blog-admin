@@ -6,6 +6,7 @@ import { RecommendCreateAction } from './actions'
 export interface RecommendCreateState {
     status: fetchStatus
     recommend: RecommendBase
+    message: string
 }
 
 export default (
@@ -14,37 +15,35 @@ export default (
         recommend: {
             reason: '',
             article_id: ''
-        }
+        },
+        message: ''
     },
     action: RecommendCreateAction
 ): RecommendCreateState => {
     switch (action.type) {
         case actionTypes.RECOMMEND_POST_CREATE_STARTED:
-        case actionTypes.RECOMMEND_POST_CREATE_FAILURE: {
-            return {
-                ...state,
-                status: action.payload.status
-                    ? action.payload.status
-                    : state.status
-            }
-        }
+        case actionTypes.RECOMMEND_POST_CREATE_FAILURE:
+        case actionTypes.RECOMMEND_POST_CREATE_CACHE:
         case actionTypes.RECOMMEND_POST_CREATE_SUCCESS: {
             return {
                 ...state,
                 status: action.payload.status
                     ? action.payload.status
                     : state.status,
-                recommend: action.payload.response
-                    ? action.payload.response.results
-                    : state.recommend
+                recommend: action.payload.recommend
+                    ? action.payload.recommend
+                    : state.recommend,
+                message: action.payload.message || ''
             }
         }
-        case actionTypes.RECOMMEND_POST_CREATE_CACHE: {
+        case actionTypes.RECOMMEND_CREATE_INITIALIZE: {
             return {
-                ...state,
-                recommend: action.payload.cache
-                    ? action.payload.cache
-                    : state.recommend
+                status: fetchStatus.SUCCESS,
+                recommend: {
+                    reason: '',
+                    article_id: ''
+                },
+                message: ''
             }
         }
         default: {

@@ -7,13 +7,13 @@ import {
 import { Recommend, RecommendBase } from '../../../models/recommend'
 
 interface CreateAPI extends APIBaseResponse {
-    results: Recommend
+    results: RecommendBase
 }
 
 interface Payload {
     status?: fetchStatus
-    response?: CreateAPI
-    cache?: RecommendBase
+    recommend?: RecommendBase
+    message?: string
 }
 
 export interface RecommendCreateAction {
@@ -40,8 +40,9 @@ export const recommendPostCreateSuccess = (
 ): RecommendCreateAction => ({
     type: actionTypes.RECOMMEND_POST_CREATE_SUCCESS,
     payload: {
-        response,
-        status: fetchStatus.SUCCESS
+        status: fetchStatus.SUCCESS,
+        recommend: response.results,
+        message: response.message
     }
 })
 
@@ -60,6 +61,11 @@ export const recommendPostCreateCache = (
 ): RecommendCreateAction => ({
     type: actionTypes.RECOMMEND_POST_CREATE_CACHE,
     payload: {
-        cache: recommend
+        recommend
     }
+})
+
+export const recommendCreateInitialize = (): RecommendCreateAction => ({
+    type: actionTypes.RECOMMEND_CREATE_INITIALIZE,
+    payload: {}
 })
