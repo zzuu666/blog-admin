@@ -6,6 +6,7 @@ export interface Article {
     desc?: string
     id?: number
     image?: string
+    image_desc?: string
     origin?: string
     scan?: string
     tags?: string

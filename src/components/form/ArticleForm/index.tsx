@@ -35,6 +35,7 @@ export interface ArtilceFormData {
     author: string
     origin: string
     category_id: string
+    image_desc?: string
 }
 
 class ArticleForm extends React.Component<Props> {
@@ -109,8 +110,13 @@ class ArticleForm extends React.Component<Props> {
                             {getFieldDecorator('image', {
                                 initialValue: article.image
                             })(
-                                <Input placeholder="http://image.example.com" />
+                                <Input placeholder="https://image.example.com" />
                             )}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="文章配图描述">
+                            {getFieldDecorator('image_desc', {
+                                initialValue: article.image_desc
+                            })(<Input placeholder="文章配图描述" />)}
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章内容">
                             {getFieldDecorator('content', {
