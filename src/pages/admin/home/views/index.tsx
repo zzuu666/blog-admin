@@ -1,54 +1,70 @@
 import React, { useEffect, FunctionComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetchArticles } from '../actions'
+import { fetchArticles, discardArticle } from '../actions'
 import { Article } from '../../../../models/article'
-import { Table, Divider, Button } from 'antd'
+import { Table, Divider, Button, Popconfirm } from 'antd'
 import { ColumnProps } from 'antd/es/table'
 import { StoreState } from '../../../../store'
 import style from './index.less'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
-
-const columns: Array<ColumnProps<Article>> = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-        render: text => <a href="javascript:;">{text}</a>
-    },
-    {
-        title: 'Title',
-        dataIndex: 'title'
-    },
-    {
-        title: 'Options',
-        key: 'action',
-        render: (text, record) => (
-            <span>
-                <Link to={`/admin/edit/${record.id}`}>编辑</Link>
-                <Divider type="vertical" />
-                <a href="javascript:;">屏蔽</a>
-                <Divider type="vertical" />
-                <a href="javascript:;">删除</a>
-            </span>
-        )
-    },
-    {
-        title: 'Scan',
-        dataIndex: 'scan'
-    }
-]
+import { fetchStatus } from '../../../../utils/fetch'
+import { messageType } from '../../../../utils/message-type'
 
 interface Props extends RouteComponentProps {
     articles: Article[]
-    error: number
+    status: fetchStatus
+    message: string
+    messageType: messageType
     fetchArticles: () => void
+    discardArticle: (id: number) => void
 }
 
 const Home: FunctionComponent<Props> = props => {
-    const { articles, fetchArticles } = props
+    const { articles } = props
 
     useEffect(() => {
-        fetchArticles()
+        props.fetchArticles()
     }, [])
+
+    const handleDiscarArtilce = (id: number) => {
+        props.discardArticle(id)
+    }
+
+    const columns: Array<ColumnProps<Article>> = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            render: text => <a href="javascript:;">{text}</a>
+        },
+        {
+            title: 'Title',
+            dataIndex: 'title'
+        },
+        {
+            title: 'Options',
+            key: 'action',
+            render: (text, record) => (
+                <span>
+                    <Link to={`/admin/edit/${record.id}`}>编辑</Link>
+                    <Divider type="vertical" />
+                    <Popconfirm
+                        title={`Are you sure delete recommend for ${
+                            record.title
+                        }`}
+                        onConfirm={handleDiscarArtilce.bind(null, record.id!)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <a>删除</a>
+                    </Popconfirm>
+                </span>
+            )
+        },
+        {
+            title: 'Scan',
+            dataIndex: 'scan'
+        }
+    ]
 
     return (
         <div className={style.home}>
@@ -64,12 +80,17 @@ const Home: FunctionComponent<Props> = props => {
 
 const mapStateToProps = (state: StoreState) => ({
     articles: state.home.articles,
-    error: state.home.error
+    status: state.home.status,
+    message: state.home.message,
+    messageType: state.home.messageType
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
-    fetchArticles: () => {
+    fetchArticles() {
         dispatch(fetchArticles())
+    },
+    discardArticle(id: number) {
+        dispatch(discardArticle(id))
     }
 })
 

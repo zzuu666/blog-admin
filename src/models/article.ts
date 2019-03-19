@@ -12,4 +12,5 @@ export interface Article {
     tags?: string
     title?: string
     updated_at?: string
+    status?: string
 }

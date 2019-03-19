@@ -1,34 +1,53 @@
 import { HomeAction } from './actions'
 import { actionTypes } from './actionTypes'
 import { Article } from '../../../models/article'
+import { fetchStatus } from '../../../utils/fetch'
+import { messageType } from '../../../utils/message-type'
 
 export interface HomeState {
     articles: Article[]
     total: number
-    status: 'success' | 'loading' | 'error'
-    error: number
+    status: fetchStatus
+    message: string
+    messageType: messageType
 }
 export default (
-    state: HomeState = { articles: [], total: 0, status: 'loading', error: 0 },
+    state: HomeState = {
+        articles: [],
+        total: 0,
+        status: fetchStatus.SUCCESS,
+        message: '',
+        messageType: messageType.INFO
+    },
     action: HomeAction
 ): HomeState => {
     switch (action.type) {
+        case actionTypes.HOME_GET_ARTICLES_STARTED:
+        case actionTypes.HOME_GET_ARTICLES_FAILURE:
         case actionTypes.HOME_GET_ARTICLES_SUCCESS: {
             return {
                 ...state,
-                articles: (action.api && action.api.results) || []
+                articles: action.payload.articles
+                    ? action.payload.articles
+                    : state.articles,
+                status: action.payload.status,
+                message: action.payload.message || state.message,
+                messageType: action.payload.messageType || state.messageType
             }
         }
-        case actionTypes.HOME_GET_ARTICLES_FAILURE: {
+        case actionTypes.HOME_DISCARD_ARTICLE_STARTED:
+        case actionTypes.HOME_DISCARD_ARTICLE_FAILURE:
+        case actionTypes.HOME_DISCARD_ARTICLE_SUCCESS: {
             return {
                 ...state,
-                status: 'error',
-                error: (action.api && action.api.error) || -1
-            }
-        }
-        case actionTypes.HOME_GET_ARTICLES_STARTED: {
-            return {
-                ...state
+                articles: action.payload.article
+                    ? state.articles.filter(
+                          article => article.id !== action.payload.article!.id
+                      )
+                    : state.articles,
+                status: action.payload.status,
+                message: action.payload.message || state.message,
+                messageType: action.payload.messageType || state.messageType
             }
         }
         default: {
