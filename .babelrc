@@ -9,5 +9,12 @@
         "@babel/proposal-object-rest-spread",
         "@babel/plugin-syntax-dynamic-import",
         ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
-    ]
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "@babel/plugin-transform-react-jsx-source"
+            ]
+        }
+    }
 }
