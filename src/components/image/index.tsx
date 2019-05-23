@@ -1,38 +1,33 @@
-import * as React from 'react'
+import React, { FunctionComponent, ImgHTMLAttributes } from 'react'
 import style from './index.less'
 
 enum ImageType {
     '16x9'
 }
 
-interface Props {
-    alt: string
-    src: string
+interface Props extends ImgHTMLAttributes<HTMLImageElement> {
     type: ImageType
 }
 
-class Image extends React.Component<Props> {
-    render() {
-        const { type, ...props } = this.props
-        return (
-            <div className={style['c-image']}>
-                <div
-                    className={
-                        style['c-image-wrapper'] +
-                        ' ' +
-                        style[`c-image-type-${type}`]
-                    }
-                >
-                    <img className={style['c-image-source']} {...props} />
-                </div>
+const Image: FunctionComponent<Props> = props => {
+    const { type = '16x9', alt, ...others } = props
+    return (
+        <div className={style['c-image']}>
+            <div
+                className={
+                    style['c-image-wrapper'] +
+                    ' ' +
+                    style[`c-image-type-${type}`]
+                }
+            >
+                <img
+                    className={style['c-image-source']}
+                    alt={alt}
+                    {...others}
+                />
             </div>
-        )
-    }
-
-    static defaultProps = {
-        type: '16x9',
-        alt: ''
-    }
+        </div>
+    )
 }
 
 export default Image

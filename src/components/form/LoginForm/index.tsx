@@ -71,7 +71,7 @@ class LoginForm extends React.Component<Props> {
                         valuePropName: 'checked',
                         initialValue: true
                     })(<Checkbox>Remember me</Checkbox>)}
-                    <a className="login-form-forgot" href="">
+                    <a className="login-form-forgot" href="/">
                         Forgot password
                     </a>
                     <Button
@@ -81,7 +81,8 @@ class LoginForm extends React.Component<Props> {
                     >
                         Log in
                     </Button>
-                    Or <a href="">register now!</a>
+                    Or
+                    <a href="/">register now!</a>
                 </FormItem>
             </Form>
         )

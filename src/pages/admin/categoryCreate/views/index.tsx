@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { Spin, Col, Row } from 'antd'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { categoryCreate, categorySetCache } from '../actions'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Category } from '../../../../models/category'
 import CategoryForm, {
     CategoryFormData
 } from '../../../../components/form/CategoryForm'
-import { Spin, Col, Row } from 'antd'
 
 interface Props extends RouteComponentProps {
     status: fetchStatus

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Row, Col, Menu, Layout } from 'antd'
+import { Row, Col, Layout } from 'antd'
 import Loading from './components/loading'
 import logo from './assets/login/logo.png'
 import style from './App.less'
@@ -23,6 +23,10 @@ const Home = lazy(() =>
 )
 // tslint:enable space-in-parens
 class App extends React.Component<{}> {
+    componentDidCatch() {
+        // TODO
+    }
+
     render() {
         const basename = process.env.NODE_ENV === 'production' ? '/markii' : ''
         return (
@@ -30,7 +34,11 @@ class App extends React.Component<{}> {
                 <Header>
                     <Row>
                         <Col span={6}>
-                            <img src={logo} style={{ height: '24px' }} />
+                            <img
+                                alt="logo"
+                                src={logo}
+                                style={{ height: '24px' }}
+                            />
                         </Col>
                         <Col span={18}>
                             {/* <Menu

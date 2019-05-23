@@ -5,7 +5,6 @@ import {
     fetchWithRedux
 } from '../../../utils/fetch'
 import { Recommend, RecommendBase } from '../../../models/recommend'
-import { message } from 'antd'
 
 interface ResponseAPI extends APIBaseResponse {
     results: Recommend

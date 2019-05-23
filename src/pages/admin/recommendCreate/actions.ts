@@ -4,7 +4,7 @@ import {
     fetchWithRedux,
     fetchStatus
 } from '../../../utils/fetch'
-import { Recommend, RecommendBase } from '../../../models/recommend'
+import { RecommendBase } from '../../../models/recommend'
 
 interface CreateAPI extends APIBaseResponse {
     results: RecommendBase

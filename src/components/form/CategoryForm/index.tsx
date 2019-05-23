@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Form, Input, Button, Select, Spin } from 'antd'
+import { Form, Input, Button, Select } from 'antd'
 import { FormComponentProps, FormItemProps } from 'antd/es/form'
 import { Category } from '../../../models/category'
 import { Article } from '../../../models/article'

@@ -2,7 +2,6 @@ import { actionTypes } from './actionTypes'
 import { Action } from './actions'
 import { fetchStatus } from '../../../utils/fetch'
 import { RecommendBase } from '../../../models/recommend'
-import { message } from 'antd'
 
 export interface RecommendEditState {
     status: fetchStatus

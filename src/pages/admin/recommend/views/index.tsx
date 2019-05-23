@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { StoreState } from '../../../../store'
 import { Dispatch } from 'redux'
+import { Table, Divider, Button, Popconfirm } from 'antd'
+import { ColumnProps } from 'antd/es/table'
+import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
 import { fetchRecommends, recommendDelete } from '../actions'
 import { Recommend } from '../../../../models/recommend'
-import { Table, Divider, Button, Popconfirm } from 'antd'
-import { ColumnProps } from 'antd/es/table'
+
 import style from './index.less'
 
 interface Props extends RouteComponentProps {
@@ -19,7 +20,7 @@ interface Props extends RouteComponentProps {
 }
 
 const RecommendHome = (props: Props) => {
-    const { recommends, fetchRecommends, deleteRecommend } = props
+    const { recommends, deleteRecommend } = props
 
     const handleColumnConfirm = (id: string) => {
         deleteRecommend(id)
@@ -29,7 +30,7 @@ const RecommendHome = (props: Props) => {
         {
             title: 'ID',
             dataIndex: 'id',
-            render: text => <a href="javascript:;">{text}</a>
+            render: text => <a href="/">{text}</a>
         },
         {
             title: 'Title',
@@ -50,11 +51,11 @@ const RecommendHome = (props: Props) => {
                         title={`Are you sure delete recommend for ${
                             record.article_title
                         }`}
-                        onConfirm={handleColumnConfirm.bind(null, record.id)}
+                        onConfirm={() => handleColumnConfirm(record.id)}
                         okText="Yes"
                         cancelText="No"
                     >
-                        <a>删除</a>
+                        <a href="/">删除</a>
                     </Popconfirm>
                 </span>
             )
@@ -62,7 +63,7 @@ const RecommendHome = (props: Props) => {
     ]
 
     useEffect(() => {
-        fetchRecommends()
+        props.fetchRecommends()
     }, [])
 
     return (

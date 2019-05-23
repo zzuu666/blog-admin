@@ -1,16 +1,17 @@
 import * as React from 'react'
 import { Form, Input, Button, Row, Col, Select } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
+import marked from 'marked'
+import highlight from 'highlight.js'
 import { Article } from '../../../models/article'
 import { Category } from '../../../models/category'
 import 'highlight.js/styles/github.css'
-import marked from 'marked'
 import style from './index.less'
 import Image from '../../image/index'
 
 marked.setOptions({
     highlight(code) {
-        return require('highlight.js').highlightAuto(code).value
+        return highlight.highlightAuto(code).value
     }
 })
 
@@ -39,6 +40,11 @@ export interface ArtilceFormData {
 }
 
 class ArticleForm extends React.Component<Props> {
+    static defaultProps = {
+        article: {},
+        categories: []
+    }
+
     onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         if (this.props.onSubmit === undefined) {
@@ -200,11 +206,6 @@ class ArticleForm extends React.Component<Props> {
                 </Col>
             </Row>
         )
-    }
-
-    static defaultProps = {
-        article: {},
-        categories: []
     }
 }
 

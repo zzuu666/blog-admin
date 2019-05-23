@@ -1,12 +1,12 @@
 import React, { useEffect, FunctionComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetchArticles, discardArticle } from '../actions'
-import { Article } from '../../../../models/article'
 import { Table, Divider, Button, Popconfirm } from 'antd'
 import { ColumnProps } from 'antd/es/table'
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
+import { fetchArticles, discardArticle } from '../actions'
+import { Article } from '../../../../models/article'
 import { StoreState } from '../../../../store'
 import style from './index.less'
-import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { fetchStatus } from '../../../../utils/fetch'
 import { messageType } from '../../../../utils/message-type'
 
@@ -34,7 +34,7 @@ const Home: FunctionComponent<Props> = props => {
         {
             title: 'ID',
             dataIndex: 'id',
-            render: text => <a href="javascript:;">{text}</a>
+            render: text => <a href="/">{text}</a>
         },
         {
             title: 'Title',
@@ -51,11 +51,11 @@ const Home: FunctionComponent<Props> = props => {
                         title={`Are you sure delete recommend for ${
                             record.title
                         }`}
-                        onConfirm={handleDiscarArtilce.bind(null, record.id!)}
+                        onConfirm={() => handleDiscarArtilce(record.id || -1)}
                         okText="Yes"
                         cancelText="No"
                     >
-                        <a>删除</a>
+                        <a href="/">删除</a>
                     </Popconfirm>
                 </span>
             )

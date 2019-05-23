@@ -1,6 +1,9 @@
 import React, { useEffect, FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { Spin, Col, Row } from 'antd'
+import debounce from 'lodash.debounce'
 import {
     categoryEditGet,
     categoryEditFeatured,
@@ -9,14 +12,12 @@ import {
 } from '../actions'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+
 import { Category } from '../../../../models/category'
 import { Article } from '../../../../models/article'
 import CategoryForm, {
     CategoryFormData
 } from '../../../../components/form/CategoryForm'
-import { Spin, Col, Row } from 'antd'
-import debounce from 'lodash.debounce'
 
 interface RoutePathParams {
     id: string
@@ -32,34 +33,25 @@ interface Props extends RouteComponentProps<RoutePathParams> {
     categoryEditFeatured: (category: string, search: string) => void
 }
 const CategoryCreate: FunctionComponent<Props> = props => {
-    const {
-        category,
-        status,
-        match,
-        categoryFeatures,
-        categoryEditGet,
-        categoryEditPost,
-        categoryEditCache,
-        categoryEditFeatured
-    } = props
+    const { category, status, match } = props
 
     const onFormSubmit = (value: CategoryFormData) => {
         const id: string = match.params.id
-        categoryEditPost(id, value)
+        props.categoryEditPost(id, value)
     }
 
     const onFormValueChange = (value: CategoryFormData) => {
-        categoryEditCache(value)
+        props.categoryEditCache(value)
     }
 
     const onFeatureIdSelectSearch = (value: string) => {
         const id: string = match.params.id
-        categoryEditFeatured(id, value)
+        props.categoryEditFeatured(id, value)
     }
 
     useEffect(() => {
         const id = match.params.id
-        categoryEditGet(id)
+        props.categoryEditGet(id)
     }, [])
 
     return (
@@ -71,7 +63,7 @@ const CategoryCreate: FunctionComponent<Props> = props => {
                         <CategoryForm
                             model="edit"
                             category={category}
-                            categoryFeatures={categoryFeatures}
+                            categoryFeatures={props.categoryFeatures}
                             onSubmit={onFormSubmit}
                             onFormValueChange={onFormValueChange}
                             onFeatureIdSelectSearch={debounce(

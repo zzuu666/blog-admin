@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { StoreState } from '../../../../store'
-import { fetchArticle, updateArticle, cacheArticle } from '../actions'
 import { Spin, message } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { StoreState } from '../../../../store'
+import { fetchArticle, updateArticle, cacheArticle } from '../actions'
 import { Article } from '../../../../models/article'
 import { Category } from '../../../../models/category'
 import ArticleForm, {
@@ -31,6 +31,21 @@ class Edit extends React.Component<Props> {
         this.handleFormValueChange = this.handleFormValueChange.bind(this)
     }
 
+    componentDidMount() {
+        this.props.fetchArticle(this.props.match.params.id)
+    }
+
+    shouldComponentUpdate(props: Props) {
+        const showSuccessMessage =
+            this.props.status === 'loading' &&
+            props.status === 'success' &&
+            props.message
+        if (showSuccessMessage) {
+            message.success(props.message)
+        }
+        return true
+    }
+
     handleSubmit(value: ArtilceFormData) {
         const article: Article = {
             ...value,
@@ -53,7 +68,7 @@ class Edit extends React.Component<Props> {
         const { article, status, categories } = this.props
         return (
             <div>
-                <h2>编辑 {article.title}</h2>
+                <h2>{`编辑${article.title}`}</h2>
                 <Spin spinning={status === 'loading'}>
                     <ArticleForm
                         categories={categories}
@@ -64,20 +79,6 @@ class Edit extends React.Component<Props> {
                 </Spin>
             </div>
         )
-    }
-    componentDidMount() {
-        this.props.fetchArticle(this.props.match.params.id)
-    }
-
-    shouldComponentUpdate(props: Props) {
-        const showSuccessMessage =
-            this.props.status === 'loading' &&
-            props.status === 'success' &&
-            props.message
-        if (showSuccessMessage) {
-            message.success(props.message)
-        }
-        return true
     }
 }
 

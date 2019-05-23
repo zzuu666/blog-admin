@@ -1,5 +1,6 @@
-import { fetchHost, apiRoute, apiVersion } from './fetch-host'
 import { Dispatch } from 'redux'
+import { fetchHost, apiRoute, apiVersion } from './fetch-host'
+/* global Headers */
 
 /**
  * Restful style fetch request method include: 'get' 'post' 'put' 'delete'
@@ -48,7 +49,7 @@ export const fetchWithRedux = <APIResponse extends APIBaseResponse>(
     const { params, started, success, failure, headers, qs } = payload
     const method = payload.method ? payload.method : 'get'
     const path = payload.path[0] === '/' ? payload.path : `/${payload.path}`
-    const authorizationHeader = localStorage.getItem('AUTH_TOKEN') || ''
+    const authorizationHeader = window.localStorage.getItem('AUTH_TOKEN') || ''
 
     const fetchUrl = new URL(`${fetchHost}/${apiRoute}/${apiVersion}${path}`)
     if (qs !== undefined) {

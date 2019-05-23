@@ -18,7 +18,8 @@
         "esModuleInterop": true,
         // Specify jsx
         "jsx": "react"
-      },
+    },
+    "preserveConstEnums": true,
     "include": [
         "./src/**/*"
     ]

@@ -1,0 +1,97 @@
+root: true
+parser: "@typescript-eslint/parser"
+plugins:
+    - "@typescript-eslint"
+    - "react-hooks"
+extends:
+    - "airbnb"
+    - "plugin:@typescript-eslint/recommended"
+    - "prettier"
+    - "prettier/@typescript-eslint"
+settings:
+    import/resolver:
+        node:
+            extensions:
+                - ".js"
+                - ".jsx"
+                - ".ts"
+                - ".tsx"
+globals:
+    document: readonly
+    window: writable
+    navigator: readonly
+    fetch: readonly
+rules:
+    "semi":
+        - 2
+        - "never"
+    "comma-dangle":
+        - 2
+        - "never"
+    "object-curly-spacing":
+        - 0
+    "object-curly-newline":
+        - 0
+    "no-unused-expressions":
+        - 2
+        -
+            allowShortCircuit: true
+    "consistent-return":
+        - 0
+    "arrow-parens":
+        - 1
+        - "as-needed"
+    "no-nested-ternary":
+        - 0
+    "prefer-destructuring":
+        - 0
+    "prefer-template":
+        - 0
+    "import/prefer-default-export":
+        - 0
+    "import/no-extraneous-dependencies":
+        - 0
+    "react/jsx-indent":
+        - 1
+        - 4
+    "react/jsx-filename-extension":
+        - 1
+        -
+            extensions:
+                - ".jsx"
+                - ".tsx"
+    "react/jsx-indent-props":
+        - 1
+        - 4
+    "react-hooks/rules-of-hooks":
+        - 2
+    "react-hooks/exhaustive-deps":
+        - 1
+    "react/destructuring-assignment":
+        - 0
+    "react/prop-types":
+        - 0
+    "react/button-has-type":
+        - 0
+    "react/jsx-wrap-multilines":
+        - 0
+    "@typescript-eslint/explicit-function-return-type":
+        - 0
+    "@typescript-eslint/camelcase":
+        - 0
+    "@typescript-eslint/member-delimiter-style":
+        - 1
+        -
+            multiline:
+                delimiter: "none"
+    "@typescript-eslint/explicit-member-accessibility":
+        - 2
+        -
+            accessibility: "no-public"
+    "@typescript-eslint/array-type":
+        - 2
+        - "array-simple"
+    "@typescript-eslint/no-non-null-assertion":
+        - 0
+
+

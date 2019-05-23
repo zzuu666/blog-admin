@@ -2,9 +2,9 @@ import React, { useEffect, FunctionComponent } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
-import { StoreState } from '../../../../store'
 import { Table, Divider, Button } from 'antd'
 import { ColumnProps } from 'antd/es/table'
+import { StoreState } from '../../../../store'
 import { Category } from '../../../../models/category'
 import { fetchStatus } from '../../../../utils/fetch'
 import { fetchCategories } from '../actions'
@@ -14,7 +14,7 @@ const columns: Array<ColumnProps<Category>> = [
     {
         title: 'ID',
         dataIndex: 'id',
-        render: text => <a href="javascript:;">{text}</a>
+        render: text => <a href="/">{text}</a>
     },
     {
         title: 'Category Name',
@@ -27,9 +27,9 @@ const columns: Array<ColumnProps<Category>> = [
             <span>
                 <Link to={`/admin/category/edit/${record.id}`}>编辑</Link>
                 <Divider type="vertical" />
-                <a href="javascript:;">屏蔽</a>
+                <a href="/">屏蔽</a>
                 <Divider type="vertical" />
-                <a href="javascript:;">删除</a>
+                <a href="/">删除</a>
             </span>
         )
     }
@@ -42,10 +42,10 @@ interface Props extends RouteComponentProps {
 }
 
 const CategoryHome: FunctionComponent<Props> = props => {
-    const { categories, fetchCategories } = props
+    const { categories } = props
 
     useEffect(() => {
-        fetchCategories()
+        props.fetchCategories()
     }, [])
 
     return (

@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Spin } from 'antd'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
 import {
@@ -7,8 +9,6 @@ import {
     createArticleSetCache,
     createArticleGetCategory
 } from '../actions'
-import { Spin } from 'antd'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Article } from '../../../../models/article'
 import { Category } from '../../../../models/category'
 import ArticleForm, {
@@ -28,23 +28,23 @@ const CreateArticle: FunctionComponent<Props> = props => {
     const { article, status, categories } = props
 
     const handleSubmit = (value: ArtilceFormData) => {
-        const article: Article = {
+        const newArticle: Article = {
             ...value,
             tags: value.tags.join(','),
             category_id: value.category_id ? parseInt(value.category_id, 10) : 0
         }
-        props.postCreateArticle(article)
+        props.postCreateArticle(newArticle)
     }
 
     const handleFormValueChange = (value: ArtilceFormData) => {
-        const article: Article = {
+        const newArticle: Article = {
             ...value,
             category_id: value.category_id
                 ? parseInt(value.category_id, 10)
                 : 0,
             tags: value.tags ? value.tags.join(',') : undefined
         }
-        props.createArticleSetCache(article)
+        props.createArticleSetCache(newArticle)
     }
 
     useEffect(() => {

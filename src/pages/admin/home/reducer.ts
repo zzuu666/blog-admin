@@ -42,7 +42,9 @@ export default (
                 ...state,
                 articles: action.payload.article
                     ? state.articles.filter(
+                          /* eslint-disable @typescript-eslint/no-non-null-assertion */
                           article => article.id !== action.payload.article!.id
+                          /* eslint-enable @typescript-eslint/no-non-null-assertion */
                       )
                     : state.articles,
                 status: action.payload.status,

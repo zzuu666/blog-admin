@@ -3,6 +3,6 @@ export const fetchHost: string =
         ? 'https://zzuu666.com'
         : 'http://localhost:3000'
 
-export const apiRoute: string = 'api'
-export const apiVersion: string = 'v1'
-export const apiAdminSuffix: string = '-vip'
+export const apiRoute = 'api'
+export const apiVersion = 'v1'
+export const apiAdminSuffix = '-vip'

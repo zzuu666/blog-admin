@@ -1,19 +1,13 @@
 import React, { useEffect, FunctionComponent } from 'react'
-import {
-    recommendEditUpdate,
-    recommendEditShow,
-    SubmitParams,
-    recommendEditCache,
-    recommendEditInit
-} from '../actions'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import debounce from 'lodash.debounce'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { Spin, Col, Row } from 'antd'
 import { fetchStatus } from '../../../../utils/fetch'
 import { RecommendBase } from '../../../../models/recommend'
 import { Article } from '../../../../models/article'
 import { StoreState } from '../../../../store'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { Spin, Col, Row, message } from 'antd'
 import RecommendForm from '../../../../components/form/RecommendForm'
 import {
     suggestionGet,
@@ -21,7 +15,14 @@ import {
 } from '../../../../components/suggestion/actions'
 import { useMessagePop } from '../../../../components/hooks'
 import { apiAdminSuffix } from '../../../../utils/fetch-host'
-import debounce from 'lodash.debounce'
+
+import {
+    recommendEditUpdate,
+    recommendEditShow,
+    SubmitParams,
+    recommendEditCache,
+    recommendEditInit
+} from '../actions'
 
 interface RoutePathParams {
     id: string
@@ -54,7 +55,7 @@ const RecommendEdit: FunctionComponent<Props> = props => {
     useMessagePop(props.message)
 
     useEffect(() => {
-        const id = match.params.id
+        const { id } = match.params
         fetchOriginRecommend(id)
 
         return () => {
@@ -63,7 +64,7 @@ const RecommendEdit: FunctionComponent<Props> = props => {
     }, [])
 
     const onSubmit = (value: RecommendBase) => {
-        const id = match.params.id
+        const { id } = match.params
         submitNewRecommend({ id, recommend: value })
     }
 

@@ -15,6 +15,14 @@ interface Props extends FormComponentProps, RouteComponentProps {
     fetchLogin: (email: string, password: string) => void
 }
 class Login extends React.Component<Props> {
+    shouldComponentUpdate(next: Props) {
+        if (next.token !== '') {
+            window.localStorage.setItem('AUTH_TOKEN', next.token)
+            this.props.history.push(this.props.location.state.from)
+        }
+        return true
+    }
+
     handleSubmit = (value: LoginFormData) => {
         const { email, password } = value
         this.props.fetchLogin(email, password)
@@ -30,14 +38,6 @@ class Login extends React.Component<Props> {
                 </Row>
             </Content>
         )
-    }
-
-    shouldComponentUpdate(next: Props) {
-        if (next.token !== '') {
-            localStorage.setItem('AUTH_TOKEN', next.token)
-            this.props.history.push(this.props.location.state.from)
-        }
-        return true
     }
 }
 
