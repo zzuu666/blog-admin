@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { Spin, Col, Row } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'

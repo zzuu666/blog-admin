@@ -1,4 +1,4 @@
-import { Dispatch, Action } from 'redux'
+import { Action } from 'redux'
 import { ThunkDispatch, ThunkAction } from 'redux-thunk'
 import { fetchHost, apiRoute, apiVersion } from './fetch-host'
 /* global Headers */
