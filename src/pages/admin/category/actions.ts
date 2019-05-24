@@ -1,5 +1,7 @@
+import { ThunkAction } from 'redux-thunk'
 import { actionTypes } from './actionTypes'
 import { Category } from '../../../models/category'
+import { CategoryState } from './reducer'
 import {
     fetchStatus,
     fetchWithRedux,
@@ -32,12 +34,11 @@ export const fetchCategoriesSuccess = (api: CategoryAPI): CategoryAction => ({
     status: fetchStatus.SUCCESS
 })
 
-export const fetchCategories = () => {
-    return fetchWithRedux({
+export const fetchCategories = () =>
+    fetchWithRedux<CategoryAPI, null, null, CategoryAction>({
         method: 'get',
         path: '/categories',
         started: fetchCategoriesStarted,
         success: fetchCategoriesSuccess,
         failure: fetchCategoriesFailure
     })
-}

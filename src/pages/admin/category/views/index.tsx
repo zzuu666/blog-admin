@@ -1,5 +1,5 @@
 import React, { useEffect, FunctionComponent } from 'react'
-import { Dispatch } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { Table, Divider, Button } from 'antd'
@@ -7,7 +7,7 @@ import { ColumnProps } from 'antd/es/table'
 import { StoreState } from '../../../../store'
 import { Category } from '../../../../models/category'
 import { fetchStatus } from '../../../../utils/fetch'
-import { fetchCategories } from '../actions'
+import { fetchCategories, CategoryAction } from '../actions'
 import style from './index.less'
 
 const columns: Array<ColumnProps<Category>> = [
@@ -64,7 +64,9 @@ const mapStateToProps = (state: StoreState) => ({
     categories: state.category.categories
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapDispatchToProps = (
+    dispatch: ThunkDispatch<null, null, CategoryAction>
+) => ({
     fetchCategories() {
         dispatch(fetchCategories())
     }

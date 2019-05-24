@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { Table, Divider, Button, Popconfirm } from 'antd'
 import { ColumnProps } from 'antd/es/table'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
-import { fetchRecommends, recommendDelete } from '../actions'
+import { fetchRecommends, recommendDelete, Action } from '../actions'
 import { Recommend } from '../../../../models/recommend'
 
 import style from './index.less'
@@ -84,7 +85,7 @@ const mapStateToProps = (state: StoreState) => ({
     message: state.recommend.message
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<null, null, Action>) => ({
     fetchRecommends() {
         dispatch(fetchRecommends())
     },

@@ -1,4 +1,5 @@
-import { Dispatch } from 'redux'
+import { Dispatch, Action } from 'redux'
+import { ThunkDispatch, ThunkAction } from 'redux-thunk'
 import { fetchHost, apiRoute, apiVersion } from './fetch-host'
 /* global Headers */
 
@@ -7,7 +8,7 @@ import { fetchHost, apiRoute, apiVersion } from './fetch-host'
  */
 export type Method = 'get' | 'post' | 'put' | 'delete'
 
-interface FetchPayload<T extends APIBaseResponse> {
+interface FetchPayload<T extends APIBaseResponse, A extends Action> {
     method: Method
     path: string
     params?:
@@ -23,9 +24,9 @@ interface FetchPayload<T extends APIBaseResponse> {
         | string[][]
         | Record<string, string>
         | undefined
-    started?: () => void
-    success?: (success: T) => any
-    failure?: (error: T) => any
+    started: () => A
+    success: (success: T) => A
+    failure: (error: T) => A
     headers?: Headers
 }
 
@@ -43,9 +44,14 @@ export enum fetchStatus {
     FAILURE = 'failure'
 }
 
-export const fetchWithRedux = <APIResponse extends APIBaseResponse>(
-    payload: FetchPayload<APIResponse>
-) => {
+export const fetchWithRedux = <
+    APIResponse extends APIBaseResponse,
+    S,
+    E,
+    A extends Action
+>(
+    payload: FetchPayload<APIResponse, A>
+): ThunkAction<void, S, E, A> => {
     const { params, started, success, failure, headers, qs } = payload
     const method = payload.method ? payload.method : 'get'
     const path = payload.path[0] === '/' ? payload.path : `/${payload.path}`
@@ -61,12 +67,10 @@ export const fetchWithRedux = <APIResponse extends APIBaseResponse>(
         new Headers({
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
-            // tslint:disable-next-line:object-literal-key-quotes
             Accept: 'application/json',
-            // tslint:disable-next-line:object-literal-key-quotes
             Authorization: authorizationHeader
         })
-    return (dispatch: Dispatch<any>) => {
+    return (dispatch: ThunkDispatch<S, E, A>) => {
         dispatch(started && started())
         fetch(fetchUrl.href, {
             method,

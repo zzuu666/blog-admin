@@ -34,7 +34,7 @@ export const categorySetCache = (category: Category): CategoryCreateAction => ({
 export const categoryCreate = (category: Category) => {
     const params = JSON.stringify(category)
 
-    return fetchWithRedux({
+    return fetchWithRedux<APIBaseResponse, null, null, CategoryCreateAction>({
         params,
         method: 'post',
         path: '/categories',

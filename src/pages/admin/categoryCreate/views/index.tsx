@@ -1,9 +1,14 @@
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
 import { Spin, Col, Row } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { categoryCreate, categorySetCache } from '../actions'
+import {
+    categoryCreate,
+    categorySetCache,
+    CategoryCreateAction
+} from '../actions'
 import { StoreState } from '../../../../store'
 import { fetchStatus } from '../../../../utils/fetch'
 import { Category } from '../../../../models/category'
@@ -53,7 +58,9 @@ const mapStateToProps = (state: StoreState) => ({
     status: state.categoryCreate.status
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapDispatchToProps = (
+    dispatch: ThunkDispatch<null, null, CategoryCreateAction>
+) => ({
     categoryCreate(category: Category) {
         dispatch(categoryCreate(category))
     },

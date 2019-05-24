@@ -50,7 +50,7 @@ export const fetchRecommendsSuccess = (response: RecommendAPI): Action => ({
 })
 
 export const fetchRecommends = () =>
-    fetchWithRedux({
+    fetchWithRedux<RecommendAPI, null, null, Action>({
         method: 'get',
         path: '/recommends',
         started: fetchRecommendsStarted,
@@ -84,7 +84,7 @@ export const recommendDeleteSuccess = (
 })
 
 export const recommendDelete = (id: string) =>
-    fetchWithRedux({
+    fetchWithRedux<RecommendDeleteAPI, null, null, Action>({
         method: 'delete',
         path: `/recommends/${id}`,
         started: recommendDeleteStarted,
