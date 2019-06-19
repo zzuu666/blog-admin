@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Row, Col, Layout } from 'antd'
@@ -68,4 +69,4 @@ class App extends React.Component<{}> {
     }
 }
 
-export default App
+export default hot(App)

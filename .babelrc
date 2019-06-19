@@ -13,7 +13,8 @@
     "env": {
         "development": {
             "plugins": [
-                "@babel/plugin-transform-react-jsx-source"
+                "@babel/plugin-transform-react-jsx-source",
+                "react-hot-loader/babel"
             ]
         }
     }

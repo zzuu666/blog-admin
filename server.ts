@@ -3,7 +3,9 @@ import * as webpack from 'webpack'
 import * as webpackDevMiddleware from 'webpack-dev-middleware'
 import * as opn from 'opn'
 import * as history from 'connect-history-api-fallback'
+import * as webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackDevConfig from './config/webpack.dev.config'
+
 
 const app = express()
 const compiler = webpack(webpackDevConfig)
@@ -14,6 +16,12 @@ app.use(history())
 // configuration file as a base.
 app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackDevConfig.output.publicPath
+}))
+
+app.use(webpackHotMiddleware(compiler, {
+    log: false,
+    path: '/__webpack_hmr',
+    heartbeat: 10 * 1000
 }))
 
 app.listen(3001, () => {
