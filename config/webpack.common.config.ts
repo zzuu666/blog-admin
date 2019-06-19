@@ -1,7 +1,6 @@
 import * as webpack from 'webpack'
 import * as autoprefixer from 'autoprefixer'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import * as path from 'path'
 
 const isDevMode = process.env.NODE_ENV !== 'production'
 
@@ -44,7 +43,7 @@ const config: webpack.Configuration = {
                             modules: true,
                             localIdentName: '[local]___[hash:base64:5]',
                             importLoaders: 2,
-                            camelCase: true,
+                            camelCase: true
                             // getLocalIdent: (context, localIdentName, localName, options) => {
                             //     if (
                             //         path
@@ -63,6 +62,7 @@ const config: webpack.Configuration = {
                     {
                         loader: 'postcss-loader',
                         options: {
+                            /* eslint-disable global-require */
                             // Necessary for external CSS imports to work
                             // https://github.com/facebookincubator/create-react-app/issues/2677
                             ident: 'postcss',
@@ -73,11 +73,11 @@ const config: webpack.Configuration = {
                                         '>1%',
                                         'last 4 versions',
                                         'Firefox ESR',
-                                        'not ie < 9', // React doesn't support IE8 anyway
+                                        'not ie < 9' // React doesn't support IE8 anyway
                                     ],
-                                    flexbox: 'no-2009',
-                                }),
-                            ],
+                                    flexbox: 'no-2009'
+                                })
+                            ]
                         }
                     },
                     {
