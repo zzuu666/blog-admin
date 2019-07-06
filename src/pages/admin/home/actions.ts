@@ -7,6 +7,17 @@ import {
 import { messageType } from '../../../utils/message-type'
 import { Article } from '../../../models/article'
 
+export type FetchArticlesOption = {
+    status: articleStatus
+}
+export type articleStatus = 'normal' | 'hide' | 'trash'
+
+export type UpdateArticleStatusOption = {
+    id: number
+    operation: updateOperation
+}
+export type updateOperation = 'hide' | 'discard' | 'recover' | 'delete'
+
 interface GetArticles extends APIBaseResponse {
     results: Article[]
 }
@@ -40,7 +51,7 @@ export const fetchArticlesSuccess = (api: GetArticles): HomeAction => ({
     payload: {
         status: fetchStatus.SUCCESS,
         articles: api.results,
-        message: api.message,
+        message: '',
         messageType: messageType.SUCCESS
     }
 })
@@ -54,14 +65,14 @@ export const fetchArticlesFailure = (api: GetArticles): HomeAction => ({
     }
 })
 
-export const discardArticleStarted = (): HomeAction => ({
+export const updateArticleStatusStarted = (): HomeAction => ({
     type: actionTypes.HOME_DISCARD_ARTICLE_STARTED,
     payload: {
         status: fetchStatus.LOADING
     }
 })
 
-export const discardArticleSuccess = (
+export const updateArticleStatusSuccess = (
     response: DiscardArticle
 ): HomeAction => ({
     type: actionTypes.HOME_DISCARD_ARTICLE_SUCCESS,
@@ -73,7 +84,7 @@ export const discardArticleSuccess = (
     }
 })
 
-export const discardArticleFailure = (
+export const updateArticleStatusFailure = (
     response: DiscardArticle
 ): HomeAction => ({
     type: actionTypes.HOME_DISCARD_ARTICLE_FAILURE,
@@ -84,22 +95,34 @@ export const discardArticleFailure = (
     }
 })
 
-export const fetchArticles = () => {
+export const fetchArticles = (option: FetchArticlesOption) => {
     return fetchWithRedux({
         method: 'get',
         path: '/articles',
+        qs: {
+            status: option.status
+        },
         started: fetchArticlesStarted,
         success: fetchArticlesSuccess,
         failure: fetchArticlesFailure
     })
 }
 
-export const discardArticle = (id: number) => {
+export const updateArticleStatus = ({
+    id,
+    operation
+}: UpdateArticleStatusOption) => {
+    const method = operation === 'delete' ? 'delete' : 'post'
+    const path =
+        operation === 'delete'
+            ? `/articles/${id}`
+            : `/articles/${id}/${operation}`
+
     return fetchWithRedux({
-        method: 'delete',
-        path: `/articles/${id}/discard`,
-        started: discardArticleStarted,
-        success: discardArticleSuccess,
-        failure: discardArticleFailure
+        method,
+        path,
+        started: updateArticleStatusStarted,
+        success: updateArticleStatusSuccess,
+        failure: updateArticleStatusFailure
     })
 }

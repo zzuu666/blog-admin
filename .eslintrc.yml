@@ -95,5 +95,6 @@ rules:
         - 0
     "@typescript-eslint/no-unused-vars":
         - 2
-
+    "@typescript-eslint/prefer-interface":
+        - 0
 
