@@ -5,9 +5,9 @@ import marked from 'marked'
 import highlight from 'highlight.js'
 import { Article } from '../../../models/article'
 import { Category } from '../../../models/category'
-import 'highlight.js/styles/github.css'
+import ArticlePreview from '../../preview'
 import style from './index.less'
-import Image from '../../image/index'
+import 'highlight.js/styles/github.css'
 
 marked.setOptions({
     highlight(code) {
@@ -192,16 +192,11 @@ class ArticleForm extends React.Component<Props> {
                     </Form>
                 </Col>
                 <Col className={style['form-right']} span={10}>
-                    <h3>文章图片预览</h3>
-                    <div className={style['form-right-image']}>
-                        <Image src={article.image || ''} />
-                    </div>
-                    <h3>文章内容预览</h3>
-                    <div
-                        className={style['form-right-article']}
-                        dangerouslySetInnerHTML={{
-                            __html: marked(article.content || '')
-                        }}
+                    <ArticlePreview
+                        markdown={marked(article.content || '')}
+                        title={article.title || ''}
+                        desc={article.desc || ''}
+                        image={article.image || ''}
                     />
                 </Col>
             </Row>

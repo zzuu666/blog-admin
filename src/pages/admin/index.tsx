@@ -146,7 +146,7 @@ const ProtectedComponent: FunctionComponent<{
         <Layout>
             <Content
                 style={{
-                    margin: '24px 16px 0',
+                    padding: '24px 16px',
                     overflow: 'initial'
                 }}
                 className="c-layout-full-height"

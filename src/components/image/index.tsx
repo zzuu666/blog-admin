@@ -6,7 +6,7 @@ enum ImageType {
 }
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
-    type: ImageType
+    type?: ImageType
 }
 
 const Image: FunctionComponent<Props> = props => {
