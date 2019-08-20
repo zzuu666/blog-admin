@@ -4,12 +4,18 @@ import * as webpackDevMiddleware from 'webpack-dev-middleware'
 import * as opn from 'opn'
 import * as history from 'connect-history-api-fallback'
 import * as webpackHotMiddleware from 'webpack-hot-middleware'
+import * as proxy from 'http-proxy-middleware'
 import webpackDevConfig from './config/webpack.dev.config'
 
 
 const app = express()
 const compiler = webpack(webpackDevConfig)
 const port = process.env.port || 3001
+
+app.use(
+    '/api/v1',
+    proxy({ target: 'http://localhost:3000', changeOrigin: false })
+)
 
 app.use(history())
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js

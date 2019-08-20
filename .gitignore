@@ -140,3 +140,7 @@ package-lock.json
 
 # production env output
 /dist
+
+# vscode
+.vscode
+
