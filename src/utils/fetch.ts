@@ -8,7 +8,14 @@ import { fetchHost, apiRoute, apiVersion } from './fetch-host'
  */
 export type Method = 'get' | 'post' | 'put' | 'delete'
 
-interface FetchPayload<T extends APIBaseResponse, A extends Action> {
+interface FetchPayload<T extends APIBaseResponse, A extends Action>
+    extends FetchBasePayload {
+    started: () => A
+    success: (success: T) => A
+    failure: (error: T) => A
+}
+
+interface FetchBasePayload {
     method: Method
     path: string
     params?:
@@ -24,9 +31,6 @@ interface FetchPayload<T extends APIBaseResponse, A extends Action> {
         | string[][]
         | Record<string, string>
         | undefined
-    started: () => A
-    success: (success: T) => A
-    failure: (error: T) => A
     headers?: Headers
 }
 
@@ -44,15 +48,8 @@ export enum fetchStatus {
     FAILURE = 'failure'
 }
 
-export const fetchWithRedux = <
-    APIResponse extends APIBaseResponse,
-    S,
-    E,
-    A extends Action
->(
-    payload: FetchPayload<APIResponse, A>
-): ThunkAction<void, S, E, A> => {
-    const { params, started, success, failure, headers, qs } = payload
+export const fetchWithAuth = (payload: FetchBasePayload) => {
+    const { params, headers, qs } = payload
     const method = payload.method ? payload.method : 'get'
     const path = payload.path[0] === '/' ? payload.path : `/${payload.path}`
     const authorizationHeader = window.localStorage.getItem('AUTH_TOKEN') || ''
@@ -62,6 +59,7 @@ export const fetchWithRedux = <
         const search = new URLSearchParams(qs)
         fetchUrl.search = search.toString()
     }
+
     const fetchHeaders: Headers =
         headers ||
         new Headers({
@@ -70,13 +68,27 @@ export const fetchWithRedux = <
             Accept: 'application/json',
             Authorization: authorizationHeader
         })
+
+    return fetch(fetchUrl.href, {
+        method,
+        body: params || null,
+        headers: fetchHeaders
+    })
+}
+
+export const fetchWithRedux = <
+    APIResponse extends APIBaseResponse,
+    S,
+    E,
+    A extends Action
+>(
+    payload: FetchPayload<APIResponse, A>
+): ThunkAction<void, S, E, A> => {
+    const { started, success, failure } = payload
+
     return (dispatch: ThunkDispatch<S, E, A>) => {
         dispatch(started && started())
-        fetch(fetchUrl.href, {
-            method,
-            body: params || null,
-            headers: fetchHeaders
-        }).then((response: Response) => {
+        fetchWithAuth(payload).then((response: Response) => {
             response
                 .json()
                 .then((json: APIResponse) => {

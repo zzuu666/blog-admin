@@ -47,6 +47,17 @@ const CreateArticle: FunctionComponent<Props> = props => {
         props.createArticleSetCache(newArticle)
     }
 
+    const handleFormItemValueChange = (
+        key: keyof ArtilceFormData,
+        value: ArtilceFormData[keyof ArtilceFormData]
+    ) => {
+        const newArticle = {
+            ...props.article,
+            [key]: value
+        }
+        props.createArticleSetCache(newArticle)
+    }
+
     useEffect(() => {
         props.createArticleGetCategory()
     }, [])
@@ -60,6 +71,7 @@ const CreateArticle: FunctionComponent<Props> = props => {
                     categories={categories}
                     onSubmit={handleSubmit}
                     onFormValueChange={handleFormValueChange}
+                    onFormItemValyeChange={handleFormItemValueChange}
                 />
             </Spin>
         </div>

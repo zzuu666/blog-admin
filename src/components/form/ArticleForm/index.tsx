@@ -1,11 +1,13 @@
-import * as React from 'react'
-import { Form, Input, Button, Row, Col, Select } from 'antd'
+import React, { ChangeEvent } from 'react'
+import { Form, Input, Button, Row, Col, Select, Icon } from 'antd'
 import { FormComponentProps } from 'antd/es/form'
 import marked from 'marked'
 import highlight from 'highlight.js'
 import { Article } from '../../../models/article'
 import { Category } from '../../../models/category'
 import ArticlePreview from '../../preview'
+import ImageUpload from '../../upload'
+import { uploadImageToCOS } from '../../../utils/cos'
 import style from './index.less'
 import 'highlight.js/styles/github.css'
 
@@ -25,6 +27,10 @@ interface Props extends FormComponentProps {
     onSubmit?: (value: ArtilceFormData) => any
     onFormValueChange?: (value: ArtilceFormData) => void
     onCategorySelectFocus?: () => void
+    onFormItemValyeChange?: (
+        key: keyof ArtilceFormData,
+        value: ArtilceFormData[keyof ArtilceFormData]
+    ) => void
 }
 
 export interface ArtilceFormData {
@@ -56,6 +62,17 @@ class ArticleForm extends React.Component<Props> {
 
     onCategorySelectFocus = () => {
         this.props.onCategorySelectFocus && this.props.onCategorySelectFocus()
+    }
+
+    handleUploadChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target && event.target.files && event.target.files[0]
+        if (file) {
+            uploadImageToCOS(file).then(data => {
+                const url = `https://${data.Location}`
+                this.props.onFormItemValyeChange &&
+                    this.props.onFormItemValyeChange('image', url)
+            })
+        }
     }
 
     render() {
@@ -119,6 +136,15 @@ class ArticleForm extends React.Component<Props> {
                                 <Input placeholder="https://image.example.com" />
                             )}
                         </FormItem>
+                        <FormItem>
+                            <ImageUpload
+                                className={style.formUpload}
+                                onChange={this.handleUploadChange}
+                            >
+                                <Icon type="upload" />
+                                上传文章配图
+                            </ImageUpload>
+                        </FormItem>
                         <FormItem {...formItemLayout} label="文章配图描述">
                             {getFieldDecorator('image_desc', {
                                 initialValue: article.image_desc
@@ -163,27 +189,6 @@ class ArticleForm extends React.Component<Props> {
                                 </Select>
                             )}
                         </FormItem>
-
-                        {/* <FormItem
-                            { ...formItemLayout }
-                            label="作者"
-                        >
-                            {
-                                getFieldDecorator('author', {
-                                    initialValue: article.author,
-                                })(<Input placeholder="作者" />)
-                            }
-                        </FormItem> */}
-                        {/* <FormItem
-                            { ...formItemLayout }
-                            label="来源"
-                        >
-                            {
-                                getFieldDecorator('origin', {
-                                    initialValue: article.origin,
-                                })(<Input placeholder="来源" />)
-                            }
-                        </FormItem> */}
                         <FormItem {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">
                                 提交

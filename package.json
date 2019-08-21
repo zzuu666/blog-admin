@@ -90,6 +90,8 @@
   "dependencies": {
     "@hot-loader/react-dom": "^16.8.6",
     "antd": "^3.16.5",
+    "clsx": "^1.0.4",
+    "cos-js-sdk-v5": "^0.5.19",
     "highlight.js": "^9.15.6",
     "lodash.debounce": "^4.0.8",
     "marked": "^0.6.2",
