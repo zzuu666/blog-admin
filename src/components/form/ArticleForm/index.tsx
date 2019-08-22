@@ -141,8 +141,10 @@ class ArticleForm extends React.Component<Props> {
                                 className={style.formUpload}
                                 onChange={this.handleUploadChange}
                             >
-                                <Icon type="upload" />
-                                上传文章配图
+                                <Button>
+                                    <Icon type="upload" />
+                                    上传文章配图
+                                </Button>
                             </ImageUpload>
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章配图描述">

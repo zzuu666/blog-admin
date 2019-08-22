@@ -1,9 +1,7 @@
 import React, { FunctionComponent, ImgHTMLAttributes } from 'react'
 import style from './index.less'
 
-enum ImageType {
-    '16x9'
-}
+type ImageType = '16x9' | '1x1'
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
     type?: ImageType
