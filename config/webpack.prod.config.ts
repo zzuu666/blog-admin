@@ -15,7 +15,7 @@ const config: webpack.Configuration = merge(commonConfig, {
         filename: '[name].[hash].js',
         chunkFilename: '[name].[chunkhash].js',
         path: path.resolve(__dirname, '..', 'dist'),
-        publicPath: '/markii/'
+        publicPath: 'https://cdn.zzuu666.com/markii/'
     },
     // optimization: {
     //     splitChunks: {
