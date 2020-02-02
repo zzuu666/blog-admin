@@ -23,7 +23,7 @@ const Gallery: FC = () => {
 
     const handleFileChange = (file: File) => {
         uploadImageToCOS(file).then(res => {
-            const url = `https://${res.Location}`
+            const url = `https://${res.cdnHost}/${res.path}`
             setList([...list, url])
         })
     }

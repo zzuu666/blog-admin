@@ -51,6 +51,9 @@ rules:
         - 0
     "import/no-extraneous-dependencies":
         - 0
+    "import/extensions":
+        - 1
+        - "never"
     "react/jsx-indent":
         - 1
         - 4
@@ -90,7 +93,8 @@ rules:
             accessibility: "no-public"
     "@typescript-eslint/array-type":
         - 2
-        - "array-simple"
+        -
+            default: "array-simple"
     "@typescript-eslint/no-non-null-assertion":
         - 0
     "@typescript-eslint/no-unused-vars":
