@@ -82,6 +82,8 @@ rules:
         - 0
     "react/jsx-fragments":
         - 1
+    "react/jsx-curly-newline":
+        - 0
     "@typescript-eslint/explicit-function-return-type":
         - 0
     "@typescript-eslint/camelcase":

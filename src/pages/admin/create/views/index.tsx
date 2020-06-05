@@ -97,8 +97,5 @@ const mapDispatchToProps = (dispatch: any) => ({
 })
 
 export default withRouter(
-    connect(
-        mapStatetoProps,
-        mapDispatchToProps
-    )(CreateArticle)
+    connect(mapStatetoProps, mapDispatchToProps)(CreateArticle)
 )

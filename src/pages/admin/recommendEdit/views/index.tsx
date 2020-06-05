@@ -129,8 +129,5 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
 })
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(RecommendEdit)
+    connect(mapStateToProps, mapDispatchToProps)(RecommendEdit)
 )

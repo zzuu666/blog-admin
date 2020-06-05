@@ -73,8 +73,5 @@ const mapDispatchToProps = (
 })
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CategoryHome)
+    connect(mapStateToProps, mapDispatchToProps)(CategoryHome)
 )
