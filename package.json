@@ -88,8 +88,10 @@
         "webpack-merge": "^4.2.1"
     },
     "dependencies": {
+        "@ant-design/compatible": "^1.0.2",
+        "@ant-design/icons": "^4.2.1",
         "@hot-loader/react-dom": "^16.8.6",
-        "antd": "^3.16.5",
+        "antd": "^4.3.1",
         "clsx": "^1.0.4",
         "cos-js-sdk-v5": "^0.5.19",
         "highlight.js": "^9.15.6",
@@ -111,8 +113,8 @@
     },
     "lint-staged": {
         "src/**/*.{ts,tsx}": [
-            "eslint",
             "prettier --write",
+            "eslint",
             "git add"
         ],
         "src/**/*.less": [

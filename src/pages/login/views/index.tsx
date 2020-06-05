@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Row, Col, Layout } from 'antd'
-import { FormComponentProps } from 'antd/es/form'
+import { FormComponentProps } from '@ant-design/compatible/es/form'
 import { StoreState } from '../../../store'
 import { fetchLogin } from '../actions'
 import style from './index.less'
@@ -42,18 +42,13 @@ class Login extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-    token: state.login.token
+    token: state.login.token,
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchLogin: (email: string, password: string) => {
         dispatch(fetchLogin(email, password))
-    }
+    },
 })
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(Login)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
