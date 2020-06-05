@@ -17,11 +17,12 @@ const config: webpack.Configuration = merge(commonConfig, {
         path: path.resolve(__dirname, '..', 'dist'),
         publicPath: 'https://cdn.zzuu666.com/markii/'
     },
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: 'all'
-    //     }
-    // },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            name: false
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
