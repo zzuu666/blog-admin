@@ -100,8 +100,5 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
 })
 
 export default withRouter(
-    connect(
-        mapStatetoProps,
-        mapDispatchToProps
-    )(CategoryCreate)
+    connect(mapStatetoProps, mapDispatchToProps)(CategoryCreate)
 )

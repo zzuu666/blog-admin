@@ -28,12 +28,12 @@ const CategoryFeaturedIdFormItem = (
         recommend,
         recommendArticles,
         form,
-        onSuggestionSelectChange,
+        onSuggestionSelectChange
     } = props
     const { getFieldDecorator } = form
 
     const options = recommendArticles
-        ? recommendArticles.map((sug) => (
+        ? recommendArticles.map(sug => (
               <Option key={sug.id + ''}>{sug.title}</Option>
           ))
         : null
@@ -45,9 +45,9 @@ const CategoryFeaturedIdFormItem = (
                 rules: [
                     {
                         required: true,
-                        message: 'Recommend Article is required!',
-                    },
-                ],
+                        message: 'Recommend Article is required!'
+                    }
+                ]
             })(
                 <Select
                     showSearch
@@ -62,7 +62,7 @@ const CategoryFeaturedIdFormItem = (
         </FormItem>
     )
 }
-const RecommendForm: FunctionComponent<Props> = (props) => {
+const RecommendForm: FunctionComponent<Props> = props => {
     const { form, recommend } = props
     const { getFieldDecorator } = form
 
@@ -74,20 +74,20 @@ const RecommendForm: FunctionComponent<Props> = (props) => {
 
     const formItemLayout: FormItemProps = {
         labelCol: { span: 6 },
-        wrapperCol: { span: 18 },
+        wrapperCol: { span: 18 }
     }
 
     const tailFormItemLayout: FormItemProps = {
         wrapperCol: {
             xs: {
                 span: 24,
-                offset: 0,
+                offset: 0
             },
             sm: {
                 span: 18,
-                offset: 6,
-            },
-        },
+                offset: 6
+            }
+        }
     }
 
     return (
@@ -99,9 +99,9 @@ const RecommendForm: FunctionComponent<Props> = (props) => {
                     rules: [
                         {
                             required: true,
-                            message: 'Category Name is required!',
-                        },
-                    ],
+                            message: 'Category Name is required!'
+                        }
+                    ]
                 })(<Input placeholder="Category Name" />)}
             </FormItem>
 
@@ -117,5 +117,5 @@ const RecommendForm: FunctionComponent<Props> = (props) => {
 export default Form.create({
     onValuesChange: (props: Props, changedValues, allValues: RecommendBase) => {
         props.onFormValueChange && props.onFormValueChange(allValues)
-    },
+    }
 })(RecommendForm)

@@ -1,7 +1,5 @@
-import { ThunkAction } from 'redux-thunk'
 import { actionTypes } from './actionTypes'
 import { Category } from '../../../models/category'
-import { CategoryState } from './reducer'
 import {
     fetchStatus,
     fetchWithRedux,

@@ -48,9 +48,7 @@ const RecommendHome = (props: Props) => {
                     <Link to={`/admin/recommend/edit/${record.id}`}>编辑</Link>
                     <Divider type="vertical" />
                     <Popconfirm
-                        title={`Are you sure delete recommend for ${
-                            record.article_title
-                        }`}
+                        title={`Are you sure delete recommend for ${record.article_title}`}
                         onConfirm={() => handleColumnConfirm(record.id)}
                         okText="Yes"
                         cancelText="No"
@@ -94,8 +92,5 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<null, null, Action>) => ({
 })
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(RecommendHome)
+    connect(mapStateToProps, mapDispatchToProps)(RecommendHome)
 )

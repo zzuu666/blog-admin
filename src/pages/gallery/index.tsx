@@ -10,7 +10,7 @@ import style from './index.less'
 
 const UploadedImageList = (list: string[]) => (
     <div>
-        {list.map((image) => (
+        {list.map(image => (
             <ImagePreview image={image} key={image}>
                 <p>{image}</p>
             </ImagePreview>
@@ -22,7 +22,7 @@ const Gallery: FC = () => {
     const [list, setList] = useState<string[]>([])
 
     const handleFileChange = (file: File) => {
-        uploadImageToCOS(file).then((res) => {
+        uploadImageToCOS(file).then(res => {
             const url = `https://${res.cdnHost}/${res.path}`
             setList([...list, url])
         })

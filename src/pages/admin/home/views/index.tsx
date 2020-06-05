@@ -12,7 +12,7 @@ import {
     HomeAction,
     FetchArticlesOption,
     articleStatus,
-    UpdateArticleStatusOption,
+    UpdateArticleStatusOption
 } from '../actions'
 import { Article } from '../../../../models/article'
 import { StoreState } from '../../../../store'
@@ -30,12 +30,12 @@ interface Props extends RouteComponentProps {
     discardArticle: (option: UpdateArticleStatusOption) => void
 }
 
-const Home: FunctionComponent<Props> = (props) => {
+const Home: FunctionComponent<Props> = props => {
     const [filter, setFilter] = useState<articleStatus>('normal')
 
     useEffect(() => {
         props.fetchArticles({
-            status: filter,
+            status: filter
         })
     }, [filter])
 
@@ -57,11 +57,11 @@ const Home: FunctionComponent<Props> = (props) => {
         {
             title: 'ID',
             dataIndex: 'id',
-            render: (text) => <a href="/">{text}</a>,
+            render: text => <a href="/">{text}</a>
         },
         {
             title: 'Title',
-            dataIndex: 'title',
+            dataIndex: 'title'
         },
         {
             title: 'Options',
@@ -79,7 +79,7 @@ const Home: FunctionComponent<Props> = (props) => {
                                 onConfirm={() =>
                                     handleUpdateArticleStatus({
                                         id: record.id!,
-                                        operation: 'hide',
+                                        operation: 'hide'
                                     })
                                 }
                                 okText="Yes"
@@ -97,7 +97,7 @@ const Home: FunctionComponent<Props> = (props) => {
                                 onConfirm={() =>
                                     handleUpdateArticleStatus({
                                         id: record.id!,
-                                        operation: 'recover',
+                                        operation: 'recover'
                                     })
                                 }
                                 okText="Yes"
@@ -115,7 +115,7 @@ const Home: FunctionComponent<Props> = (props) => {
                                 onConfirm={() =>
                                     handleUpdateArticleStatus({
                                         id: record.id!,
-                                        operation: 'discard',
+                                        operation: 'discard'
                                     })
                                 }
                                 okText="Yes"
@@ -133,7 +133,7 @@ const Home: FunctionComponent<Props> = (props) => {
                                 onConfirm={() =>
                                     handleUpdateArticleStatus({
                                         id: record.id!,
-                                        operation: 'delete',
+                                        operation: 'delete'
                                     })
                                 }
                                 okText="Yes"
@@ -144,12 +144,12 @@ const Home: FunctionComponent<Props> = (props) => {
                         </Fragment>
                     )}
                 </span>
-            ),
+            )
         },
         {
             title: 'Scan',
-            dataIndex: 'scan',
-        },
+            dataIndex: 'scan'
+        }
     ]
 
     return (
@@ -177,7 +177,7 @@ const mapStateToProps = (state: StoreState) => ({
     articles: state.home.articles,
     status: state.home.status,
     message: state.home.message,
-    messageType: state.home.messageType,
+    messageType: state.home.messageType
 })
 
 // should return a type but I don't what is the best practice
@@ -192,7 +192,7 @@ const mapDispatchToProps = (
     },
     discardArticle(option: UpdateArticleStatusOption) {
         dispatch(updateArticleStatus(option))
-    },
+    }
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))

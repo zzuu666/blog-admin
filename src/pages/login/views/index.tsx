@@ -42,13 +42,13 @@ class Login extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: StoreState) => ({
-    token: state.login.token,
+    token: state.login.token
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchLogin: (email: string, password: string) => {
         dispatch(fetchLogin(email, password))
-    },
+    }
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

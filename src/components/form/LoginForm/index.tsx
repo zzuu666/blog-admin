@@ -33,9 +33,9 @@ class LoginForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Please input your email!',
-                            },
-                        ],
+                                message: 'Please input your email!'
+                            }
+                        ]
                     })(
                         <Input
                             prefix={
@@ -52,9 +52,9 @@ class LoginForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Please input your Password!',
-                            },
-                        ],
+                                message: 'Please input your Password!'
+                            }
+                        ]
                     })(
                         <Input
                             prefix={
@@ -70,7 +70,7 @@ class LoginForm extends React.Component<Props> {
                 <FormItem>
                     {getFieldDecorator('remember', {
                         valuePropName: 'checked',
-                        initialValue: true,
+                        initialValue: true
                     })(<Checkbox>Remember me</Checkbox>)}
                     <a className="login-form-forgot" href="/">
                         Forgot password
