@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { Form, Input, Button, Checkbox, Icon } from 'antd'
-import { FormComponentProps } from 'antd/es/form'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { Form } from '@ant-design/compatible'
+import '@ant-design/compatible/assets/index.css'
+import { Input, Button, Checkbox } from 'antd'
+import { FormComponentProps } from '@ant-design/compatible/es/form'
 
 const FormItem = Form.Item
 
@@ -30,14 +33,13 @@ class LoginForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Please input your email!'
-                            }
-                        ]
+                                message: 'Please input your email!',
+                            },
+                        ],
                     })(
                         <Input
                             prefix={
-                                <Icon
-                                    type="user"
+                                <UserOutlined
                                     style={{ color: 'rgba(0,0,0,.25)' }}
                                 />
                             }
@@ -50,14 +52,13 @@ class LoginForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Please input your Password!'
-                            }
-                        ]
+                                message: 'Please input your Password!',
+                            },
+                        ],
                     })(
                         <Input
                             prefix={
-                                <Icon
-                                    type="lock"
+                                <LockOutlined
                                     style={{ color: 'rgba(0,0,0,.25)' }}
                                 />
                             }
@@ -69,7 +70,7 @@ class LoginForm extends React.Component<Props> {
                 <FormItem>
                     {getFieldDecorator('remember', {
                         valuePropName: 'checked',
-                        initialValue: true
+                        initialValue: true,
                     })(<Checkbox>Remember me</Checkbox>)}
                     <a className="login-form-forgot" href="/">
                         Forgot password

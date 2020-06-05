@@ -1,5 +1,6 @@
 import React, { useEffect, FunctionComponent, useState } from 'react'
-import { Layout, Menu, Icon } from 'antd'
+import { Icon as LegacyIcon } from '@ant-design/compatible'
+import { Layout, Menu } from 'antd'
 import {
     Route,
     Link,
@@ -7,7 +8,7 @@ import {
     withRouter,
     RouteComponentProps,
     Switch,
-    match as Match
+    match as Match,
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { StoreState } from '../../store'
@@ -32,59 +33,67 @@ const Category = lazy(() =>
     import(/* webpackChunkName: "admin-category" */ './category/views/index')
 )
 const CategoryCreate = lazy(() =>
-    import(/* webpackChunkName: "admin-category-create" */ './categoryCreate/views/index')
+    import(
+        /* webpackChunkName: "admin-category-create" */ './categoryCreate/views/index'
+    )
 )
 const CategoryEdit = lazy(() =>
-    import(/* webpackChunkName: "admin-category-edit" */ './categoryEdit/views/index')
+    import(
+        /* webpackChunkName: "admin-category-edit" */ './categoryEdit/views/index'
+    )
 )
 const Recommend = lazy(() =>
     import(/* webpackChunkName: "admin-recommend" */ './recommend/views/index')
 )
 const RecommendCreate = lazy(() =>
-    import(/* webpackChunkName: "admin-recommend-create" */ './recommendCreate/views/index')
+    import(
+        /* webpackChunkName: "admin-recommend-create" */ './recommendCreate/views/index'
+    )
 )
 const RecommendEdit = lazy(() =>
-    import(/* webpackChunkName: "admin-recommend-edit" */ './recommendEdit/views/index')
+    import(
+        /* webpackChunkName: "admin-recommend-edit" */ './recommendEdit/views/index'
+    )
 )
 // tslint:enable space-in-parens
 
 const routerMap = [
     {
         path: '/',
-        component: Home
+        component: Home,
     },
     {
         path: '/edit/:id',
-        component: Edit
+        component: Edit,
     },
     {
         path: '/create',
-        component: Create
+        component: Create,
     },
     {
         path: '/category',
-        component: Category
+        component: Category,
     },
     {
         path: '/category/create',
-        component: CategoryCreate
+        component: CategoryCreate,
     },
     {
         path: '/category/edit/:id',
-        component: CategoryEdit
+        component: CategoryEdit,
     },
     {
         path: '/recommend',
-        component: Recommend
+        component: Recommend,
     },
     {
         path: '/recommend/create',
-        component: RecommendCreate
+        component: RecommendCreate,
     },
     {
         path: '/recommend/edit/:id',
-        component: RecommendEdit
-    }
+        component: RecommendEdit,
+    },
 ]
 
 interface MenuConfig {
@@ -99,20 +108,20 @@ const menuMap: MenuConfig[] = [
         key: 'article',
         icon: 'file-text',
         path: '/admin',
-        name: 'Article'
+        name: 'Article',
     },
     {
         key: 'category',
         icon: 'folder',
         path: '/admin/category',
-        name: 'Category'
+        name: 'Category',
     },
     {
         key: 'recommend',
         icon: 'like',
         path: '/admin/recommend',
-        name: 'Recommend'
-    }
+        name: 'Recommend',
+    },
 ]
 
 interface Props extends RouteComponentProps {
@@ -133,10 +142,10 @@ const ProtectedComponent: FunctionComponent<{
                 defaultSelectedKeys={[selectKey]}
                 style={{ height: '100%', borderRight: 0 }}
             >
-                {menuMap.map(menu => (
+                {menuMap.map((menu) => (
                     <Menu.Item key={menu.key}>
                         <Link to={menu.path}>
-                            <Icon type={menu.icon} />
+                            <LegacyIcon type={menu.icon} />
                             {menu.name}
                         </Link>
                     </Menu.Item>
@@ -147,13 +156,13 @@ const ProtectedComponent: FunctionComponent<{
             <Content
                 style={{
                     padding: '24px 16px',
-                    overflow: 'initial'
+                    overflow: 'initial',
                 }}
                 className="c-layout-full-height"
             >
                 <Suspense fallback={Loading()}>
                     <Switch>
-                        {routerMap.map(el => (
+                        {routerMap.map((el) => (
                             <Route
                                 key={el.path}
                                 path={`${match.url}${el.path}`}
@@ -170,14 +179,16 @@ const ProtectedComponent: FunctionComponent<{
 
 const RedirectRoute: FunctionComponent<{ match: Match; path: string }> = ({
     match,
-    path
+    path,
 }) => {
-    const RedirectComponent: FunctionComponent<RouteComponentProps> = props => (
+    const RedirectComponent: FunctionComponent<RouteComponentProps> = (
+        props
+    ) => (
         <div>
             <Redirect
                 to={{
                     pathname: path,
-                    state: { from: props.location.pathname }
+                    state: { from: props.location.pathname },
                 }}
             />
         </div>
@@ -185,7 +196,7 @@ const RedirectRoute: FunctionComponent<{ match: Match; path: string }> = ({
 
     return (
         <Switch>
-            {routerMap.map(el => (
+            {routerMap.map((el) => (
                 <Route
                     key={el.path}
                     path={`${match.url}${el.path}`}
@@ -210,9 +221,9 @@ const useSetMenu = (key: string) => {
     return value
 }
 
-const LoadingRoute: FunctionComponent<Match> = match => (
+const LoadingRoute: FunctionComponent<Match> = (match) => (
     <Switch>
-        {routerMap.map(el => (
+        {routerMap.map((el) => (
             <Route
                 key={el.path}
                 path={`${match.url}${el.path}`}
@@ -223,7 +234,7 @@ const LoadingRoute: FunctionComponent<Match> = match => (
     </Switch>
 )
 
-const AdminLayout: FunctionComponent<Props> = props => {
+const AdminLayout: FunctionComponent<Props> = (props) => {
     const { match, authenticate, status, location } = props
 
     const selectKey: string = useSetMenu(location.pathname.split('/')[2] || '')
@@ -241,18 +252,15 @@ const AdminLayout: FunctionComponent<Props> = props => {
 
 const mapStateToProps = (state: StoreState) => ({
     authenticate: state.admin.authenticate,
-    status: state.admin.status
+    status: state.admin.status,
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchAuth: () => {
         dispatch(fetchAuth())
-    }
+    },
 })
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AdminLayout)
+    connect(mapStateToProps, mapDispatchToProps)(AdminLayout)
 )

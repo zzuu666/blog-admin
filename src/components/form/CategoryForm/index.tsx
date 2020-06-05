@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { Form, Input, Button, Select } from 'antd'
-import { FormComponentProps, FormItemProps } from 'antd/es/form'
+import { Form } from '@ant-design/compatible'
+import '@ant-design/compatible/assets/index.css'
+import { Input, Button, Select } from 'antd'
+import { FormComponentProps } from '@ant-design/compatible/es/form'
+import { FormItemProps } from 'antd/es/form'
 import { Category } from '../../../models/category'
 import { Article } from '../../../models/article'
 
@@ -31,7 +34,7 @@ const CategoryFeaturedIdFormItem = (
     const { getFieldDecorator } = form
 
     const options = categoryFeatures
-        ? categoryFeatures.map(sug => (
+        ? categoryFeatures.map((sug) => (
               <Option key={sug.id + ''}>{sug.title}</Option>
           ))
         : null
@@ -41,8 +44,8 @@ const CategoryFeaturedIdFormItem = (
             {getFieldDecorator('featured_id', {
                 initialValue: category.featured_id,
                 rules: [
-                    { required: true, message: 'Category Key is required!' }
-                ]
+                    { required: true, message: 'Category Key is required!' },
+                ],
             })(
                 <Select
                     showSearch
@@ -76,20 +79,20 @@ class CategoryForm extends React.Component<Props> {
 
         const formItemLayout: FormItemProps = {
             labelCol: { span: 6 },
-            wrapperCol: { span: 18 }
+            wrapperCol: { span: 18 },
         }
 
         const tailFormItemLayout: FormItemProps = {
             wrapperCol: {
                 xs: {
                     span: 24,
-                    offset: 0
+                    offset: 0,
                 },
                 sm: {
                     span: 18,
-                    offset: 6
-                }
-            }
+                    offset: 6,
+                },
+            },
         }
 
         return (
@@ -100,9 +103,9 @@ class CategoryForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Category Name is required!'
-                            }
-                        ]
+                                message: 'Category Name is required!',
+                            },
+                        ],
                     })(<Input placeholder="Category Name" />)}
                 </FormItem>
                 <FormItem {...formItemLayout} label="Category Desc">
@@ -111,9 +114,9 @@ class CategoryForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Category Desc is required!'
-                            }
-                        ]
+                                message: 'Category Desc is required!',
+                            },
+                        ],
                     })(<Input placeholder="Category Desc" />)}
                 </FormItem>
                 <FormItem {...formItemLayout} label="Category Key">
@@ -122,9 +125,9 @@ class CategoryForm extends React.Component<Props> {
                         rules: [
                             {
                                 required: true,
-                                message: 'Category Key is required!'
-                            }
-                        ]
+                                message: 'Category Key is required!',
+                            },
+                        ],
                     })(<Input placeholder="Category Key" />)}
                 </FormItem>
                 {model === 'edit'
@@ -151,5 +154,5 @@ export default Form.create({
         allValues: CategoryFormData
     ) => {
         props.onFormValueChange && props.onFormValueChange(allValues)
-    }
+    },
 })(CategoryForm)

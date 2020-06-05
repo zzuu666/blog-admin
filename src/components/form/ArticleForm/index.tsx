@@ -1,6 +1,9 @@
 import React, { ChangeEvent } from 'react'
-import { Form, Input, Button, Row, Col, Select, Icon } from 'antd'
-import { FormComponentProps } from 'antd/es/form'
+import { UploadOutlined } from '@ant-design/icons'
+import { Form } from '@ant-design/compatible'
+import '@ant-design/compatible/assets/index.css'
+import { Input, Button, Row, Col, Select } from 'antd'
+import { FormComponentProps } from '@ant-design/compatible/es/form'
 import marked from 'marked'
 import highlight from 'highlight.js'
 import { Article } from '../../../models/article'
@@ -14,7 +17,7 @@ import 'highlight.js/styles/github.css'
 marked.setOptions({
     highlight(code) {
         return highlight.highlightAuto(code).value
-    }
+    },
 })
 
 const FormItem = Form.Item
@@ -48,7 +51,7 @@ export interface ArtilceFormData {
 class ArticleForm extends React.Component<Props> {
     static defaultProps = {
         article: {},
-        categories: []
+        categories: [],
     }
 
     onSubmit = (e: React.SyntheticEvent) => {
@@ -67,7 +70,7 @@ class ArticleForm extends React.Component<Props> {
     handleUploadChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target && event.target.files && event.target.files[0]
         if (file) {
-            uploadImageToCOS(file).then(data => {
+            uploadImageToCOS(file).then((data) => {
                 const url = `https://${data.Location}`
                 this.props.onFormItemValyeChange &&
                     this.props.onFormItemValyeChange('image', url)
@@ -81,19 +84,19 @@ class ArticleForm extends React.Component<Props> {
         const { getFieldDecorator } = form
         const formItemLayout = {
             labelCol: { span: 6 },
-            wrapperCol: { span: 18 }
+            wrapperCol: { span: 18 },
         }
         const tailFormItemLayout = {
             wrapperCol: {
                 xs: {
                     span: 24,
-                    offset: 0
+                    offset: 0,
                 },
                 sm: {
                     span: 18,
-                    offset: 6
-                }
-            }
+                    offset: 6,
+                },
+            },
         }
 
         return (
@@ -106,20 +109,20 @@ class ArticleForm extends React.Component<Props> {
                                 rules: [
                                     {
                                         required: true,
-                                        message: '文章标题不能为空'
-                                    }
-                                ]
+                                        message: '文章标题不能为空',
+                                    },
+                                ],
                             })(<Input placeholder="文章标题" />)}
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章描述">
                             {getFieldDecorator('desc', {
-                                initialValue: article.desc
+                                initialValue: article.desc,
                             })(<Input placeholder="文章描述" />)}
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章标签">
                             {getFieldDecorator('tags', {
                                 initialValue:
-                                    article.tags && article.tags.split(',')
+                                    article.tags && article.tags.split(','),
                             })(
                                 <Select
                                     mode="tags"
@@ -131,7 +134,7 @@ class ArticleForm extends React.Component<Props> {
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章配图">
                             {getFieldDecorator('image', {
-                                initialValue: article.image
+                                initialValue: article.image,
                             })(
                                 <Input placeholder="https://image.example.com" />
                             )}
@@ -142,14 +145,14 @@ class ArticleForm extends React.Component<Props> {
                                 onChange={this.handleUploadChange}
                             >
                                 <Button>
-                                    <Icon type="upload" />
+                                    <UploadOutlined />
                                     上传文章配图
                                 </Button>
                             </ImageUpload>
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章配图描述">
                             {getFieldDecorator('image_desc', {
-                                initialValue: article.image_desc
+                                initialValue: article.image_desc,
                             })(<Input placeholder="文章配图描述" />)}
                         </FormItem>
                         <FormItem {...formItemLayout} label="文章内容">
@@ -158,9 +161,9 @@ class ArticleForm extends React.Component<Props> {
                                 rules: [
                                     {
                                         required: true,
-                                        message: '文章内容不能为空'
-                                    }
-                                ]
+                                        message: '文章内容不能为空',
+                                    },
+                                ],
                             })(
                                 <TextArea
                                     autosize={{ minRows: 2, maxRows: 6 }}
@@ -175,15 +178,15 @@ class ArticleForm extends React.Component<Props> {
                                 rules: [
                                     {
                                         required: true,
-                                        message: 'Category is required'
-                                    }
-                                ]
+                                        message: 'Category is required',
+                                    },
+                                ],
                             })(
                                 <Select
                                     style={{ width: 120 }}
                                     onFocus={this.onCategorySelectFocus}
                                 >
-                                    {categories.map(category => (
+                                    {categories.map((category) => (
                                         <Option key={category.id + ''}>
                                             {category.name}
                                         </Option>
@@ -218,5 +221,5 @@ export default Form.create({
         allValues: ArtilceFormData
     ) => {
         props.onFormValueChange && props.onFormValueChange(allValues)
-    }
+    },
 })(ArticleForm)

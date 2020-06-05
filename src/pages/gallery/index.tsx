@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import clsx from 'clsx'
-import { Icon } from 'antd'
+import { InboxOutlined } from '@ant-design/icons'
 
 import Dragger from '../../components/upload/dragger'
 import ImagePreview from '../../components/image/preview'
@@ -10,7 +10,7 @@ import style from './index.less'
 
 const UploadedImageList = (list: string[]) => (
     <div>
-        {list.map(image => (
+        {list.map((image) => (
             <ImagePreview image={image} key={image}>
                 <p>{image}</p>
             </ImagePreview>
@@ -22,7 +22,7 @@ const Gallery: FC = () => {
     const [list, setList] = useState<string[]>([])
 
     const handleFileChange = (file: File) => {
-        uploadImageToCOS(file).then(res => {
+        uploadImageToCOS(file).then((res) => {
             const url = `https://${res.cdnHost}/${res.path}`
             setList([...list, url])
         })
@@ -33,7 +33,7 @@ const Gallery: FC = () => {
             <h2>图片上传</h2>
             <Dragger className={style.rootDragger} onDrop={handleFileChange}>
                 <p className={style.rootDraggerIcon}>
-                    <Icon type="inbox" />
+                    <InboxOutlined />
                 </p>
                 <p className="ant-upload-text">
                     Click or drag file to this area to upload
