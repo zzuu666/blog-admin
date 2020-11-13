@@ -2,6 +2,8 @@
     "compilerOptions": {
         "target": "es5",
         "lib": ["es5", "es6", "dom"],
+        "esModuleInterop": true,
+        "noEmit": true
     },
     "include": [
         "./config/**/*",

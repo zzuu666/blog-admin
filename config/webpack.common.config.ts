@@ -1,5 +1,4 @@
 import * as webpack from 'webpack'
-import * as autoprefixer from 'autoprefixer'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const isDevMode = process.env.NODE_ENV !== 'production'
@@ -11,6 +10,12 @@ const config: webpack.Configuration = {
     module: {
         rules: [
             {
+                test: /\.m?js/,
+                resolve: {
+                    fullySpecified: false
+                }
+            },
+            {
                 test: /\.[j|t]sx?$/,
                 loader: 'babel-loader'
             },
@@ -19,7 +24,9 @@ const config: webpack.Configuration = {
                 include: /node_modules/,
                 use: [
                     {
-                        loader: isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader
+                        loader: isDevMode
+                            ? 'style-loader'
+                            : MiniCssExtractPlugin.loader
                     },
                     {
                         loader: 'css-loader',
@@ -34,7 +41,9 @@ const config: webpack.Configuration = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader
+                        loader: isDevMode
+                            ? 'style-loader'
+                            : MiniCssExtractPlugin.loader
                     },
                     {
                         loader: 'css-loader',
@@ -57,21 +66,6 @@ const config: webpack.Configuration = {
                             //     }
                             //     return localIdentName
                             // }
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            /* eslint-disable global-require */
-                            // Necessary for external CSS imports to work
-                            // https://github.com/facebookincubator/create-react-app/issues/2677
-                            ident: 'postcss',
-                            plugins: () => [
-                                require('postcss-flexbugs-fixes'),
-                                autoprefixer({
-                                    flexbox: 'no-2009'
-                                })
-                            ]
                         }
                     },
                     {

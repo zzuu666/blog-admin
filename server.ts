@@ -1,10 +1,10 @@
-import * as express from 'express'
-import * as webpack from 'webpack'
-import * as webpackDevMiddleware from 'webpack-dev-middleware'
-import * as opn from 'opn'
-import * as history from 'connect-history-api-fallback'
-import * as webpackHotMiddleware from 'webpack-hot-middleware'
-import * as proxy from 'http-proxy-middleware'
+import express from 'express'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import opn from 'opn'
+import history from 'connect-history-api-fallback'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import proxy from 'http-proxy-middleware'
 import webpackDevConfig from './config/webpack.dev.config'
 
 
@@ -20,9 +20,7 @@ app.use(
 app.use(history())
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: webpackDevConfig.output.publicPath
-}))
+app.use(webpackDevMiddleware(compiler))
 
 app.use(webpackHotMiddleware(compiler, {
     log: false,
