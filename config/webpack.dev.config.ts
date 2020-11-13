@@ -1,7 +1,7 @@
-import * as merge from 'webpack-merge'
+import { merge } from 'webpack-merge'
 import * as webpack from 'webpack'
 import * as path from 'path'
-import * as HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 import commonConfig from './webpack.common.config'
@@ -13,7 +13,7 @@ const config: webpack.Configuration = merge(commonConfig, {
     },
     output: {
         path: path.join(__dirname, '..', '/dist'),
-        filename: 'bundle.js',
+        filename: '[name].[contenthash].js',
         chunkFilename: '[name].bundle.js',
         publicPath: '/'
     },
