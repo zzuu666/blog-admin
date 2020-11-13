@@ -84,6 +84,8 @@ rules:
         - 1
     "react/jsx-curly-newline":
         - 0
+    "react/static-property-placement":
+        - 0
     "@typescript-eslint/explicit-function-return-type":
         - 0
     "@typescript-eslint/camelcase":

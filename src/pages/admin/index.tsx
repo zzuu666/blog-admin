@@ -1,5 +1,9 @@
 import React, { useEffect, FunctionComponent, useState } from 'react'
-import { Icon as LegacyIcon } from '@ant-design/compatible'
+import {
+    FileTextOutlined,
+    FolderOutlined,
+    HeartOutlined
+} from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
 import {
     Route,
@@ -98,7 +102,7 @@ const routerMap = [
 
 interface MenuConfig {
     key: string
-    icon?: string
+    icon?: React.ReactNode
     path: string
     name: string
 }
@@ -106,19 +110,19 @@ interface MenuConfig {
 const menuMap: MenuConfig[] = [
     {
         key: 'article',
-        icon: 'file-text',
+        icon: <FileTextOutlined />,
         path: '/admin',
         name: 'Article'
     },
     {
         key: 'category',
-        icon: 'folder',
+        icon: <FolderOutlined />,
         path: '/admin/category',
         name: 'Category'
     },
     {
         key: 'recommend',
-        icon: 'like',
+        icon: <HeartOutlined />,
         path: '/admin/recommend',
         name: 'Recommend'
     }
@@ -145,7 +149,7 @@ const ProtectedComponent: FunctionComponent<{
                 {menuMap.map(menu => (
                     <Menu.Item key={menu.key}>
                         <Link to={menu.path}>
-                            <LegacyIcon type={menu.icon} />
+                            {menu.icon}
                             {menu.name}
                         </Link>
                     </Menu.Item>
@@ -233,13 +237,19 @@ const LoadingRoute: FunctionComponent<Match> = match => (
 )
 
 const AdminLayout: FunctionComponent<Props> = props => {
-    const { match, authenticate, status, location } = props
+    const {
+        match,
+        authenticate,
+        status,
+        location,
+        fetchAuth: fetchAuthProps
+    } = props
 
     const selectKey: string = useSetMenu(location.pathname.split('/')[2] || '')
 
     useEffect(() => {
-        props.fetchAuth()
-    }, [])
+        fetchAuthProps()
+    }, [fetchAuthProps])
 
     return status === fetchStatus.LOADING
         ? LoadingRoute(match)

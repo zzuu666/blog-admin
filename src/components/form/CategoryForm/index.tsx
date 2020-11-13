@@ -1,8 +1,6 @@
 import * as React from 'react'
-import { Form } from '@ant-design/compatible'
-import '@ant-design/compatible/assets/index.css'
-import { Input, Button, Select } from 'antd'
-import { FormComponentProps } from '@ant-design/compatible/es/form'
+import { Input, Button, Select, Form } from 'antd'
+import { Store } from 'antd/lib/form/interface'
 import { FormItemProps } from 'antd/es/form'
 import { Category } from '../../../models/category'
 import { Article } from '../../../models/article'
@@ -16,7 +14,7 @@ export interface CategoryFormData {
     key: string
 }
 
-interface Props extends FormComponentProps {
+interface Props {
     model: 'create' | 'edit'
     category: Category
     categoryFeatures?: Article[]
@@ -27,45 +25,43 @@ interface Props extends FormComponentProps {
 
 const CategoryFeaturedIdFormItem = (
     props: Props,
-    formItemLayout: FormItemProps,
+    formItemLayout: Partial<FormItemProps>,
     onFeatureIdSelectSearch: (value: string) => void
 ) => {
-    const { category, categoryFeatures, form } = props
-    const { getFieldDecorator } = form
+    const { category, categoryFeatures } = props
 
     const options = categoryFeatures
         ? categoryFeatures.map(sug => (
-              <Option key={sug.id + ''}>{sug.title}</Option>
+              <Option value={sug.id!} key={sug.id + ''}>
+                  {sug.title}
+              </Option>
           ))
         : null
 
     return (
-        <FormItem {...formItemLayout} label="Category Featured">
-            {getFieldDecorator('featured_id', {
-                initialValue: category.featured_id,
-                rules: [
-                    { required: true, message: 'Category Key is required!' }
-                ]
-            })(
-                <Select
-                    showSearch
-                    showArrow={false}
-                    filterOption={false}
-                    onSearch={onFeatureIdSelectSearch}
-                    placeholder="Select Category Featured"
-                >
-                    {options}
-                </Select>
-            )}
+        <FormItem
+            {...formItemLayout}
+            label="Category Featured"
+            name="featured_id"
+            initialValue={category.featured_id}
+            rules={[{ required: true, message: 'Category Key is required!' }]}
+        >
+            <Select
+                showSearch
+                showArrow={false}
+                filterOption={false}
+                onSearch={onFeatureIdSelectSearch}
+                placeholder="Select Category Featured"
+            >
+                {options}
+            </Select>
         </FormItem>
     )
 }
 
 class CategoryForm extends React.Component<Props> {
-    onSubmit = (e: React.SyntheticEvent) => {
-        e.preventDefault()
-        const value: CategoryFormData = this.props.form.getFieldsValue() as CategoryFormData
-        this.props.onSubmit && this.props.onSubmit(value)
+    onFinish = (values: Store) => {
+        this.props.onSubmit && this.props.onSubmit(values as CategoryFormData)
     }
 
     onFeatureIdSelectSearch = (value: string) => {
@@ -73,16 +69,20 @@ class CategoryForm extends React.Component<Props> {
             this.props.onFeatureIdSelectSearch(value)
     }
 
-    render() {
-        const { form, category, model } = this.props
-        const { getFieldDecorator } = form
+    handleValuesChange = (changedValues: Store, allValues: Store) => {
+        this.props.onFormValueChange &&
+            this.props.onFormValueChange(allValues as CategoryFormData)
+    }
 
-        const formItemLayout: FormItemProps = {
+    render() {
+        const { category, model } = this.props
+
+        const formItemLayout: Pick<FormItemProps, 'labelCol' | 'wrapperCol'> = {
             labelCol: { span: 6 },
             wrapperCol: { span: 18 }
         }
 
-        const tailFormItemLayout: FormItemProps = {
+        const tailFormItemLayout: Pick<FormItemProps, 'wrapperCol'> = {
             wrapperCol: {
                 xs: {
                     span: 24,
@@ -96,39 +96,51 @@ class CategoryForm extends React.Component<Props> {
         }
 
         return (
-            <Form onSubmit={this.onSubmit}>
-                <FormItem {...formItemLayout} label="Category Name">
-                    {getFieldDecorator('name', {
-                        initialValue: category.name,
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Category Name is required!'
-                            }
-                        ]
-                    })(<Input placeholder="Category Name" />)}
+            <Form
+                onFinish={this.onFinish}
+                onValuesChange={this.handleValuesChange}
+            >
+                <FormItem
+                    {...formItemLayout}
+                    label="Category Name"
+                    initialValue={category.name}
+                    name="name"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Category Name is required!'
+                        }
+                    ]}
+                >
+                    <Input placeholder="Category Name" />
                 </FormItem>
-                <FormItem {...formItemLayout} label="Category Desc">
-                    {getFieldDecorator('desc', {
-                        initialValue: category.desc,
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Category Desc is required!'
-                            }
-                        ]
-                    })(<Input placeholder="Category Desc" />)}
+                <FormItem
+                    {...formItemLayout}
+                    label="Category Desc"
+                    name="desc"
+                    initialValue={category.desc}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Category Desc is required!'
+                        }
+                    ]}
+                >
+                    <Input placeholder="Category Desc" />
                 </FormItem>
-                <FormItem {...formItemLayout} label="Category Key">
-                    {getFieldDecorator('key', {
-                        initialValue: category.key,
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Category Key is required!'
-                            }
-                        ]
-                    })(<Input placeholder="Category Key" />)}
+                <FormItem
+                    {...formItemLayout}
+                    label="Category Key"
+                    name="key"
+                    initialValue={category.key}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Category Key is required!'
+                        }
+                    ]}
+                >
+                    <Input placeholder="Category Key" />
                 </FormItem>
                 {model === 'edit'
                     ? CategoryFeaturedIdFormItem(
@@ -147,12 +159,4 @@ class CategoryForm extends React.Component<Props> {
     }
 }
 
-export default Form.create({
-    onValuesChange: (
-        props: Props,
-        changedValues,
-        allValues: CategoryFormData
-    ) => {
-        props.onFormValueChange && props.onFormValueChange(allValues)
-    }
-})(CategoryForm)
+export default CategoryForm

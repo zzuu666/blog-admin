@@ -60,7 +60,7 @@ const CreateArticle: FunctionComponent<Props> = props => {
 
     useEffect(() => {
         props.createArticleGetCategory()
-    }, [])
+    }, [props.createArticleGetCategory])
 
     return (
         <div>

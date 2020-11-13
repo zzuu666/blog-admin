@@ -2,7 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Row, Col, Layout } from 'antd'
-import { FormComponentProps } from '@ant-design/compatible/es/form'
 import { StoreState } from '../../../store'
 import { fetchLogin } from '../actions'
 import style from './index.less'
@@ -10,7 +9,7 @@ import LoginForm, { LoginFormData } from '../../../components/form/LoginForm'
 
 const { Content } = Layout
 
-interface Props extends FormComponentProps, RouteComponentProps {
+interface Props extends RouteComponentProps {
     token: string
     fetchLogin: (email: string, password: string) => void
 }
@@ -18,6 +17,8 @@ class Login extends React.Component<Props> {
     shouldComponentUpdate(next: Props) {
         if (next.token !== '') {
             window.localStorage.setItem('AUTH_TOKEN', next.token)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             this.props.history.push(this.props.location.state.from)
         }
         return true

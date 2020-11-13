@@ -69,14 +69,16 @@ class Edit extends React.Component<Props> {
         return (
             <div>
                 <h2>{`编辑${article.title}`}</h2>
-                <Spin spinning={status === 'loading'}>
+                {status === 'loading' ? (
+                    <Spin />
+                ) : (
                     <ArticleForm
                         categories={categories}
                         article={article}
                         onSubmit={this.handleSubmit}
                         onFormValueChange={this.handleFormValueChange}
                     />
-                </Spin>
+                )}
             </div>
         )
     }
