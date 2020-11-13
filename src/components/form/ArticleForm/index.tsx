@@ -1,9 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
-import { Form } from '@ant-design/compatible'
-import '@ant-design/compatible/assets/index.css'
-import { Input, Button, Row, Col, Select } from 'antd'
-import { FormComponentProps } from '@ant-design/compatible/es/form'
+import { Input, Button, Row, Col, Select, Form } from 'antd'
+import { Store } from 'antd/lib/form/interface'
 import marked from 'marked'
 import highlight from 'highlight.js'
 import { Article } from '../../../models/article'
@@ -24,10 +22,10 @@ const FormItem = Form.Item
 const TextArea = Input.TextArea
 const Option = Select.Option
 
-interface Props extends FormComponentProps {
+interface Props {
     article: Article
     categories: Category[]
-    onSubmit?: (value: ArtilceFormData) => any
+    onSubmit?: (value: ArtilceFormData) => void
     onFormValueChange?: (value: ArtilceFormData) => void
     onCategorySelectFocus?: () => void
     onFormItemValyeChange?: (
@@ -49,13 +47,13 @@ export interface ArtilceFormData {
 }
 
 class ArticleForm extends React.Component<Props> {
-    onSubmit = (e: React.SyntheticEvent) => {
-        e.preventDefault()
-        if (this.props.onSubmit === undefined) {
-            return
-        }
-        const form: ArtilceFormData = this.props.form.getFieldsValue() as ArtilceFormData
-        this.props.onSubmit(form)
+    static defaultProps = {
+        article: {},
+        categories: []
+    }
+
+    onFinish = (values: Store) => {
+        this.props.onSubmit && this.props.onSubmit(values as ArtilceFormData)
     }
 
     onCategorySelectFocus = () => {
@@ -73,10 +71,14 @@ class ArticleForm extends React.Component<Props> {
         }
     }
 
-    render() {
-        const { article, categories, form } = this.props
+    handleFormChange = (changedValues: Store, allValues: Store) => {
+        this.props.onFormValueChange &&
+            this.props.onFormValueChange(allValues as ArtilceFormData)
+    }
 
-        const { getFieldDecorator } = form
+    render() {
+        const { article, categories } = this.props
+
         const formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 18 }
@@ -97,42 +99,54 @@ class ArticleForm extends React.Component<Props> {
         return (
             <Row gutter={32}>
                 <Col span={12}>
-                    <Form onSubmit={this.onSubmit}>
-                        <FormItem {...formItemLayout} label="文章标题">
-                            {getFieldDecorator('title', {
-                                initialValue: article.title,
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: '文章标题不能为空'
-                                    }
-                                ]
-                            })(<Input placeholder="文章标题" />)}
+                    <Form
+                        onFinish={this.onFinish}
+                        onValuesChange={this.handleFormChange}
+                    >
+                        <FormItem
+                            {...formItemLayout}
+                            name="title"
+                            label="文章标题"
+                            initialValue={article.title}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '文章标题不能为空'
+                                }
+                            ]}
+                        >
+                            <Input placeholder="文章标题" />
                         </FormItem>
-                        <FormItem {...formItemLayout} label="文章描述">
-                            {getFieldDecorator('desc', {
-                                initialValue: article.desc
-                            })(<Input placeholder="文章描述" />)}
+                        <FormItem
+                            {...formItemLayout}
+                            label="文章描述"
+                            name="desc"
+                            initialValue={article.desc}
+                        >
+                            <Input placeholder="文章描述" />
                         </FormItem>
-                        <FormItem {...formItemLayout} label="文章标签">
-                            {getFieldDecorator('tags', {
-                                initialValue:
-                                    article.tags && article.tags.split(',')
-                            })(
-                                <Select
-                                    mode="tags"
-                                    style={{ width: '100%' }}
-                                    tokenSeparators={[',']}
-                                    maxTagCount={5}
-                                />
-                            )}
+                        <FormItem
+                            {...formItemLayout}
+                            label="文章标签"
+                            name="tags"
+                            initialValue={
+                                article.tags && article.tags.split(',')
+                            }
+                        >
+                            <Select
+                                mode="tags"
+                                style={{ width: '100%' }}
+                                tokenSeparators={[',']}
+                                maxTagCount={5}
+                            />
                         </FormItem>
-                        <FormItem {...formItemLayout} label="文章配图">
-                            {getFieldDecorator('image', {
-                                initialValue: article.image
-                            })(
-                                <Input placeholder="https://image.example.com" />
-                            )}
+                        <FormItem
+                            {...formItemLayout}
+                            label="文章配图"
+                            name="image"
+                            initialValue={article.image}
+                        >
+                            <Input placeholder="https://image.example.com" />
                         </FormItem>
                         <FormItem>
                             <ImageUpload
@@ -145,49 +159,57 @@ class ArticleForm extends React.Component<Props> {
                                 </Button>
                             </ImageUpload>
                         </FormItem>
-                        <FormItem {...formItemLayout} label="文章配图描述">
-                            {getFieldDecorator('image_desc', {
-                                initialValue: article.image_desc
-                            })(<Input placeholder="文章配图描述" />)}
+                        <FormItem
+                            {...formItemLayout}
+                            label="文章配图描述"
+                            name="image_desc"
+                            initialValue={article.image_desc}
+                        >
+                            <Input placeholder="文章配图描述" />
                         </FormItem>
-                        <FormItem {...formItemLayout} label="文章内容">
-                            {getFieldDecorator('content', {
-                                initialValue: article.content,
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: '文章内容不能为空'
-                                    }
-                                ]
-                            })(
-                                <TextArea
-                                    autosize={{ minRows: 2, maxRows: 6 }}
-                                />
-                            )}
+                        <FormItem
+                            {...formItemLayout}
+                            label="文章内容"
+                            name="content"
+                            initialValue={article.content}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '文章内容不能为空'
+                                }
+                            ]}
+                        >
+                            <TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
                         </FormItem>
-                        <FormItem {...formItemLayout} label="Category">
-                            {getFieldDecorator('category_id', {
-                                initialValue: article.category_id
+                        <FormItem
+                            {...formItemLayout}
+                            label="Category"
+                            name="category_id"
+                            initialValue={
+                                article.category_id
                                     ? article.category_id + ''
-                                    : 'Category',
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: 'Category is required'
-                                    }
-                                ]
-                            })(
-                                <Select
-                                    style={{ width: 120 }}
-                                    onFocus={this.onCategorySelectFocus}
-                                >
-                                    {categories.map(category => (
-                                        <Option key={category.id + ''}>
-                                            {category.name}
-                                        </Option>
-                                    ))}
-                                </Select>
-                            )}
+                                    : 'Category'
+                            }
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Category is required'
+                                }
+                            ]}
+                        >
+                            <Select
+                                style={{ width: 120 }}
+                                onFocus={this.onCategorySelectFocus}
+                            >
+                                {categories.map(category => (
+                                    <Option
+                                        value={category.id!}
+                                        key={category.id + ''}
+                                    >
+                                        {category.name}
+                                    </Option>
+                                ))}
+                            </Select>
                         </FormItem>
                         <FormItem {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">
@@ -214,12 +236,4 @@ ArticleForm.defaultProps = {
     categories: []
 }
 
-export default Form.create({
-    onValuesChange: (
-        props: Props,
-        changedValues,
-        allValues: ArtilceFormData
-    ) => {
-        props.onFormValueChange && props.onFormValueChange(allValues)
-    }
-})(ArticleForm)
+export default ArticleForm
