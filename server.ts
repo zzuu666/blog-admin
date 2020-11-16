@@ -4,7 +4,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import opn from 'opn'
 import history from 'connect-history-api-fallback'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import proxy from 'http-proxy-middleware'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import webpackDevConfig from './config/webpack.dev.config'
 
 
@@ -14,7 +14,8 @@ const port = process.env.port || 3001
 
 app.use(
     '/api/v1',
-    proxy({ target: 'http://localhost:3000', changeOrigin: false })
+    // @ts-ignore
+    createProxyMiddleware({ target: 'http://localhost:3000', changeOrigin: false })
 )
 
 app.use(history())

@@ -48,31 +48,15 @@ const config: webpack.Configuration = {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true,
-                            modules: true,
-                            localIdentName: '[local]___[hash:base64:5]',
-                            importLoaders: 2,
-                            camelCase: true
-                            // getLocalIdent: (context, localIdentName, localName, options) => {
-                            //     if (
-                            //         path
-                            //             .parse(context.resourcePath)
-                            //             .dir
-                            //             .includes(
-                            //                 path.join('components', 'styles')
-                            //             )
-                            //     ) {
-                            //         return localName
-                            //     }
-                            //     return localIdentName
-                            // }
+                            importLoaders: 1,
+                            modules: {
+                                auto: () => true,
+                                exportLocalsConvention: 'camelCase'
+                            }
                         }
                     },
                     {
-                        loader: 'less-loader',
-                        options: {
-                            javascriptEnabled: true
-                        }
+                        loader: 'less-loader'
                     }
                 ]
             },

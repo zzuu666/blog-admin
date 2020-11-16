@@ -2,7 +2,6 @@ import { merge } from 'webpack-merge'
 import * as webpack from 'webpack'
 import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 import commonConfig from './webpack.common.config'
 
@@ -25,9 +24,6 @@ const config: webpack.Configuration = merge(commonConfig, {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
-        }),
-        new BundleAnalyzerPlugin({
-            openAnalyzer: false
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
