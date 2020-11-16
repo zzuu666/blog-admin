@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 8.15.0
+- 10.18.0
 before_install:
 - openssl aes-256-cbc -K $encrypted_db4ba64d81cf_key -iv $encrypted_db4ba64d81cf_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
@@ -8,5 +8,7 @@ before_install:
 - echo -e "Host 188.131.195.98\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
 - npm run build
+
+if: branch = master
 after_success:
 - scp -o stricthostkeychecking=no ./dist/* work@188.131.195.98:/home/work/markii
