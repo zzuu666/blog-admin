@@ -114,12 +114,10 @@
     "lint-staged": {
         "src/**/*.{ts,tsx}": [
             "prettier --write",
-            "eslint",
-            "git add"
+            "eslint"
         ],
         "src/**/*.less": [
-            "prettier --write",
-            "git add"
+            "prettier --write"
         ]
     },
     "config": {
