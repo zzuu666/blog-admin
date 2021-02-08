@@ -4791,10 +4791,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.npm.taobao.org/marked/download/marked-1.2.3.tgz#58817ba348a7c9398cb94d40d12e0d08df83af57"
-  integrity sha1-WIF7o0inyTmMuU1A0S4NCN+Dr1c=
+marked@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/marked/download/marked-2.0.0.tgz#9662bbcb77ebbded0662a7be66ff929a8611cee5"
+  integrity sha1-lmK7y3frve0GYqe+Zv+SmoYRzuU=
 
 media-typer@0.3.0:
   version "0.3.0"
