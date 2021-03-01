@@ -89,12 +89,14 @@
         "webpack-cli": "^4.5.0",
         "webpack-dev-middleware": "^4.1.0",
         "webpack-hot-middleware": "^2.25.0",
-        "webpack-merge": "^5.7.3"
+        "webpack-merge": "^5.7.3",
+        "yarn-deduplicate": "^3.1.0"
     },
     "dependencies": {
         "@ant-design/icons": "^4.5.0",
         "@babel/runtime": "^7.13.8",
         "@hot-loader/react-dom": "^17.0.1",
+        "@reduxjs/toolkit": "^1.5.0",
         "antd": "^4.13.0",
         "clsx": "^1.1.1",
         "cos-js-sdk-v5": "^1.2.4",
