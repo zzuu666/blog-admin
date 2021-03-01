@@ -4,6 +4,7 @@ import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import commonConfig from './webpack.common.config'
 
 const config: webpack.Configuration = merge(commonConfig, {
@@ -35,6 +36,11 @@ const config: webpack.Configuration = merge(commonConfig, {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             chunkFilename: '[name].[chunkhash].css'
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+            reportFilename: path.resolve(__dirname, '..', 'reports', 'report.html')
         })
     ]
 })
