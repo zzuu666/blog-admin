@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+export HUSKY_GIT_PARAMS=$1 && yarn ts-node -P ./tsconfig.webpack.json scripts/verify-commit-msg.ts
