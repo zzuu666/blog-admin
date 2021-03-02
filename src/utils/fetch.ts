@@ -45,7 +45,8 @@ export interface APIBaseResponse {
 export enum fetchStatus {
     LOADING = 'loading',
     SUCCESS = 'success',
-    FAILURE = 'failure'
+    FAILURE = 'failure',
+    IDLE = 'idle'
 }
 
 export const fetchWithAuth = (payload: FetchBasePayload) => {
