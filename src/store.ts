@@ -19,9 +19,6 @@ import categoryCreateReducer, {
 import categoryEditReducer, {
     CategoryEditState
 } from './pages/admin/categoryEdit/reducer'
-import recommendReducer, {
-    RecommendState
-} from './pages/admin/recommend/reducer'
 import recommendCreateReducer, {
     RecommendCreateState
 } from './pages/admin/recommendCreate/reducer'
@@ -34,6 +31,8 @@ import suggestionReducer, {
     SuggestionState
 } from './components/suggestion/reducer'
 
+import { recommendsSlice } from './slices/recommendsSlice'
+
 export interface StoreState {
     home: HomeState
     edit: EditState
@@ -43,7 +42,7 @@ export interface StoreState {
     category: CategoryState
     categoryCreate: CategoryCreateState
     categoryEdit: CategoryEditState
-    recommend: RecommendState
+    recommends: ReturnType<typeof recommendsSlice.reducer>
     recommendCreate: RecommendCreateState
     recommentEdit: RecommendEditState
     suggestion: SuggestionState
@@ -58,7 +57,7 @@ const reducer: Reducer<StoreState> = combineReducers<StoreState>({
     category: categoryReducer,
     categoryCreate: categoryCreateReducer,
     categoryEdit: categoryEditReducer,
-    recommend: recommendReducer,
+    recommends: recommendsSlice.reducer,
     recommendCreate: recommendCreateReducer,
     recommentEdit: recommendEditReducer,
     suggestion: suggestionReducer
