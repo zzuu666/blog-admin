@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import { ESBuildMinifyPlugin } from 'esbuild-loader'
 import commonConfig from './webpack.common.config'
 
 const config: webpack.Configuration = merge(commonConfig, {
@@ -22,7 +23,13 @@ const config: webpack.Configuration = merge(commonConfig, {
         splitChunks: {
             chunks: 'all',
             name: false
-        }
+        },
+        minimize: true,
+        minimizer: [
+            new ESBuildMinifyPlugin({
+                target: 'es2015' // Syntax to compile to (see options below for possible values)
+            })
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -40,7 +47,12 @@ const config: webpack.Configuration = merge(commonConfig, {
         new BundleAnalyzerPlugin({
             analyzerMode: 'static',
             openAnalyzer: false,
-            reportFilename: path.resolve(__dirname, '..', 'reports', 'report.html')
+            reportFilename: path.resolve(
+                __dirname,
+                '..',
+                'reports',
+                'report.html'
+            )
         })
     ]
 })
