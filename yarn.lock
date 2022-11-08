@@ -1005,7 +1005,7 @@
     debug "^4.1.0"
     globals "^11.1.0"
 
-"@babel/types@^7.12.13", "@babel/types@^7.14.9", "@babel/types@^7.15.4", "@babel/types@^7.4.4":
+"@babel/types@^7.14.9", "@babel/types@^7.15.4", "@babel/types@^7.4.4":
   version "7.15.4"
   resolved "https://registry.nlark.com/@babel/types/download/@babel/types-7.15.4.tgz?cache=0&sync_timestamp=1630618811069&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40babel%2Ftypes%2Fdownload%2F%40babel%2Ftypes-7.15.4.tgz#74eeb86dbd6748d2741396557b9860e57fce0a0d"
   integrity sha1-dO64bb1nSNJ0E5ZVe5hg5X/OCg0=
@@ -1150,13 +1150,6 @@
     redux "^4.1.0"
     redux-thunk "^2.3.0"
     reselect "^4.0.0"
-
-"@types/anymatch@*":
-  version "3.0.0"
-  resolved "https://registry.nlark.com/@types/anymatch/download/@types/anymatch-3.0.0.tgz#c95ff14401dbb2869913afac3935af4ad0d37f1a"
-  integrity sha1-yV/xRAHbsoaZE6+sOTWvStDTfxo=
-  dependencies:
-    anymatch "*"
 
 "@types/body-parser@*":
   version "1.19.1"
@@ -1422,13 +1415,6 @@
   version "0.1.2"
   resolved "https://registry.nlark.com/@types/source-list-map/download/@types/source-list-map-0.1.2.tgz?cache=0&sync_timestamp=1629709261080&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fsource-list-map%2Fdownload%2F%40types%2Fsource-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha1-AHiDYGP/rxdBI0m7o2QIfgrALsk=
-
-"@types/tapable@*":
-  version "2.2.2"
-  resolved "https://registry.nlark.com/@types/tapable/download/@types/tapable-2.2.2.tgz?cache=0&sync_timestamp=1629709441343&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Ftapable%2Fdownload%2F%40types%2Ftapable-2.2.2.tgz#1d324b524190954a5700d86b6328bfc57e1fda48"
-  integrity sha1-HTJLUkGQlUpXANhrYyi/xX4f2kg=
-  dependencies:
-    tapable "^2.2.0"
 
 "@types/tapable@^1":
   version "1.0.8"
@@ -1887,7 +1873,7 @@ antd@^4.13.0:
     rc-util "^5.13.1"
     scroll-into-view-if-needed "^2.2.25"
 
-anymatch@*, anymatch@^3.0.0:
+anymatch@^3.0.0:
   version "3.1.2"
   resolved "https://registry.nlark.com/anymatch/download/anymatch-3.1.2.tgz#c0557c096af32f106198f4f4e2a383537e378716"
   integrity sha1-wFV8CWrzLxBhmPT04qODU343hxY=
@@ -2065,8 +2051,8 @@ balanced-match@^1.0.0:
 
 big.js@^5.2.2:
   version "5.2.2"
-  resolved "https://registry.nlark.com/big.js/download/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
-  integrity sha1-ZfCvOC9Xi83HQr2cKB6cstd2gyg=
+  resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
+  integrity sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==
 
 body-parser@1.19.0:
   version "1.19.0"
@@ -2404,7 +2390,7 @@ core-js-compat@^3.14.0, core-js-compat@^3.16.0:
     browserslist "^4.17.0"
     semver "7.0.0"
 
-core-js-pure@^3.0.0, core-js-pure@^3.16.0:
+core-js-pure@^3.16.0:
   version "3.17.3"
   resolved "https://registry.nlark.com/core-js-pure/download/core-js-pure-3.17.3.tgz?cache=0&sync_timestamp=1631177008120&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcore-js-pure%2Fdownload%2Fcore-js-pure-3.17.3.tgz#98ea3587188ab7ef4695db6518eeb71aec42604a"
   integrity sha1-mOo1hxiKt+9GldtlGO63GuxCYEo=
@@ -2713,8 +2699,8 @@ emoji-regex@^9.0.0:
 
 emojis-list@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.nlark.com/emojis-list/download/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
-  integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
+  resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
+  integrity sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -4069,8 +4055,8 @@ json2mq@^0.2.0:
 
 json5@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.nlark.com/json5/download/json5-1.0.1.tgz#779fb0018604fa854eacbf6252180d83543e3dbe"
-  integrity sha1-d5+wAYYE+oVOrL9iUhgNg1Q+Pb4=
+  resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.1.tgz#779fb0018604fa854eacbf6252180d83543e3dbe"
+  integrity sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
   dependencies:
     minimist "^1.2.0"
 
@@ -4206,9 +4192,9 @@ loader-runner@^4.2.0:
   integrity sha1-1wIjgNZtFMX7HUlriYZOvP1Hg4Q=
 
 loader-utils@^1.1.0, loader-utils@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npm.taobao.org/loader-utils/download/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
-  integrity sha1-xXm140yzSxp07cbB+za/o3HVphM=
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.1.tgz#278ad7006660bccc4d2c0c1578e17c5c78d5c0e0"
+  integrity sha512-1Qo97Y2oKaU+Ro2xnDMR26g1BwMT29jNbem1EvcujW2jqt+j5COXyscjM7bLQkM9HaxI7pkWeW7gnI072yMI9Q==
   dependencies:
     big.js "^5.2.2"
     emojis-list "^3.0.0"
@@ -4396,11 +4382,6 @@ micromatch@^4.0.2, micromatch@^4.0.4:
     braces "^3.0.1"
     picomatch "^2.2.3"
 
-mime-db@1.46.0:
-  version "1.46.0"
-  resolved "https://registry.nlark.com/mime-db/download/mime-db-1.46.0.tgz#6267748a7f799594de3cbc8cde91def349661cee"
-  integrity sha1-Ymd0in95lZTePLyM3pHe80lmHO4=
-
 mime-db@1.49.0:
   version "1.49.0"
   resolved "https://registry.nlark.com/mime-db/download/mime-db-1.49.0.tgz#f3dfde60c99e9cf3bc9701d687778f537001cbed"
@@ -4469,10 +4450,15 @@ minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@1.2.5, minimist@^1.2.0, minimist@^1.2.5:
+minimist@1.2.5, minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.nlark.com/minimist/download/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
+
+minimist@^1.2.0:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
+  integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
 
 mkdirp@^0.5.3:
   version "0.5.5"
@@ -4602,7 +4588,7 @@ object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.nlark.com/object-keys/download/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha1-HEfyct8nfzsdrwYWd9nILiMixg4=
 
-object.assign@^4.1.0, object.assign@^4.1.1, object.assign@^4.1.2:
+object.assign@^4.1.0, object.assign@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npm.taobao.org/object.assign/download/object.assign-4.1.2.tgz?cache=0&sync_timestamp=1604115131746&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fobject.assign%2Fdownload%2Fobject.assign-4.1.2.tgz#0ed54a342eceb37b38ff76eb831a0e788cb63940"
   integrity sha1-DtVKNC7Os3s4/3brgxoOeIy2OUA=
